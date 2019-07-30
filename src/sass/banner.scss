@@ -1,0 +1,125 @@
+.category_box {
+    position: relative;
+    margin: 20px auto 0;
+    width: 1220px;
+
+    &::after {
+        display: block;
+        height: 0;
+        visibility: hidden;
+        clear: both;
+        content: ".";
+    }
+
+    .banner_warehouse {
+        position: absolute;
+        top: 0px;
+        left: 200px;
+        height: 50px;
+        line-height: 50px;
+        width: 1020px;
+        background-color: #339999;
+        z-index: 10;
+        padding-left: 70px;
+        font-size: 1.2em;
+        font-weight: normal;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+
+        .banner_color {
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+
+    .category {
+        float: left;
+        width: 200px;
+        height: 466px;
+        margin: 0;
+        color: #fff;
+        vertical-align: top;
+        background: #333;
+
+        .all-category {
+            display: block;
+            position: relative;
+            margin: 0;
+            padding: 0 10%;
+            font-size: 1.2em;
+            font-weight: normal;
+            background-color: #339999;
+            color: #fff;
+            line-height: 50px;
+        }
+
+        .each_category {
+            position: relative;
+            line-height: 34px;
+            letter-spacing: 1px;
+
+            .image_box {
+                float: left;
+                width: 60px;
+                text-align: center;
+            }
+
+            &>a {
+                display: inline-block;
+                width: inherit;
+                height: inherit;
+                color: #fff;
+            }
+
+            .category_detail {
+                position: absolute;
+                top: 0;
+                left: 200px;
+                z-index: 20;
+                display: none;
+                width: 1020px;
+                padding: 0 20px 20px 0;
+                background: rgba(67, 67, 67, 0.8);
+
+                .category_group {
+                    float: left;
+                    padding: 20px 0 0 20px;
+
+                    .title {
+                        display: inline-block;
+                        padding-left: 20px;
+                        color: #fff;
+                        line-height: 20px;
+                        letter-spacing: 2px;
+                        border-left: 1px dashed #ddd;
+                    }
+                }
+
+
+                .clearfix {
+                    *zoom: 1;
+                }
+            }
+        }
+    }
+
+    .right_banner {
+        position: relative;
+        float: left;
+        width: 1020px;
+        height: 466px;
+        margin: 0;
+
+        .swiper-container {
+            height: 100%;
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+        }
+    }
+}

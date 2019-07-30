@@ -1,0 +1,76 @@
+@import 'topbar';
+@import 'banner';
+@import 'searchBox';
+@import 'footer';
+@import 'goodsList';
+@import 'signInAndUp';
+@import 'sidebar';
+
+html {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+
+    ;
+
+    ul,
+    li,
+    ol,
+    p,
+    h4 {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    input {
+        outline: none;
+    }
+}
+
+
+/* 返回顶部与客服 */
+.right_sidebar {
+    position: fixed;
+    bottom: 25%;
+    right: 0;
+    z-index: 50;
+    background: rgba(51, 153, 153, 0.8);
+
+    a {
+        display: block;
+        width: 60px;
+        padding: 53px 0 0;
+        font-size: 12px;
+        text-align: center;
+        color: #fff !important;
+        background: url(https://cdn-resources-aliyun.kjds.com/assets/right_sidebar_pic-a3eb315….png) no-repeat 5px 3px/50px 100px;
+    }
+
+    .back_top {
+        padding-bottom: 10px;
+        background-size: 60px 120px;
+        background-position: -1px -69px;
+    }
+}
+
+.home {
+
+    .main {
+        padding: 0;
+        width: 1220px;
+        padding-bottom: 100px;
+        margin: 0 auto
+    }
+}
