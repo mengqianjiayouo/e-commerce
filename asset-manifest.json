@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/e-commerce.git/static/css/main.333c044b.chunk.css",
+    "main.js": "/e-commerce.git/static/js/main.b142fc69.chunk.js",
+    "main.js.map": "/e-commerce.git/static/js/main.b142fc69.chunk.js.map",
+    "runtime~main.js": "/e-commerce.git/static/js/runtime~main.ddea37f2.js",
+    "runtime~main.js.map": "/e-commerce.git/static/js/runtime~main.ddea37f2.js.map",
+    "static/css/2.e517938f.chunk.css": "/e-commerce.git/static/css/2.e517938f.chunk.css",
+    "static/js/2.7329fe40.chunk.js": "/e-commerce.git/static/js/2.7329fe40.chunk.js",
+    "static/js/2.7329fe40.chunk.js.map": "/e-commerce.git/static/js/2.7329fe40.chunk.js.map",
+    "index.html": "/e-commerce.git/index.html",
+    "precache-manifest.0bdc91a2560e730aae15c91d676a9750.js": "/e-commerce.git/precache-manifest.0bdc91a2560e730aae15c91d676a9750.js",
+    "service-worker.js": "/e-commerce.git/service-worker.js",
+    "static/css/2.e517938f.chunk.css.map": "/e-commerce.git/static/css/2.e517938f.chunk.css.map",
+    "static/css/main.333c044b.chunk.css.map": "/e-commerce.git/static/css/main.333c044b.chunk.css.map"
+  }
+}
