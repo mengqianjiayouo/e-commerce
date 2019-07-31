@@ -6,7 +6,22 @@ import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
 import { Row, Col, Table, Button, Dropdown } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-
+const Orderstatus = {
+  0: "删除",
+  1: "草稿",
+  2: "确认",
+  3: "异常",
+  4: "已提交",
+  5: "已打印",
+  6: "已下架",
+  7: "已打包",
+  8: "已装袋",
+  9: "装袋完成",
+  10: "已加挂",
+  11: "物流完成",
+  12: "物流发货",
+  13: "已签收"
+};
 class Orders extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +35,41 @@ class Orders extends Component {
       accountType: "订单编号",
       logists: "",
       country: "",
-      orderType: 0
+      orderType: 0,
+      data: [
+        {
+          order_id: 1,
+          order_code: "po9493821123",
+          platform: "88",
+          order_platform_type: "uk",
+          order_platform_code: "49338211039834551",
+          create_type: "api",
+          warehouse_id: 10,
+          to_warehouse_id: 4,
+          order_type: 0,
+          country_code: "RMB",
+          parcel_declared_value: "10.000",
+          declared_weight: "2.000",
+          shipping_fee_estimate: "1.000",
+          currency_code: "RMB",
+          parcel_contents: "this is my phone",
+          parcel_quantity: 0,
+          order_status: 1,
+          order_hold_inventory: 0,
+          order_exception_status: 0,
+          order_waiting_status: 0,
+          print_quantity: 0,
+          add_time: "2019-07-31 01:51:22",
+          update_time: "0000-00-00 00:00:00",
+          order_paydate: "0000-00-00 00:00:00",
+          reference_no: "",
+          remark: "",
+          site_id: "",
+          seller_id: "1",
+          sync_count: 0,
+          sync_express_ship: 0
+        }
+      ]
     };
   }
   componentDidMount() {
@@ -49,7 +98,8 @@ class Orders extends Component {
       accountType,
       logists,
       orderType,
-      country
+      country,
+      data
     } = this.state;
     // console.log(this.props.state);
 
@@ -313,14 +363,23 @@ class Orders extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                  </tr>
+                  {data.map((a, b) => {
+                    return (
+                      <tr key={b}>
+                        <td>{a.order_platform_code}</td>
+                        <td>
+                          {a.parcel_declared_value}*{a.parcel_quantity}
+                        </td>
+                        <td>
+                          {a.parcel_declared_value * a.parcel_quantity +
+                            a.shipping_fee_estimate}
+                        </td>
+                        <td>{Orderstatus[a.order_status]}</td>
+                        <td>{a.platform}</td>
+                        <td> - </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             </div>

@@ -17,7 +17,49 @@ class SearchList extends Component {
       countryId: 0,
       sortType: "time",
       isCheckAll: false,
-      checkAry: []
+      checkAry: [],
+      data: [
+        {
+          product_id: 1,
+          product_sku: "001-M-RD-T-002",
+          customer_id: 1,
+          product_title_en: "turn_light-middle-RED-T\u578b-\u5b9d\u9a6cA",
+          product_title:
+            "\u8f6c\u5411\u706f-\u4e2d\u7801[M]-\u7ea2\u8272[RD]-T\u578b[T]-\u5b9d\u9a6c-CBR1000-2008[002]",
+          product_status: 1,
+          sale_status: 1,
+          hs_code: "0",
+          currency_code: "USD",
+          pu_code: "001",
+          product_length: "10.00",
+          product_width: "10.00",
+          product_height: "10.00",
+          product_net_weight: "0.500",
+          product_weight: "0.000",
+          product_sales_value: "0.00",
+          product_purchase_value: "1.0000",
+          product_declared_value: "2.00",
+          product_is_combination: 0,
+          product_barcode_type: 0,
+          pc_id: 0,
+          pc_attr: 0,
+          product_add_time: "2019-07-30 14:28:38",
+          product_update_time: "0000-00-00 00:00:00",
+          contain_battery: 0,
+          prl_id: 0,
+          parent_product_id: 0,
+          seller_id: 0,
+          fbo_tax_rate: 0,
+          exp_date: 0,
+          warehouse_barcode: "",
+          gross_rofit: 0,
+          tax_rate: 0,
+          default_warehouse_id: null,
+          product_declaration_statement: "",
+          product_specs: "",
+          prt_id: 0
+        }
+      ]
     };
   }
   componentDidMount() {
@@ -47,6 +89,7 @@ class SearchList extends Component {
   }
   getData() {
     let { pageSize, page } = this.state;
+
     $.ajax({
       method: "get",
       url: "http://118.25.155.176:8080/place",
@@ -55,16 +98,23 @@ class SearchList extends Component {
       },
       crossDomain: true,
       data: { page, pageSize },
-      contentType: "application/x-www-form-urlencoded",
-      // dataType: "json",
-      success: data => {
-        console.log(data);
+      dataType: "json",
+      success: res => {
+        console.log(res);
+        /* let data = res.data;
+        this.setState({
+          data
+        }); */
       }
     });
   }
   render() {
-    const { islogin, countryId, sortType, isCheckAll } = this.state;
+    const { islogin, countryId, sortType, data, checkAry } = this.state;
     const { plat } = this.props.state.platId;
+    let isCheckAll = false;
+    if (checkAry.length === data.length) {
+      isCheckAll = true;
+    }
     return (
       <div className="home searchList">
         {islogin ? (
@@ -86,7 +136,7 @@ class SearchList extends Component {
           />
           <ReturnTop />
           <div className="main">
-            <SearchBox />
+            <SearchBox {...this.props} />
             <div className="searchArea">
               <ul className="checkArea">
                 <li>
@@ -213,9 +263,19 @@ class SearchList extends Component {
                     <div
                       className={isCheckAll ? "checkAll active" : "checkAll"}
                       onClick={() => {
-                        this.setState({
-                          isCheckAll: !isCheckAll
-                        });
+                        if (isCheckAll) {
+                          this.setState({
+                            checkAry: []
+                          });
+                        } else {
+                          let ary = [];
+                          data.map(a => {
+                            ary.push(a.product_id);
+                          });
+                          this.setState({
+                            checkAry: ary
+                          });
+                        }
                       }}
                     >
                       全选
@@ -225,33 +285,52 @@ class SearchList extends Component {
                 </li>
               </ul>
               <div className="goods">
-                <div className="goodsItem">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    checked={true}
-                    onChange={e => {
-                      console.log(e.target.checked);
-                    }}
-                  />
-                  <div
-                    className="goodsInfo"
-                    onClick={() => {
-                      this.props.history.push("/sells/products/415620468008");
-                    }}
-                  >
-                    <img src="" alt="" />
-                    <div className="name">mingcheng</div>
-                    <div className="goods_tag">
-                      <span>海外仓</span>
-                      <span>免邮费</span>
+                {data.map((a, b) => {
+                  return (
+                    <div className="goodsItem" key={b}>
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        checked={
+                          checkAry.indexOf(a.product_id) == -1 ? false : true
+                        }
+                        onChange={e => {
+                          let ary = [];
+                          if (checkAry.indexOf(a.product_id) !== -1) {
+                            ary = checkAry.filter(b => {
+                              return b !== a.product_id;
+                            });
+                          } else {
+                            checkAry.push(a.product_id);
+                            ary = checkAry;
+                          }
+                          this.setState({
+                            checkAry: ary
+                          });
+                        }}
+                      />
+                      <div
+                        className="goodsInfo"
+                        onClick={() => {
+                          this.props.history.push(
+                            `/sells/products/${a.product_id}`
+                          );
+                        }}
+                      >
+                        <img src="" alt="" />
+                        <div className="name">{a.product_title_en}</div>
+                        <div className="goods_tag">
+                          <span>海外仓</span>
+                          <span>免邮费</span>
+                        </div>
+                      </div>
+                      <div className="opration">
+                        <div className="download">下载</div>
+                        <div className="publish">立即刊登</div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="opration">
-                    <div className="download">下载</div>
-                    <div className="publish">立即刊登</div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
               <div className="pagination">
                 <Pagination>

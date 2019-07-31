@@ -56,7 +56,7 @@ class Home extends Component {
           <ReturnTop />
 
           <div className="main">
-            <SearchBox />
+            <SearchBox {...this.props} />
             <Banner />
             <GoodsList />
           </div>

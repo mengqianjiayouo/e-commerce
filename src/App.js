@@ -15,6 +15,7 @@ import Bounces from "./containers/Orders/Bounces";
 import SalesAnalysis from "./containers/SalesAnalysis/index";
 import AuthLogistics from "./containers/AuthLogistics/index";
 import International from "./containers/Logistics/International";
+import ShoppingCart from "./containers/ShoppingCart/index";
 
 class App extends Component {
   componentDidMount() {}
@@ -66,6 +67,11 @@ class App extends Component {
             exact
             path="/logistics/international"
             component={International}
+          />
+          <Route
+            exact
+            path="/sells/orders/shopping_cart"
+            component={ShoppingCart}
           />
         </Router>
       </div>

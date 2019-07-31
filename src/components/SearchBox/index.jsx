@@ -7,6 +7,12 @@ export default class SearchBox extends Component {
     };
   }
   componentDidMount() {}
+  pushSearch() {
+    this.props.history.push({
+      pathname: "/sells/search",
+      query: { page: 1, pageSize: 50 }
+    });
+  }
   render() {
     const { searchValue } = this.state;
     return (
@@ -23,8 +29,14 @@ export default class SearchBox extends Component {
             }}
             value={searchValue}
           />
-          <div className="search_btn">
-            <span className="glyphicon glyphicon-search" />
+          <div
+            className="search_btn"
+            style={{ lineHeight: "50px", color: "#fff" }}
+            onClick={() => {
+              this.pushSearch();
+            }}
+          >
+            搜索
           </div>
         </div>
       </div>

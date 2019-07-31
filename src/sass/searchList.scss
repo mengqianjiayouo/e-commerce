@@ -141,8 +141,8 @@
 
             .checkbox {
                 position: absolute;
-                top: 10px;
-                left: 10px;
+                top: 2px;
+                left: 2px;
             }
 
             .goodsInfo {
@@ -161,6 +161,7 @@
                     white-space: nowrap;
                     margin-top: 5px;
                     text-align: left;
+                    overflow: hidden;
                 }
 
                 .goods_tag {

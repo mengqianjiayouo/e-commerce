@@ -1365,3 +1365,192 @@
 
     }
 }
+
+/* 产品编辑 */
+.detail_edit.home {
+    .panel-body {
+        .row {
+            min-height: 34px;
+            margin-bottom: 15px;
+
+            .dropdown {
+                height: 34px;
+
+                button {
+                    line-height: 34px;
+                    padding: 0 10px;
+                }
+
+                .btn-success:hover,
+                .btn-success {
+                    color: #fff;
+                    background-color: #339999;
+                    border-color: #339999;
+                }
+
+                .btn-success:focus {
+                    box-shadow: none;
+                }
+            }
+
+            .btn {
+                line-height: 34px;
+                padding: 0 10px;
+                border: none;
+            }
+        }
+
+        .image_note {
+            background: #aed9d966;
+            padding: 10px;
+            border-radius: 2px;
+            color: #339999;
+
+            ul {
+                list-style: disc;
+                padding-left: 20px;
+            }
+        }
+
+        .update_buttons {
+            padding: 10px 0;
+
+            .btn {
+                margin-right: 5px;
+            }
+
+            .update_image {
+                position: relative;
+
+                input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    opacity: 0;
+                    width: 100%;
+                }
+            }
+        }
+
+        .image_sort_note {
+            display: flex;
+            justify-content: space-between;
+            background: #f1e4be;
+            border-radius: 2px;
+            height: 40px;
+            line-height: 40px;
+            color: #c4a11f;
+            padding: 0 10px;
+        }
+
+        .image_content {
+            margin-top: 20px;
+            overflow: hidden;
+
+            .image_item {
+                width: 140px;
+                height: 220px;
+                margin-right: 20px;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                border-radius: 2px;
+                float: left;
+
+                img {
+                    width: 100%;
+                    height: 160px;
+                    display: block;
+                }
+
+                .img_check {
+                    background-color: #f5f5f5;
+                    height: 26px;
+                    padding: 0 5px;
+                    line-height: 26px;
+                }
+
+                .img_bom {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 5px;
+                    line-height: 26px;
+                }
+            }
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+            -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        }
+
+        textarea.form-control {
+            height: auto;
+        }
+
+        .textarta_wrap {
+            border: 1px solid #ddd;
+            border-radius: 2px;
+
+            .top {
+                border-bottom: 1px solid #ddd;
+                height: 50px;
+                padding: 10px;
+
+                p {
+                    line-height: 40px;
+                    height: 40px;
+                    border: 1px solid #ddd;
+                    border-bottom: none;
+                    border-radius: 3px 3px 0 0;
+                    text-align: center;
+                    width: 100px;
+                }
+            }
+
+            .bom {
+                padding: 10px;
+                background-color: #f5f5f5;
+                overflow: hidden;
+
+                textarea {
+                    width: 100%;
+                }
+
+                .form_note {
+                    line-height: 34px;
+                }
+
+                .col-sm-6 {
+                    margin-bottom: 10px;
+                    float: left;
+
+                    &:after {
+                        display: table;
+                        width: 0;
+                        height: 0;
+                        content: "",
+
+                    }
+                }
+
+                .col-sm-12 {
+                    float: left
+                }
+            }
+        }
+    }
+}

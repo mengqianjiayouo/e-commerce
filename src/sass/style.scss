@@ -53,6 +53,17 @@ html {
 
     body {
         background-color: #eee;
+
+        .btn-primary,
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #339999;
+            border-color: #339999;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
     }
 }
 

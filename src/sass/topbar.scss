@@ -108,11 +108,13 @@
     background: url(https://cdn-resources-aliyun.kjds.com/assets/logo-543d2c7….png) no-repeat center/contain;
 }
 
-.common_header .show-platform .active  {
-    a,span{
-         color: #66cccc;
+.common_header .show-platform .active {
+
+    a,
+    span {
+        color: #66cccc;
     }
-   
+
 }
 
 .common_header.guest .show-platform li a {
@@ -373,6 +375,7 @@
 
         .user-menu a {
             padding: 0;
+            border: none;
             background-color: transparent;
         }
     }
