@@ -4,21 +4,33 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 
 import thunk from "redux-thunk";
+import { persistStore, persistReducer } from "redux-persist";
+import storageSession from "redux-persist/lib/storage/session";
+import { PersistGate } from "redux-persist/integration/react";
 
 import "./index.css";
 import "./sass/style.scss";
 import "bootstrap/dist/css/bootstrap.css";
-import 'swiper/dist/css/swiper.min.css'
-
+import "swiper/dist/css/swiper.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 import Reducer from "./reducers";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-let store = createStore(Reducer, applyMiddleware(thunk));
+const persistConfig = {
+  key: "root",
+  storage: storageSession,
+  whitelist: ["platId"]
+};
+const persistedReducer = persistReducer(persistConfig, Reducer);
+let store = createStore(persistedReducer, applyMiddleware(thunk));
 
+const persistor = persistStore(store);
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );

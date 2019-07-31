@@ -4,7 +4,10 @@ export default class GoodsList extends Component {
     super(props);
     this.state = {};
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.getData();
+  }
+  getData() {}
   render() {
     return (
       <div className="goods_wrap">

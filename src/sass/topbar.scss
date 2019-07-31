@@ -6,13 +6,13 @@
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
-    overflow: hidden;
 }
-@media screen and (max-height: 639px){
+
+@media screen and (max-height: 639px) {
     .common_header {
-    height: 56px;
-    border-bottom-width: 6px;
-}
+        height: 56px;
+        border-bottom-width: 6px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -108,8 +108,11 @@
     background: url(https://cdn-resources-aliyun.kjds.com/assets/logo-543d2c7….png) no-repeat center/contain;
 }
 
-.common_header .show-platform .active a {
-    color: #66cccc;
+.common_header .show-platform .active  {
+    a,span{
+         color: #66cccc;
+    }
+   
 }
 
 .common_header.guest .show-platform li a {
@@ -125,7 +128,8 @@
     text-align: center;
     margin-left: 200px;
 
-    a {
+    a,
+    span {
         color: #666666;
         height: 56px;
         text-decoration: none;
@@ -133,6 +137,7 @@
         font-size: 18px;
         display: block;
         padding: 15px;
+        cursor: pointer;
     }
 
     li {
@@ -381,4 +386,244 @@
 
 .header_platform a:first-child {
     color: #66cccc;
+}
+
+.user {
+    .dropdown-toggle {
+        width: 110px;
+        background: #fff !important;
+        color: #000 !important;
+        border: none !important;
+        padding: 0;
+
+        &:hover,
+        &:focus {
+            background-color: #fff !important;
+            border: none !important;
+            color: #66cccc !important;
+            box-shadow: none !important;
+        }
+
+        &>div {
+            width: 100%;
+            padding: 0;
+            line-height: 62px;
+
+            justify-content: space-between;
+
+            img {
+                vertical-align: middle
+            }
+        }
+
+        &::after {
+            display: none;
+        }
+    }
+
+    .dropdown-menu {
+        width: 280px;
+        height: 244px;
+        padding: 0px;
+        background-color: #339999;
+
+        .user-header {
+            width: 278px;
+            height: 165px;
+            text-align: center;
+            padding-top: 20px;
+
+            img {
+                width: 90px;
+                height: 90px;
+                background-color: #339999;
+            }
+
+            p {
+                margin-top: 15px;
+                color: #fff;
+                font-size: 15px;
+
+                small {
+                    display: none;
+                }
+            }
+        }
+
+        .sell-user-footer {
+            overflow: hidden;
+            background-color: white;
+            border-top: 2px solid lightgrey;
+
+            .col-xs-4 {
+                width: 33.33%;
+                float: left;
+            }
+
+            .sell:nth-child(1) {
+                border-right: 1px solid lightgrey;
+            }
+
+            .sell {
+                padding: 0;
+
+                text-align: center;
+
+                span {
+                    color: #666;
+                }
+
+                img {
+                    display: block;
+                    margin: auto auto 6px auto;
+                    background-color: #fff;
+                    border-radius: 0;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 50%;
+                    color: #000;
+                }
+
+                img.member {
+                    margin-top: 15px;
+                }
+
+                a.btn-flat {
+                    padding-top: 15px;
+                    text-align: center;
+
+                    img {
+                        display: block;
+                        margin: auto auto 6px auto;
+                        background-color: #fff;
+                        border-radius: 0;
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 50%;
+                        color: #000;
+                    }
+
+                    span {
+                        display: block;
+                        width: 100%;
+                        height: 20px;
+                        line-height: 20px;
+                        font-size: 15px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        .user-menu {
+            a span {
+                display: inline-block;
+                width: 75px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                vertical-align: middle;
+                color: #000;
+            }
+
+            .user-image {
+                background-size: contain;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                margin-right: 10px;
+                margin-top: -3px;
+                color: #000;
+                background-color: #339999;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .user-menu>ul {
+            margin-top: 0;
+            padding: 0;
+            right: 0;
+            left: auto;
+            background-color: #339999;
+
+            .user-header {
+                width: 278px;
+                height: 165px;
+                text-align: center;
+                padding-top: 20px;
+
+                img {
+                    width: 90px;
+                    height: 90px;
+                    background-color: #339999;
+                }
+
+                p {
+                    margin-top: 15px;
+                    color: #fff;
+                    font-size: 15px;
+
+                    small {
+                        display: none;
+                    }
+                }
+            }
+
+            .sell-user-footer {
+                overflow: hidden;
+                background-color: white;
+                border-top: 2px solid lightgrey;
+
+                .sell:nth-child(1) {
+                    border-right: 1px solid lightgrey;
+                }
+
+                .sell {
+                    padding: 0;
+
+                    .member {
+                        width: 100%;
+                        height: 75px;
+                        line-height: 75px;
+                        border: none;
+                    }
+
+                    span {
+                        color: #666;
+                    }
+
+                    a {
+                        padding-top: 15px;
+                        text-align: center;
+
+                        img {
+                            display: block;
+                            margin: auto auto 6px auto;
+                            background-color: #fff;
+                            border-radius: 0;
+
+
+                        }
+
+                        span {
+                            display: block;
+                            width: 100%;
+                            height: 20px;
+                            line-height: 20px;
+                            font-size: 15px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+
+        .user-menu a {
+            padding: 0;
+            background-color: transparent;
+        }
+
+    }
+
 }

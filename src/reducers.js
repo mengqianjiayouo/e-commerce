@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { LOGIN } from "./actions";
+import { LOGIN, PLATCHANGE } from "./actions";
 
 const login = (state = {}, action) => {
   switch (action.type) {
@@ -21,9 +21,19 @@ const login = (state = {}, action) => {
       return state;
   }
 };
+const platId = (state = { plat: 0 }, action) => {
+  switch (action.type) {
+    case PLATCHANGE:
+      return { plat: action.plat };
+
+    default:
+      return state;
+  }
+};
 
 const Reducer = combineReducers({
-  login
+  login,
+  platId
 });
 
 export default Reducer;

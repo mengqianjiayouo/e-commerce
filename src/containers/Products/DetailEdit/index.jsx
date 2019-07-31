@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Banner from "../../components/Banner/index";
-import SearchBox from "../../components/SearchBox/index";
-import GoodsList from "../../components/GoodsList/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
+import Topbar from "../../../components/Topbar/index";
+import ReturnTop from "../../../components/ReturnTop/index";
+import Footer from "../../../components/Footer/index";
+import SideBar from "../../../components/SideBar/index";
 import { connect } from "react-redux";
-class Home extends Component {
+class DetailEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,11 +52,7 @@ class Home extends Component {
           />
           <ReturnTop />
 
-          <div className="main">
-            <SearchBox />
-            <Banner />
-            <GoodsList />
-          </div>
+          <div className="main">bianji</div>
           <Footer />
         </div>
       </div>
@@ -80,4 +73,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(DetailEdit);

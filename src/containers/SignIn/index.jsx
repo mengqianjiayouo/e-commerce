@@ -68,7 +68,7 @@ export default class SignIn extends Component {
             />
             <img
               className="logo"
-              src="https://cdn-resources-aliyun.kjds.com/assets/logo_white-eb3350a5fcb70a24d95ef4fc7392f7d8.png"
+              src="../../images/logo.png"
               alt="Logo white"
             />
             <p>欢迎登录</p>

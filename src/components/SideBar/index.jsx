@@ -15,10 +15,7 @@ export default class SideBar extends Component {
           <div className="left_bar_close" />
           <div className="logo-container">
             <a href="/">
-              <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/logo_white-eb3350a5fcb70a24d95ef4fc7392f7d8.png"
-                alt="Logo white"
-              />
+              <img src="../../images/logo.png" alt="Logo white" />
             </a>
           </div>
           <div className="option-box hover-box">
@@ -80,10 +77,10 @@ export default class SideBar extends Component {
             </a>
             <div className="hide-box">
               <div className="each-item">
-                <a href="/sells/products">我的刊登商品</a>
+                <a href="/sells/products">Amazon刊登商品</a>
               </div>
               <div className="each-item">
-                <a href="/freight_templates/template_new">eBay物流模板</a>
+                <a href="/freight_templates/template_new">Shopee刊登的产品</a>
               </div>
             </div>
           </div>
@@ -97,10 +94,10 @@ export default class SideBar extends Component {
             </a>
             <div className="hide-box">
               <div className="each-item">
-                <a href="/sells/products">国内物流查询</a>
+                <a href="/logistics/international">国内物流查询</a>
               </div>
               <div className="each-item">
-                <a href="/freight_templates/template_new">国际物流查询</a>
+                <a href="/logistics/international">国际物流查询</a>
               </div>
             </div>
           </div>
@@ -136,7 +133,7 @@ export default class SideBar extends Component {
               </div>
               <div className="each-item">
                 <a className="import_order" href="/sells/import_orders">
-                  批量下单
+                  滞留件查询
                 </a>
               </div>
             </div>

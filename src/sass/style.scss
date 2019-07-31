@@ -5,6 +5,11 @@
 @import 'goodsList';
 @import 'signInAndUp';
 @import 'sidebar';
+@import 'detail';
+@import 'searchList';
+@import 'b2c';
+@import 'product';
+@import 'orders';
 
 html {
     * {
@@ -36,6 +41,18 @@ html {
 
     input {
         outline: none;
+    }
+
+    .clear::after {
+        display: block;
+        height: 0;
+        visibility: hidden;
+        clear: both;
+        content: ".";
+    }
+
+    body {
+        background-color: #eee;
     }
 }
 
