@@ -2,7 +2,7 @@
   "name": "e-commerce",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mengqianjiayouo.github.io/e-commerce",
+  "homepage": "http://mengqianjiayouo.github.io/e-commerce.git",
   "dependencies": {
     "@babel/core": "7.4.3",
     "@svgr/webpack": "4.1.0",
