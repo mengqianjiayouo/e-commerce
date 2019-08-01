@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/e-comerce/static/css/main.6105b135.chunk.css",
-    "main.js": "/e-comerce/static/js/main.bbf8297b.chunk.js",
-    "main.js.map": "/e-comerce/static/js/main.bbf8297b.chunk.js.map",
-    "runtime~main.js": "/e-comerce/static/js/runtime~main.c2667a41.js",
-    "runtime~main.js.map": "/e-comerce/static/js/runtime~main.c2667a41.js.map",
-    "static/css/2.34ae71ac.chunk.css": "/e-comerce/static/css/2.34ae71ac.chunk.css",
-    "static/js/2.e6a6c3ad.chunk.js": "/e-comerce/static/js/2.e6a6c3ad.chunk.js",
-    "static/js/2.e6a6c3ad.chunk.js.map": "/e-comerce/static/js/2.e6a6c3ad.chunk.js.map",
-    "index.html": "/e-comerce/index.html",
-    "precache-manifest.5bd4c64c09ee10892bfc0b1469f46d77.js": "/e-comerce/precache-manifest.5bd4c64c09ee10892bfc0b1469f46d77.js",
-    "service-worker.js": "/e-comerce/service-worker.js",
-    "static/css/2.34ae71ac.chunk.css.map": "/e-comerce/static/css/2.34ae71ac.chunk.css.map",
-    "static/css/main.6105b135.chunk.css.map": "/e-comerce/static/css/main.6105b135.chunk.css.map"
+    "main.css": "/e-commerce/static/css/main.6105b135.chunk.css",
+    "main.js": "/e-commerce/static/js/main.a0c7ac10.chunk.js",
+    "main.js.map": "/e-commerce/static/js/main.a0c7ac10.chunk.js.map",
+    "runtime~main.js": "/e-commerce/static/js/runtime~main.8575550b.js",
+    "runtime~main.js.map": "/e-commerce/static/js/runtime~main.8575550b.js.map",
+    "static/css/2.34ae71ac.chunk.css": "/e-commerce/static/css/2.34ae71ac.chunk.css",
+    "static/js/2.e6a6c3ad.chunk.js": "/e-commerce/static/js/2.e6a6c3ad.chunk.js",
+    "static/js/2.e6a6c3ad.chunk.js.map": "/e-commerce/static/js/2.e6a6c3ad.chunk.js.map",
+    "index.html": "/e-commerce/index.html",
+    "precache-manifest.4187c69bfae0616bd609cfa1f4481d42.js": "/e-commerce/precache-manifest.4187c69bfae0616bd609cfa1f4481d42.js",
+    "service-worker.js": "/e-commerce/service-worker.js",
+    "static/css/2.34ae71ac.chunk.css.map": "/e-commerce/static/css/2.34ae71ac.chunk.css.map",
+    "static/css/main.6105b135.chunk.css.map": "/e-commerce/static/css/main.6105b135.chunk.css.map"
   }
 }
