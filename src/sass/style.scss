@@ -102,3 +102,45 @@ html {
         margin: 0 auto
     }
 }
+
+#root {
+    .pagination {
+        display: flex;
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+        text-align: right;
+        justify-content: flex-end;
+
+        li {
+            display: inline-block;
+            margin: 0 5px;
+
+            a {
+                position: relative;
+                float: left;
+                padding: 6px 12px;
+                line-height: 1.42857143;
+                text-decoration: none;
+                color: #666;
+                background-color: #ccc;
+                border: 1px solid #ccc;
+                margin-left: -1px;
+
+                &:hover {
+                    background-color: #339999;
+                    color: #fff;
+                }
+            }
+
+            &.active {
+                a {
+                    background-color: #339999;
+                    border: 1px solid #339999;
+                    z-index: 0;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

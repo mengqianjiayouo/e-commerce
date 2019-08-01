@@ -16,14 +16,18 @@ import SalesAnalysis from "./containers/SalesAnalysis/index";
 import AuthLogistics from "./containers/AuthLogistics/index";
 import International from "./containers/Logistics/International";
 import ShoppingCart from "./containers/ShoppingCart/index";
+import createHistory from "history/createBrowserHistory";
 
+const history = createHistory({
+  basename: "/"
+});
 class App extends Component {
   componentDidMount() {}
 
   render() {
     return (
       <div className="app">
-        <Router>
+        <Router history={history}>
           <Route exact path="/" component={Home} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/signin" component={SignIn} />

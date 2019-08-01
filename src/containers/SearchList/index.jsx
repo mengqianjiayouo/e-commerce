@@ -5,9 +5,9 @@ import ReturnTop from "../../components/ReturnTop/index";
 import SearchBox from "../../components/SearchBox/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "../../components/SideBar/index";
-import { Pagination } from "react-bootstrap";
+// import { Pagination } from "react-bootstrap";
 import { connect } from "react-redux";
-
+import Pagination from "react-js-pagination";
 class SearchList extends Component {
   constructor(props) {
     super(props);
@@ -332,8 +332,19 @@ class SearchList extends Component {
                   );
                 })}
               </div>
-              <div className="pagination">
-                <Pagination>
+              <div className="page">
+                <Pagination
+                  activePage={this.state.page}
+                  itemsCountPerPage={10}
+                  totalItemsCount={450}
+                  pageRangeDisplayed={5}
+                  onChange={page => {
+                    this.setState({
+                      page
+                    });
+                  }}
+                />
+                {/* <Pagination>
                   <Pagination.First />
                   <Pagination.Prev />
                   <Pagination.Item>{1}</Pagination.Item>
@@ -347,7 +358,7 @@ class SearchList extends Component {
                   <Pagination.Item>{20}</Pagination.Item>
                   <Pagination.Next />
                   <Pagination.Last />
-                </Pagination>
+                </Pagination> */}
               </div>
             </div>
           </div>
