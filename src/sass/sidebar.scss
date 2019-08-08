@@ -81,7 +81,7 @@ nav.left_sidebar {
         cursor: pointer;
 
         &:hover {
-            background-color: #339999;
+            background-color: #f13c3c;
         }
 
         img {
@@ -120,7 +120,7 @@ nav.left_sidebar {
         }
 
         &:hover {
-            background-color: #339999;
+            background-color: #f13c3c;
         }
 
         &>.hide-box {
@@ -148,7 +148,6 @@ nav.left_sidebar {
             position: absolute;
             top: 0;
             left: 100%;
-            min-height: 76px;
             width: 130px;
             background-color: #434343;
         }

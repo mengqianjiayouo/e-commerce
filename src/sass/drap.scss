@@ -1,0 +1,51 @@
+.drap.home {
+    .input {
+        button {
+            width: 100%;
+            height: 34px;
+            border-color: #ccc;
+            color: #333;
+            background-color: #fff;
+
+            &:hover,
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        .dropdown-toggle::after {
+            position: absolute;
+            right: 10px;
+            top: 12px;
+        }
+
+        .dropdown-menu.show {
+            width: 100%;
+        }
+    }
+
+    .row {
+        margin-bottom: 15px;
+
+        .title {
+            text-align: right;
+            line-height: 34px;
+        }
+
+        .drap_item {
+            display: inline-block;
+            padding: 0 8px;
+            border-radius: 4px;
+            background: #ddd;
+            color: #333;
+            line-height: 34px;
+            margin-right: 12px;
+            cursor: pointer;
+
+            &.active {
+                background: #f13c3c;
+                color: #fff;
+            }
+        }
+    }
+}

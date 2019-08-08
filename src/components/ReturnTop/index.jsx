@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+import $ from "jquery";
 export default class ReturnTop extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  componentDidMount() {}
+  componentDidMount() {
+    $(".back_top").click(function() {
+      $("html").animate({ scrollTop: 0 }, 500);
+    });
+  }
   render() {
     return (
       <div className="right_sidebar">

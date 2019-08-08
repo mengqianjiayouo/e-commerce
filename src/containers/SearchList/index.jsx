@@ -8,6 +8,30 @@ import SideBar from "../../components/SideBar/index";
 // import { Pagination } from "react-bootstrap";
 import { connect } from "react-redux";
 import Pagination from "react-js-pagination";
+
+const storeContury = ["全部", "美国", "澳大利亚"];
+const amaZonContury = [
+  "全部",
+  "美国",
+  "加拿大",
+  "墨西哥",
+  "英国",
+  "德国",
+  "法国",
+  "意大利",
+  "西班牙",
+  "日本站",
+  "澳大利亚"
+];
+const shopeeContury = [
+  "全部",
+  "新加坡",
+  "马来西亚",
+  "台湾",
+  "印度尼西亚",
+  "泰国",
+  "越南和菲律宾"
+];
 class SearchList extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +39,7 @@ class SearchList extends Component {
       page: 1,
       pageSize: 50,
       countryId: 0,
+      storeConturyId: 0,
       sortType: "time",
       isCheckAll: false,
       checkAry: [],
@@ -85,6 +110,13 @@ class SearchList extends Component {
     }
   }
   changePlat(a) {
+    if (a === this.state.plat) {
+      return;
+    } else {
+      this.setState({
+        countryId: 0
+      });
+    }
     this.props.dispatch({ type: "PLATCHANGE", plat: a });
   }
   getData() {
@@ -100,16 +132,24 @@ class SearchList extends Component {
       data: { page, pageSize },
       dataType: "json",
       success: res => {
-        console.log(res);
-        /* let data = res.data;
-        this.setState({
-          data
-        }); */
+        let data = res.data;
+        if (data.data) {
+          this.setState({
+            data: data.data
+          });
+        }
       }
     });
   }
   render() {
-    const { islogin, countryId, sortType, data, checkAry } = this.state;
+    const {
+      islogin,
+      countryId,
+      sortType,
+      data,
+      checkAry,
+      storeConturyId
+    } = this.state;
     const { plat } = this.props.state.platId;
     let isCheckAll = false;
     if (checkAry.length === data.length) {
@@ -119,7 +159,7 @@ class SearchList extends Component {
       <div className="home searchList">
         {islogin ? (
           <div className="home_left">
-            <SideBar />
+            <SideBar {...this.props} />
           </div>
         ) : null}
 
@@ -180,24 +220,76 @@ class SearchList extends Component {
                     </span>
                   </div>
                 </li>
-                <li>
-                  <div className="title">海外仓：</div>
-                  {plat === 1 ? (
+                {plat === 1 ? (
+                  <li>
+                    <div className="title">海外仓：</div>
                     <div className="items">
                       {/* amazon 对应国家 */}
-                      <span className={countryId == 0 ? "item active" : "item"}>
-                        全部
-                      </span>
+                      {storeContury.map((a, b) => {
+                        return (
+                          <span
+                            key={b}
+                            className={
+                              storeConturyId == b ? "item active" : "item"
+                            }
+                            onClick={() => {
+                              this.setState({
+                                storeConturyId: b
+                              });
+                            }}
+                          >
+                            {storeContury[b]}
+                          </span>
+                        );
+                      })}
                     </div>
-                  ) : (
+                  </li>
+                ) : null}
+                {plat === 1 ? (
+                  <li>
+                    <div className="title">国家：</div>
                     <div className="items">
-                      {/* shopee 对应国家 */}
-                      <span className={countryId == 0 ? "item active" : "item"}>
-                        全部
-                      </span>
+                      {/* amazon 对应国家 */}
+                      {amaZonContury.map((a, b) => {
+                        return (
+                          <span
+                            key={b}
+                            className={countryId == b ? "item active" : "item"}
+                            onClick={() => {
+                              this.setState({
+                                countryId: b
+                              });
+                            }}
+                          >
+                            {amaZonContury[b]}
+                          </span>
+                        );
+                      })}
                     </div>
-                  )}
-                </li>
+                  </li>
+                ) : (
+                  <li>
+                    <div className="title">国家：</div>
+                    <div className="items">
+                      {/* amazon 对应国家 */}
+                      {shopeeContury.map((a, b) => {
+                        return (
+                          <span
+                            className={countryId == b ? "item active" : "item"}
+                            onClick={() => {
+                              this.setState({
+                                countryId: b
+                              });
+                            }}
+                          >
+                            {shopeeContury[b]}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </li>
+                )}
+
                 <li>
                   <div className="title">排序方式：</div>
                   <div className="sorts">
@@ -312,17 +404,22 @@ class SearchList extends Component {
                       <div
                         className="goodsInfo"
                         onClick={() => {
-                          this.props.history.push(
-                            `/sells/products/${a.product_id}`
-                          );
+                          this.props.history.push({
+                            pathname: `/sells/products/${a.product_id}`,
+                            params: {
+                              goods: a
+                            }
+                          });
                         }}
                       >
                         <img src="" alt="" />
-                        <div className="name">{a.product_title_en}</div>
                         <div className="goods_tag">
                           <span>海外仓</span>
                           <span>免邮费</span>
                         </div>
+                        <div className="name">{a.product_title_en}</div>
+
+                        <div className="price">¥{a.product_sales_value}</div>
                       </div>
                       <div className="opration">
                         <div className="download">下载</div>

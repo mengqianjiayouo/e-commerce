@@ -63,7 +63,7 @@ class AuthLogistics extends Component {
       <div className="home B2c">
         {islogin ? (
           <div className="home_left">
-            <SideBar />
+            <SideBar {...this.props} />
           </div>
         ) : null}
 

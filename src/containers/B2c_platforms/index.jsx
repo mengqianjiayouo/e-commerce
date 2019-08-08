@@ -3,29 +3,73 @@ import Topbar from "../../components/Topbar/index";
 import ReturnTop from "../../components/ReturnTop/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "../../components/SideBar/index";
+import { Link } from "react-router-dom";
+import $ from "jquery";
 import { connect } from "react-redux";
-import { Button, Table, Modal } from "react-bootstrap";
+import { Button, Table, Modal, Dropdown } from "react-bootstrap";
+import { country } from "../../utils/countryFreight";
 class B2c_platforms extends Component {
   constructor(props) {
     super(props);
     this.state = {
       islogin: false,
-      acountType: "",
+      show: false,
+      platform: "",
       shopee: {
         account: "",
         account2: "",
         recive: ""
       },
-      wish: {
-        account: "",
-        account2: "",
-        client_secret: "",
-        client_id: ""
-      }
+      amazon: {
+        store_name: "",
+        nick_name: "",
+        site: "BR",
+        seller_id: "",
+        token: "",
+        status: 0
+      },
+      amazonStatus: {
+        store_name_status: "",
+        seller_id_status: "",
+        token_status: ""
+      },
+      amazoonData: [
+        {
+          usa_id: 1,
+          user_id: 10,
+          usa_online_status: 10,
+          usa_auth_status: 10,
+          usa_auth_code: "111",
+          usa_quick_login: 1,
+          usa_add_time: "2019-08-01 10:10:20",
+          usa_update_time: "2019-08-01 10:10:23",
+          usa_auth_time: "2019-08-01 10:10:25",
+          usa_login_time: "2019-08-01 10:10:27",
+          usa_logout_time: "2019-08-01 10:10:29"
+        }
+      ],
+      siteList: [
+        "BR",
+        "CA",
+        "MX",
+        "US",
+        //阿拉伯联合酋长国（U.A.E.）
+        "AE",
+        "DE",
+        "ES",
+        "FR",
+        "GB",
+        "IN",
+        "IT",
+        "TR",
+        "AU",
+        "JP"
+      ]
     };
   }
   componentDidMount() {
     this.checkIsLogin();
+    this.getAmazonData();
   }
 
   checkIsLogin() {
@@ -40,30 +84,116 @@ class B2c_platforms extends Component {
   changePlat(a) {
     this.props.dispatch({ type: "PLATCHANGE", plat: a });
   }
-  addCount() {}
-  showModal(a) {
-    this.setState({
-      show: true,
-      acountType: a
-    });
+  changFormStatus(a, b, c) {
+    this.setState(
+      {
+        [a]: {
+          ...this.state[a],
+          [b + "_status"]: c
+        }
+      },
+      () => {}
+    );
   }
-  changeAccount(a, b) {
+  changeAccount(a, b, c) {
     this.setState({
       [a]: {
         ...this.state[a],
-        ...b
+        [b]: c
       }
     });
   }
+  addCount() {
+    let { platform, amazon, shopee } = this.state;
+    if (platform === "amazon") {
+      if (amazon.store_name == "") {
+        this.changFormStatus("amazonStatus", "store_name", "error");
+        return;
+      }
+      if (amazon.seller_id == "") {
+        this.changFormStatus("amazonStatus", "seller_id", "error");
+        return;
+      }
+      if (amazon.token == "") {
+        this.changFormStatus("amazonStatus", "token", "error");
+        return;
+      }
+      $.ajax({
+        method: "post",
+        url: "http://118.25.155.176:8080/authSave",
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true,
+        data: { ...amazon, platform },
+        dataType: "json",
+        success: res => {
+          console.log(res);
+          /* let data = res.data;
+        this.setState({
+          data
+        }); */
+        }
+      });
+      /* this.setState({
+        show: false
+      }); */
+    } else {
+      this.setState({
+        show: false
+      });
+    }
+  }
+  showModal(a) {
+    this.setState({
+      show: true,
+      platform: a
+    });
+  }
+
+  getAmazonData() {
+    $.ajax({
+      method: "get",
+      url: "http://118.25.155.176:8080/auth",
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      data: { page: 1, pageSize: 20 },
+      dataType: "json",
+      success: res => {
+        if (res.state === 1) {
+          let data = res.data;
+          if (res.data && res.data.data) {
+            this.setState({
+              amazoonData: res.data.data
+            });
+          }
+        }
+
+        // console.log($.cookie("csrftoken"));
+      }
+    });
+  }
+
   render() {
-    const { islogin, show, acountType, shopee, wish } = this.state;
+    const {
+      islogin,
+      show,
+      platform,
+      shopee,
+      amazon,
+      amazoonData,
+      siteList,
+      amazonStatus
+    } = this.state;
     // console.log(this.props.state);
 
     return (
       <div className="home B2c">
         {islogin ? (
           <div className="home_left">
-            <SideBar />
+            <SideBar {...this.props} />
           </div>
         ) : null}
 
@@ -83,41 +213,51 @@ class B2c_platforms extends Component {
           <div className="main">
             <Button
               onClick={() => {
-                this.showModal("shopee");
+                this.showModal("amazon");
               }}
             >
               添加账号
             </Button>
+            <Link
+              className="tip_note"
+              to="/sells/b2c_platforms/note"
+              target="_blank"
+            >
+              Amazon亚马逊店铺授权方法
+            </Link>
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>shopee账号</th>
-                  <th>账号缩写</th>
-                  <th>收款账号</th>
+                  <th>店铺名称</th>
+                  <th>别名</th>
+                  <th>操作时间</th>
                   <th>状态</th>
                   <th>API状态</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
+                {amazoonData.map((a, b) => {
+                  return (
+                    <tr key={b}>
+                      <td> - </td>
+                      <td> - </td>
+                      <td>{a.usa_update_time}</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
             <Button
               onClick={() => {
-                this.showModal("wish");
+                this.showModal("shopee");
               }}
             >
-              添加wish账号
+              添加shopee账号
             </Button>
-            <span>Wish平台账号绑定流程</span>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -147,14 +287,21 @@ class B2c_platforms extends Component {
           dialogClassName="b2c_modal"
           show={show}
           onHide={() => {
-            this.setState({ show: false });
+            this.setState({
+              show: false,
+              amazonStatus: {
+                store_name_status: "",
+                seller_id_status: "",
+                token_status: ""
+              }
+            });
           }}
         >
           <Modal.Header closeButton>
             <Modal.Title>请输入你想添加的账号</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {acountType === "shopee" ? (
+            {platform === "shopee" ? (
               <div className="note">
                 <p>温馨提示：</p>
                 <h4>
@@ -169,11 +316,12 @@ class B2c_platforms extends Component {
               <div className="note">
                 <p>温馨提示：</p>
                 <h4 className="text-danger">
-                  注意：授权操作需要登录Wish页面。请到您的Wish账号常用电脑上操作,以防账号关联;
+                  注意：授权操作需要登录 amazon页面。请到您的
+                  amazon账号常用电脑上操作,以防账号关联;
                 </h4>
               </div>
             )}
-            {acountType === "shopee" ? (
+            {platform === "shopee" ? (
               <ul className="inputs">
                 <li>
                   <p>
@@ -184,7 +332,7 @@ class B2c_platforms extends Component {
                     placeholder="请输入你想添加的账号"
                     value={shopee.account}
                     onChange={e => {
-                      this.changeAccount("shopee", { account: e.target.value });
+                      this.changeAccount("shopee", "account", e.target.value);
                     }}
                   />
                 </li>
@@ -195,9 +343,7 @@ class B2c_platforms extends Component {
                     placeholder="请输入账号缩写"
                     value={shopee.account2}
                     onChange={e => {
-                      this.changeAccount("shopee", {
-                        account2: e.target.value
-                      });
+                      this.changeAccount("shopee", "account2", e.target.value);
                     }}
                   />
                 </li>
@@ -210,7 +356,7 @@ class B2c_platforms extends Component {
                     placeholder="请输入收款账号"
                     value={shopee.recive}
                     onChange={e => {
-                      this.changeAccount("shopee", { recive: e.target.value });
+                      this.changeAccount("shopee", "recive", e.target.value);
                     }}
                   />
                 </li>
@@ -219,54 +365,149 @@ class B2c_platforms extends Component {
               <ul className="inputs">
                 <li>
                   <p>
-                    Wish账号:可以是非Wish账号名的任何名称，您只需要保证自己和同事都认识它。
+                    店铺名称:可以是非店铺名称的任何名称，您只需要保证自己和同事都认识它。
                   </p>
                   <input
                     type="text"
-                    placeholder="请输入你想添加的账号"
-                    value={wish.account}
+                    placeholder="请输入店铺名称"
+                    className={
+                      amazonStatus.store_name_status == "error"
+                        ? "err_input"
+                        : ""
+                    }
+                    value={amazon.store_name}
                     onChange={e => {
-                      this.changeAccount("wish", { account: e.target.value });
+                      this.changFormStatus("amazonStatus", "store_name", "");
+                      this.changeAccount(
+                        "amazon",
+                        "store_name",
+                        e.target.value
+                      );
+                    }}
+                  />
+                  {amazonStatus.store_name_status == "error" ? (
+                    <span className="note">请输入店铺名称</span>
+                  ) : null}
+                </li>
+                <li>
+                  <p>别名:账号名缩写:2-3位的别名，将用于系统中的简要展现。</p>
+                  <input
+                    type="text"
+                    placeholder="请输入名称缩写"
+                    value={amazon.nick_name}
+                    onChange={e => {
+                      this.changeAccount("amazon", "nick_name", e.target.value);
                     }}
                   />
                 </li>
                 <li>
-                  <p>账号名缩写:2-3位的字母或数字，将用于系统中的简要展现。</p>
+                  <p>卖家编号:请确保填写正确,否则无法绑定账号。</p>
                   <input
                     type="text"
-                    placeholder="请输入账号缩写"
-                    value={wish.account2}
+                    placeholder="请输入卖家编号"
+                    value={amazon.seller_id}
+                    className={
+                      amazonStatus.seller_id_status == "error"
+                        ? "err_input"
+                        : ""
+                    }
                     onChange={e => {
-                      this.changeAccount("wish", { account2: e.target.value });
+                      this.changFormStatus("amazonStatus", "seller_id", "");
+                      this.changeAccount("amazon", "seller_id", e.target.value);
                     }}
                   />
+                  {amazonStatus.seller_id_status == "error" ? (
+                    <span className="note">请输入卖家编号</span>
+                  ) : null}
                 </li>
                 <li>
-                  <p>
-                    client_id(wish中创建的app中的属性):请确保填写正确,否则无法绑定账号。
-                  </p>
+                  <p>站点</p>
+                  <Dropdown>
+                    <Dropdown.Toggle>{country[amazon.site]}</Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      {siteList.map((a, b) => {
+                        return (
+                          <Dropdown.Item
+                            key={b}
+                            onClick={() => {
+                              this.setState({
+                                amazon: {
+                                  ...amazon,
+                                  site: a
+                                }
+                              });
+                            }}
+                          >
+                            {country[a]}
+                          </Dropdown.Item>
+                        );
+                      })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </li>
+                <li>
+                  <p>MWS授权码:请确保填写正确,否则无法绑定账号。</p>
                   <input
-                    type="text"
-                    placeholder="请输入Wish账号中App的client_id"
-                    value={wish.client_id}
+                    value={amazon.token}
+                    className={
+                      amazonStatus.token_status == "error" ? "err_input" : ""
+                    }
                     onChange={e => {
-                      this.changeAccount("wish", { client_id: e.target.value });
+                      this.changFormStatus("amazonStatus", "token", "");
+                      this.changeAccount("amazon", "token", e.target.value);
+                    }}
+                    type="text"
+                    placeholder="请输入MWS授权码"
+                  />
+                  {amazonStatus.token_status == "error" ? (
+                    <span className="note">请输入MWS授权码</span>
+                  ) : null}
+                </li>
+                <li>
+                  <p>状态：</p>
+                  <span>启用</span>{" "}
+                  <input
+                    type="checkbox"
+                    style={{
+                      display: "inline-block",
+                      width: "20px",
+                      height: "20px",
+                      verticalAlign: "middle",
+                      marginRight: "30px"
+                    }}
+                    checked={amazon.status === 1}
+                    onChange={e => {
+                      if (e.target.checked) {
+                        this.setState({
+                          amazon: {
+                            ...amazon,
+                            status: 1
+                          }
+                        });
+                      }
                     }}
                   />
-                </li>
-                <li>
-                  <p>
-                    client_secret(wish中创建的app中的属性):请确保填写正确,否则无法绑定账号。
-                  </p>
+                  <span>禁用</span>
                   <input
-                    value={wish.client_secret}
-                    onChange={e => {
-                      this.changeAccount("wish", {
-                        client_secret: e.target.value
-                      });
+                    type="checkbox"
+                    checked={amazon.status === 0}
+                    style={{
+                      display: "inline-block",
+                      width: "20px",
+                      height: "20px",
+                      verticalAlign: "middle"
                     }}
-                    type="text"
-                    placeholder="请输入Wish账号中App的client_secret"
+                    onChange={e => {
+                      if (e.target.checked) {
+                        this.setState({
+                          amazon: {
+                            ...amazon,
+                            status: 0
+                          }
+                        });
+                      }
+                    }}
                   />
                 </li>
               </ul>
@@ -284,14 +525,7 @@ class B2c_platforms extends Component {
             <Button
               variant="primary"
               onClick={() => {
-                this.setState(
-                  {
-                    show: false
-                  },
-                  () => {
-                    this.addCount();
-                  }
-                );
+                this.addCount();
               }}
             >
               确定

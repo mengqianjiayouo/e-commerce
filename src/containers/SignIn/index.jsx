@@ -68,14 +68,14 @@ export default class SignIn extends Component {
             />
             <img
               className="logo"
-              src="../../images/logo.png"
+              src="../../e-commerce/images/logo.png"
               alt="Logo white"
             />
             <p>欢迎登录</p>
             <div className="login">
               <input
                 className="input"
-                autofocus="autofocus"
+                autoFocus="autofocus"
                 placeholder="请输入邮箱/手机号"
                 type="text"
                 value={name}
@@ -93,7 +93,7 @@ export default class SignIn extends Component {
             <div className="password">
               <input
                 className="input"
-                autocomplete="off"
+                autoComplete="off"
                 placeholder="请输入密码"
                 type="password"
                 value={password}

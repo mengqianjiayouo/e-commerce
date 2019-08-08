@@ -18,7 +18,7 @@
         height: 50px;
         line-height: 50px;
         width: 1020px;
-        background-color: #339999;
+        background-color: #f13c3c;
         z-index: 10;
         padding-left: 70px;
         font-size: 1.2em;
@@ -49,7 +49,7 @@
             padding: 0 10%;
             font-size: 1.2em;
             font-weight: normal;
-            background-color: #339999;
+            background-color: #f13c3c;
             color: #fff;
             line-height: 50px;
         }
@@ -58,6 +58,10 @@
             position: relative;
             line-height: 34px;
             letter-spacing: 1px;
+
+            &:hover {
+                background-color: #434343;
+            }
 
             .image_box {
                 float: left;

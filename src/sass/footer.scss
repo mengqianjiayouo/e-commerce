@@ -38,6 +38,12 @@ footer {
                     color: #ffffff;
                     font-size: 14px;
                 }
+
+                &:hover a {
+                    color: #f13c3c;
+                }
+
+
             }
 
             h4 {
@@ -58,9 +64,11 @@ footer {
         width: 1045px;
         margin: 0 auto;
         border-top: 2px solid;
-        .clear{
+
+        .clear {
             overflow: hidden;
         }
+
         h4 {
             text-align: left;
             font-size: 18px;
@@ -70,6 +78,10 @@ footer {
             float: left;
             padding: 10px 20px 10px 0;
             line-height: 14px;
+
+            &:hover a {
+                color: #f13c3c;
+            }
 
             a {
                 font-size: 14px;

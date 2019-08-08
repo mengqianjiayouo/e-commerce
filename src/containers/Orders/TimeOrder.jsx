@@ -45,7 +45,7 @@ class TimeOrder extends Component {
       <div className="home orders">
         {islogin ? (
           <div className="home_left">
-            <SideBar />
+            <SideBar {...this.props} />
           </div>
         ) : null}
 

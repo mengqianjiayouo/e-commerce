@@ -1,0 +1,102 @@
+.members.home {
+    .main {
+        background: #ffffff;
+        margin-top: 50px;
+
+        .header {
+            padding: 0;
+            text-align: center;
+            background-color: #ffcc33;
+            font-size: 16px;
+            height: 52px;
+            line-height: 52px;
+            color: #000;
+            border: none;
+            margin-bottom: 30px;
+        }
+
+        .member_charge {
+            .btn {
+                margin-right: 20px;
+                background-color: #fff;
+                color: #f13c3c;
+
+                &:hover,
+                &.current {
+                    background-color: #f13c3c;
+                    color: #fff;
+                }
+            }
+        }
+
+        .content {
+            .row {
+                margin-bottom: 30px;
+                height: 40px;
+                line-height: 40px;
+
+                .col-sm-3 {
+                    text-align: right;
+                }
+
+                .btn {
+                    margin-right: 50px;
+                    border: 1px solid #ffcc33;
+                    background-color: #ffcc33;
+                    font-weight: bold;
+                    color: #333;
+
+                    a {
+                        color: #333;
+                    }
+                }
+
+                &.free_member {
+                    .btn {
+
+
+                        &.active {
+                            width: 80px;
+                            border: 1px solid #f13c3c;
+                            border-radius: 5px;
+                            font-size: 14px;
+                            text-align: center;
+                            background-color: #fff;
+                            color: #f13c3c;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.member_modal.modal {
+    .head {
+        background-color: #f13c3c;
+        text-align: center;
+        height: 35px;
+        line-height: 35px;
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .record {
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    .footer {
+        margin-top: 20px;
+        text-align: center;
+
+        .btn {
+            width: 100px;
+            height: 32px;
+            line-height: 20px;
+        }
+    }
+}

@@ -72,7 +72,7 @@
 
             .current-name {
                 display: inline;
-                color: #339999;
+                color: #f13c3c;
             }
         }
 
@@ -110,7 +110,7 @@
                     text-align: center;
                     color: #fff;
                     border-radius: 5px;
-                    background-color: #339999;
+                    background-color: #f13c3c;
                 }
 
                 .second-title,
@@ -306,40 +306,45 @@
                         i {
                             right: 0px;
                         }
+                    }
 
-                        .move-btn {
-                            width: 35px;
-                            height: 99px;
-                            line-height: 93px;
-                            cursor: pointer;
-                            position: absolute;
-                            background-color: #fff;
-                            z-index: 100;
-                            padding-top: 8px;
+                    .move-btn {
+                        width: 35px;
+                        height: 99px;
+                        line-height: 93px;
+                        cursor: pointer;
+                        position: absolute;
+                        background-color: #fff;
+                        z-index: 100;
+                        padding-top: 8px;
+                        line-height: 70px;
+                        font-size: 30px;
 
-                            i {
-                                font-size: 35px;
-                                color: #cbcbcb;
-                            }
+                        i {
+                            font-size: 35px;
+                            color: #cbcbcb;
                         }
+                    }
 
-                        .img-container-box {
-                            height: 99px;
-                            overflow: hidden;
-                            white-space: nowrap;
-                            font-size: 0;
-                            position: absolute;
-                            left: 35px;
-                            transition: all 0.3s 0s linear;
-                            padding-top: 5px;
+                    .img-container-box {
+                        height: 99px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        font-size: 0;
+                        position: absolute;
+                        left: 35px;
+                        transition: all 0.3s 0s linear;
+                        padding-top: 5px;
 
-                            img {
-                                font-size: 12px;
-                                display: inline-block;
-                                width: 74px;
-                                height: 74px;
-                                margin: 0 2px;
-                                border: none;
+                        img {
+                            border: none;
+                            width: 74px;
+                            height: 74px;
+                            cursor: pointer;
+                            margin: 8px 2px;
+
+                            &.select {
+                                outline: 2px solid #ffcc33;
                             }
                         }
                     }
@@ -467,9 +472,9 @@
                                 display: inline-block;
 
                                 &>.sku-box {
-                                    background-color: #339999;
+                                    background-color: #f13c3c;
                                     color: #fff;
-                                    border-color: #339999;
+                                    border-color: #f13c3c;
                                 }
                             }
 
@@ -488,9 +493,9 @@
                             }
 
                             .choose {
-                                background-color: #339999;
+                                background-color: #f13c3c;
                                 color: #fff;
-                                border-color: #339999;
+                                border-color: #f13c3c;
                             }
 
                             .sku-box {
@@ -619,7 +624,7 @@
                     }
 
                     .buy {
-                        background-color: #339999;
+                        background-color: #f13c3c;
                     }
 
                     .like,
@@ -678,7 +683,7 @@
                     .current-index {
                         background-color: #FFF;
                         color: #000;
-                        border-top: 2px solid #339999;
+                        border-top: 2px solid #f13c3c;
 
                         li {
                             position: relative;
@@ -715,179 +720,7 @@
                     &>li {
                         display: none;
 
-                        .calculate {
-                            .all-user-tip {
-                                padding-left: 0;
-                                margin-bottom: 5px;
-                            }
 
-                            .tip-overseas-product,
-                            .all-user-tip {
-                                font-size: 15px;
-                                color: #f00;
-                                margin-bottom: 10px;
-                                padding-left: 75px;
-                            }
-
-                            .row {
-                                margin: 20px 0;
-
-                                .product_detail {
-                                    padding-left: 15px;
-                                }
-
-                                .product_detail:nth-child(1) span:nth-child(1) {
-                                    padding-right: 10px;
-                                }
-
-                                .col-sm-6 {
-                                    label {
-                                        width: 100px;
-                                    }
-
-                                    .own_btn-group .own_dropbtn {
-                                        width: 175px;
-                                        text-align: left;
-                                        white-space: nowrap;
-                                        text-overflow: ellipsis;
-                                        overflow: hidden;
-                                    }
-                                }
-
-                                .calculate_btn {
-                                    button {
-                                        width: 80px;
-                                        height: 30px;
-                                        color: #fff;
-                                        border: 1px solid #66cc99;
-                                        background-color: #66cc99;
-                                        border-radius: 5px;
-                                    }
-                                }
-
-                            }
-
-                            input#number {
-                                margin-left: 3px;
-                                text-align: center;
-                            }
-
-                            .product-number .number {
-                                padding-left: 59px;
-
-                                label {
-                                    width: 65px;
-                                }
-                            }
-
-                            .store-size {
-                                height: 34px;
-                                line-height: 34px;
-                                font-weight: bold;
-
-                                .info {
-                                    padding-left: 44px;
-                                    height: 34px;
-                                    line-height: 34px;
-
-                                    .detail {
-                                        width: 111%;
-                                        margin: -8px 0;
-
-                                        .product_detail {
-                                            padding-left: 14px;
-                                            font-weight: normal;
-                                            margin: 8px 0px 19px 0px;
-
-                                            .weight {
-                                                margin-left: 10px;
-                                            }
-                                        }
-
-                                        .daynumber {
-                                            margin-left: 13px;
-                                            font-weight: normal;
-                                        }
-
-                                        .daynumber-end {
-                                            margin-left: 8px;
-                                            font-weight: normal;
-                                        }
-                                    }
-                                }
-
-                                label {
-                                    text-align: center;
-                                    padding-left: 10px;
-                                }
-                            }
-
-                            .country_boxs {
-                                margin: 0px 0px 0px 15px;
-
-                                .tip {
-                                    margin-top: 10px;
-                                    padding-left: 12px;
-                                }
-
-                                .country_box {
-                                    width: 115%;
-                                    margin: -31px 0px 0px 99px;
-
-                                    .own_btn-group {
-                                        width: 202px;
-                                        margin: 0;
-                                        padding: 1px;
-                                        border-radius: 5px;
-
-                                        .own_dropdown_menu {
-                                            min-width: 0;
-                                            width: 100%;
-                                            max-height: 260px;
-                                            overflow: auto;
-
-                                            &.select_multiple li {
-                                                padding-left: 10px;
-                                                white-space: nowrap;
-                                            }
-                                        }
-
-                                        .backW {
-                                            width: 175px;
-                                        }
-                                    }
-
-                                    .hot_country {
-                                        margin: 15px 0px 0px 0px;
-                                        margin-right: 10px;
-
-                                        .check_box {
-                                            display: inline-block;
-                                            width: 20px;
-                                            height: 20px;
-                                            margin: 0px 4px 0px 0px;
-                                            text-align: center;
-                                            line-height: 20px;
-                                            vertical-align: middle;
-                                            border: 1px solid #339999;
-                                            border-radius: 5px;
-                                            cursor: pointer;
-                                        }
-
-                                    }
-
-                                    .selected_box {
-                                        width: 70%;
-                                        display: none;
-                                        margin: 13px 0px 0px;
-                                        padding: 25px 20px 1px;
-                                        border: 1px solid #ccc;
-                                        border-radius: 5px;
-                                        background: #eee;
-                                    }
-                                }
-                            }
-                        }
                     }
 
                     .good-description {
@@ -940,7 +773,7 @@
                                 height: 60px;
                                 line-height: 60px;
                                 color: #ffffff;
-                                background-color: #339999;
+                                background-color: #f13c3c;
 
                                 span.country {
                                     width: 40%;
@@ -1049,25 +882,6 @@
                     }
                 }
 
-                .img-container-box {
-                    height: 99px;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    font-size: 0;
-                    position: absolute;
-                    left: 35px;
-                    transition: all 0.3s 0s linear;
-                    padding-top: 5px;
-
-                    img {
-                        font-size: 12px;
-                        display: inline-block;
-                        width: 74px;
-                        height: 74px;
-                        margin: 0 2px;
-                        border: none;
-                    }
-                }
             }
         }
 
@@ -1086,7 +900,7 @@
                 line-height: 40px;
                 color: #fff;
                 font-size: 22px;
-                background-color: #339999;
+                background-color: #f13c3c;
             }
 
             .left {
@@ -1336,8 +1150,8 @@
 
             .btn-success {
                 color: #fff;
-                background-color: #339999;
-                border-color: #339999;
+                background-color: #f13c3c;
+                border-color: #f13c3c;
             }
 
             .dropdown-menu {
@@ -1353,8 +1167,8 @@
         .btn-primary,
         .btn-primary:hover {
             color: #fff;
-            background-color: #339999;
-            border-color: #339999;
+            background-color: #f13c3c;
+            border-color: #f13c3c;
         }
     }
 
@@ -1369,6 +1183,15 @@
 /* 产品编辑 */
 .detail_edit.home {
     .panel-body {
+        .header {
+            height: 40px;
+            line-height: 40px;
+            background-color: #f13c3c;
+            color: #fff;
+            text-align: center;
+            margin: 20px 0;
+        }
+
         .row {
             min-height: 34px;
             margin-bottom: 15px;
@@ -1384,8 +1207,8 @@
                 .btn-success:hover,
                 .btn-success {
                     color: #fff;
-                    background-color: #339999;
-                    border-color: #339999;
+                    background-color: #f13c3c;
+                    border-color: #f13c3c;
                 }
 
                 .btn-success:focus {
@@ -1404,7 +1227,7 @@
             background: #aed9d966;
             padding: 10px;
             border-radius: 2px;
-            color: #339999;
+            color: #f13c3c;
 
             ul {
                 list-style: disc;
@@ -1475,6 +1298,17 @@
                     padding: 0 5px;
                     line-height: 26px;
                 }
+            }
+        }
+
+        .input-group {
+            .form-control {
+                width: auto;
+                border-radius: 4px 0 0 4px;
+            }
+
+            .input-group-append {
+                height: 34px;
             }
         }
 
@@ -1552,5 +1386,270 @@
                 }
             }
         }
+    }
+}
+
+.detail.home {
+    font-size: 14px;
+
+    .calculate {
+        .all-user-tip {
+            padding-left: 0;
+            margin-bottom: 5px;
+        }
+
+        .tip-overseas-product,
+        .all-user-tip {
+            font-size: 15px;
+            color: #f00;
+            margin-bottom: 10px;
+            padding-left: 75px;
+        }
+
+        .row {
+            margin: 20px 0;
+
+            .product_detail {}
+
+            .product_detail:nth-child(1) span:nth-child(1) {
+                padding-right: 10px;
+            }
+
+            .col-sm-6 {
+                label {
+                    width: 100px;
+                }
+
+                input {
+                    height: 34px;
+                    width: 200px;
+                    padding-left: 12px;
+                    border-radius: 3px;
+                    border: 1px solid #ccc;
+                }
+
+                .dropdown {
+                    display: inline-block;
+
+                    .btn-success {
+                        background-color: #fff;
+                        color: #333;
+                        height: 34px;
+                        border-color: #ccc;
+                        font-size: 14px;
+                        width: 200px;
+
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+
+                    .dropdown-menu.show {
+                        min-width: 200px !important;
+                        max-height: 200px;
+                        overflow-y: scroll;
+                    }
+                }
+
+                .dropdown-toggle::after {
+                    position: absolute;
+                    top: 15px;
+                    right: 10px;
+                }
+
+                .own_btn-group .own_dropbtn {
+                    width: 175px;
+                    text-align: left;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+            }
+
+            .calculate_btn {
+                button {
+                    width: 80px;
+                    height: 30px;
+                    color: #fff;
+                    border: 1px solid #66cc99;
+                    background-color: #66cc99;
+                    border-radius: 5px;
+                }
+            }
+
+        }
+
+        input#number {
+            margin-left: 3px;
+            text-align: center;
+        }
+
+        .product-number .number {
+            padding-left: 59px;
+
+            label {
+                width: 65px;
+            }
+        }
+
+        .store-size {
+            height: 34px;
+            line-height: 34px;
+            font-weight: bold;
+
+            .info {
+                padding-left: 44px;
+                height: 34px;
+                line-height: 34px;
+
+                .detail {
+                    width: 111%;
+                    margin: -8px 0;
+
+                    .product_detail {
+                        padding-left: 14px;
+                        font-weight: normal;
+                        margin: 8px 0px 19px 0px;
+
+                        .weight {
+                            margin-left: 10px;
+                        }
+                    }
+
+                    .daynumber {
+                        margin-left: 13px;
+                        font-weight: normal;
+                    }
+
+                    .daynumber-end {
+                        margin-left: 8px;
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            label {
+                text-align: center;
+                padding-left: 10px;
+            }
+        }
+
+        .country_boxs {
+
+            .tip {
+                margin-top: 10px;
+                padding-left: 12px;
+            }
+
+
+        }
+
+        .country_box {
+            width: 115%;
+            margin: 0px 0px 0px 99px;
+
+            .own_btn-group {
+                width: 202px;
+                margin: 0;
+                padding: 1px;
+                border-radius: 5px;
+
+                .own_dropdown_menu {
+                    min-width: 0;
+                    width: 100%;
+                    max-height: 260px;
+                    overflow: auto;
+
+                    &.select_multiple li {
+                        padding-left: 10px;
+                        white-space: nowrap;
+                    }
+                }
+
+                .backW {
+                    width: 175px;
+                }
+            }
+
+            .hot_country {
+                margin: 15px 0px 0px 0px;
+                margin-right: 10px;
+
+                margin-bottom: 15px;
+
+                .check_box {
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    margin: 0px 4px 0px 0px;
+                    text-align: center;
+                    line-height: 20px;
+                    vertical-align: middle;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+
+            }
+
+            .selected_box {
+                width: 70%;
+                margin: 13px 0px 0px;
+                padding: 25px 20px 1px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background: #eee;
+
+                .box {
+                    position: relative;
+                    display: inline-block;
+                    margin: 0 30px 20px 0;
+                    padding: 5px 10px;
+                    border: 1px solid #000;
+                    cursor: pointer;
+
+                    &>span {
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        display: inline-block;
+                        height: 15px;
+                        width: 15px;
+                        line-height: 12px;
+                        font-weight: 700;
+                        font-size: 20px;
+                        color: #fff;
+                        text-align: center;
+                        border-radius: 50%;
+                        background: #777;
+                        content: "";
+                        cursor: pointer;
+                        ;
+                    }
+                }
+            }
+
+        }
+
+        .waybill-btn {
+            position: relative;
+            height: 30px;
+
+            .calculate_btn {
+                position: absolute;
+                right: 0;
+            }
+        }
+    }
+}
+
+.modal.show .modal-dialog.modal-meitu {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 90% !important;
+    height: 90%;
+
+    .modal-content {
+        height: 100%;
+        margin: 0 auto
     }
 }

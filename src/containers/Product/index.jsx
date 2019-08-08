@@ -47,7 +47,7 @@ class Product extends Component {
       <div className="home product">
         {islogin ? (
           <div className="home_left">
-            <SideBar />
+            <SideBar {...this.props} />
           </div>
         ) : null}
 
@@ -171,8 +171,8 @@ class Product extends Component {
                     <th>商品图片</th>
                     <th>商品编码 </th>
                     <th>父货号</th>
-                    <th>越域大卖商品状态</th>
-                    <th>越域大卖最近下架时间</th>
+                    <th>闪质大卖商品状态</th>
+                    <th>闪质大卖最近下架时间</th>
                     <th>刊登时间</th>
                     <th>刊登标题</th>
                     <th>店铺下架时间</th>

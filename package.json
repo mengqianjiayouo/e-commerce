@@ -2,7 +2,7 @@
   "name": "e-commerce",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mengqianjiayouo.github.io",
+  "homepage": "https://mengqianjiayouo.github.io/e-commerce",
   "dependencies": {
     "@babel/core": "7.4.3",
     "@svgr/webpack": "4.1.0",
@@ -145,5 +145,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "proxy": "http://118.25.155.176:8080/"
 }

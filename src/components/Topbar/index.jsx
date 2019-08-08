@@ -7,9 +7,6 @@ export default class Topbar extends Component {
     this.state = { dropShow: false, plat: 0 };
   }
   componentDidMount() {
-    $(".back_top").click(function() {
-      $("body").scrollTop(0);
-    });
     const { plat } = this.props.state.platId;
     this.setState({
       plat
@@ -31,7 +28,6 @@ export default class Topbar extends Component {
   render() {
     const { islogin } = this.props;
     const { plat } = this.state;
-    console.log(plat, plat == 2);
 
     return (
       <div className={islogin ? "common_header" : "common_header guest"}>
@@ -44,17 +40,24 @@ export default class Topbar extends Component {
                 <span className="newer">入门指引</span>
               </a>
               <a className="bulletins" href="/sells/bulletins">
-                <img
+                {/* <img
                   src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/bulletins-98b611d32f6139557f140f239f4525f9.png"
                   alt="Bulletins"
-                />
+                /> */}
                 <span>公告</span>
               </a>
-              <a className="shopping_cart" href="/sells/orders/shopping_cart">
-                <img
+              <a
+                className="shopping_cart"
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/sells/orders/shopping_cart"
+                  });
+                }}
+              >
+                {/* <img
                   alt="购物车"
                   src="https://cdn-resources-aliyun.kjds.com/assets/sells/shopping_cart-dbb6910f337b1388ec7e92f50011f8bb.png"
-                />
+                /> */}
                 <span>购物车</span>
                 <div className="products-sum-number">3</div>
               </a>
@@ -64,11 +67,11 @@ export default class Topbar extends Component {
                     <Dropdown alignRight>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         <div>
-                          <img
+                          {/* <img
                             alt="用户头像"
                             className="user-image"
                             src="https://cdn-resources-aliyun.kjds.com/assets/user_default_avatar-4e570b12afe281b3e0cee7b2079e8abc.png"
-                          />
+                          /> */}
                           <span className="hidden-xs" title="王祚家">
                             王祚家
                           </span>
@@ -78,11 +81,11 @@ export default class Topbar extends Component {
                       <Dropdown.Menu>
                         <ul>
                           <li className="user-header">
-                            <img
+                            {/* <img
                               alt="用户头像"
                               className="img-circle"
                               src="https://cdn-resources-aliyun.kjds.com/assets/user_default_avatar-4e570b12afe281b3e0cee7b2079e8abc.png"
-                            />
+                            /> */}
                             <p>
                               王祚家<small>2019年01月18日 17:25 加入</small>
                             </p>
@@ -93,25 +96,12 @@ export default class Topbar extends Component {
                                 className="btn btn-default btn-flat"
                                 href="/sells/users"
                               >
-                                <img
+                                {/*  <img
                                   src="https://cdn-resources-aliyun.kjds.com/assets/sells/icon_mini_personal-7a48fa6b2e927d3258e81ad1392ed368.png"
                                   alt="Icon mini personal"
-                                />
+                                /> */}
                                 <span>个人中心</span>
                               </a>
-                            </div>
-                            <div className="col-xs-4 sell">
-                              <img
-                                className="member"
-                                src="https://cdn-resources-aliyun.kjds.com/assets/sells/public_member-cb9c87ce661640304bfe54c9bc8fe96d.png"
-                                alt="Public member"
-                              />
-                              <span
-                                className="member-level-value"
-                                data-level="public_member"
-                              >
-                                免费会员
-                              </span>
                             </div>
                             <div className="col-xs-4 sell">
                               <a
@@ -119,10 +109,26 @@ export default class Topbar extends Component {
                                 data-method="get"
                                 href="/users/sign_out"
                               >
-                                <img
+                                {/*  <img
+                                className="member"
+                                src="https://cdn-resources-aliyun.kjds.com/assets/sells/public_member-cb9c87ce661640304bfe54c9bc8fe96d.png"
+                                alt="Public member"
+                              /> */}
+                                <span className="member-level-value">
+                                  免费会员
+                                </span>
+                              </a>
+                            </div>
+                            <div className="col-xs-4 sell">
+                              <a
+                                className="btn btn-primary btn-flat"
+                                data-method="get"
+                                href="/users/sign_out"
+                              >
+                                {/* <img
                                   src="https://cdn-resources-aliyun.kjds.com/assets/sells/icon_quit_button-6876dd1effa9db545f0d71c753d27bd9.png"
                                   alt="Icon quit button"
-                                />
+                                /> */}
                                 <span>退出</span>
                               </a>
                             </div>

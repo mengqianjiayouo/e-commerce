@@ -82,12 +82,12 @@ export default class Footer extends Component {
                 </ul>
               </div>
               <div className="help">
-                <h4>扫描关注</h4>
+                {/*  <h4>扫描关注</h4>
                 <ul>
                   <li>
                     <img src="https://pic.kjds.com/kjds.jpg" alt="Kjds" />
                   </li>
-                </ul>
+                </ul> */}
               </div>
               {/* <div className="bomb_Mask">
                 <div className="maskBg" />
@@ -96,7 +96,7 @@ export default class Footer extends Component {
                     <p>温馨提示</p>
                   </div>
                   <div className="middle">
-                    <p>如果您想成为越域平台供应商，请联系客服。</p>
+                    <p>如果您想成为闪质平台供应商，请联系客服。</p>
                   </div>
                   <button className="btn_okay">确定</button>
                 </div>
@@ -168,13 +168,8 @@ export default class Footer extends Component {
               </li>
             </ul>
             <div className="foot-record">
-              <p>版权所有：贝展曼妙（上海）网络科技有限公司</p>
-              <p>
-                <a href="http://www.miitbeian.gov.cn" target="blank">
-                  沪ICP备15016946号
-                </a>
-              </p>
-              <p>增值电信业务经营许可证：沪B2-20180141</p>
+              <p>版权所有：山西递八方科技有限公司</p>
+              {/* <p><a href="http://www.miitbeian.gov.cn"target="blank">沪ICP备15016946号 </a></p><p>增值电信业务经营许可证：沪B2-20180141</p> */}
             </div>
           </div>
         </footer>

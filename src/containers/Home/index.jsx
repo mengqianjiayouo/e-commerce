@@ -7,15 +7,18 @@ import GoodsList from "../../components/GoodsList/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
+import $ from "jquery";
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false
+      islogin: false,
+      classData: []
     };
   }
   componentDidMount() {
     this.checkIsLogin();
+    this.getPlatList();
   }
 
   checkIsLogin() {
@@ -30,15 +33,35 @@ class Home extends Component {
     this.props.dispatch({ type: "PLATCHANGE", plat: a });
   }
   showLogin() {}
-  render() {
-    const { islogin } = this.state;
-    // console.log(this.props.state);
+  /* 获取当前分类 */
+  getPlatList() {
+    $.ajax({
+      method: "get",
+      url: "http://118.25.155.176:8080/getCategory",
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      dataType: "json",
+      success: res => {
+        // console.log(res);
+        let data = res.data;
+        this.setState({
+          classData: data.data
+        });
+        // console.log($.cookie("csrftoken"));
+      }
+    });
+  }
 
+  render() {
+    const { islogin, classData } = this.state;
+    // console.log(this.props.state);
     return (
       <div className="home">
         {islogin ? (
           <div className="home_left">
-            <SideBar />
+            <SideBar {...this.props} />
           </div>
         ) : null}
 
@@ -57,8 +80,8 @@ class Home extends Component {
 
           <div className="main">
             <SearchBox {...this.props} />
-            <Banner />
-            <GoodsList />
+            <Banner classData={classData} {...this.props} />
+            <GoodsList {...this.props} />
           </div>
           <Footer />
         </div>

@@ -10,6 +10,10 @@
 @import 'b2c';
 @import 'product';
 @import 'orders';
+@import 'self';
+@import 'accounts';
+@import 'members';
+@import 'drap';
 
 html {
     * {
@@ -57,8 +61,8 @@ html {
         .btn-primary,
         .btn-primary:hover {
             color: #fff;
-            background-color: #339999;
-            border-color: #339999;
+            background-color: #f13c3c;
+            border-color: #f13c3c;
 
             &:focus {
                 box-shadow: none;
@@ -74,7 +78,7 @@ html {
     bottom: 25%;
     right: 0;
     z-index: 50;
-    background: rgba(51, 153, 153, 0.8);
+    background: rgba(241, 60, 60, 0.6);
 
     a {
         display: block;
@@ -128,15 +132,15 @@ html {
                 margin-left: -1px;
 
                 &:hover {
-                    background-color: #339999;
+                    background-color: #f13c3c;
                     color: #fff;
                 }
             }
 
             &.active {
                 a {
-                    background-color: #339999;
-                    border: 1px solid #339999;
+                    background-color: #f13c3c;
+                    border: 1px solid #f13c3c;
                     z-index: 0;
                     color: #fff;
                 }
