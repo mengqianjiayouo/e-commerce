@@ -29,6 +29,7 @@ class Details extends Component {
       shopName: "",
       price: "",
       calcountryList: [],
+      showRLeft: 0,
       goods: {
         product_id: 1,
         product_sku: "001-M-RD-T-002",
@@ -111,7 +112,8 @@ class Details extends Component {
       goods,
       smImgList,
       showImg,
-      left
+      left,
+      showRLeft
     } = this.state;
     if (showImg == "") {
       this.setState({
@@ -368,7 +370,7 @@ class Details extends Component {
                       <div className="each-sku num">
                         <div className="left">数量：</div>
                         <div className="right" id="spinner">
-                          <a
+                          <span
                             className="minus"
                             data-spin="down"
                             onClick={() => {
@@ -382,7 +384,7 @@ class Details extends Component {
                             }}
                           >
                             <i>-</i>
-                          </a>
+                          </span>
                           <input
                             className="buy-num"
                             data-rule="quantity"
@@ -398,7 +400,7 @@ class Details extends Component {
                               }
                             }}
                           />
-                          <a
+                          <span
                             className="add"
                             onClick={() => {
                               this.setState({
@@ -407,22 +409,13 @@ class Details extends Component {
                             }}
                           >
                             <i className="glyphicon glyphicon-plus">+</i>
-                          </a>
+                          </span>
                         </div>
                       </div>
                     </div>
                     <div className="pt-operate">
-                      <a
-                        className="add_shopping_cart"
-                        href="javascript:void(0);"
-                      >
-                        加入购物车
-                      </a>
+                      <span className="add_shopping_cart">加入购物车</span>
                       <div className="buy">立即下单</div>
-                      <a
-                        className="member-type"
-                        data-member-type="normal_member"
-                      />
                     </div>
                   </div>
                 </div>
@@ -775,19 +768,6 @@ class Details extends Component {
                           <p className="tip-overseas-product">
                             2.海外仓商品一般只支持仓库所在国本土配送。运费测算表格未显示的国家不能配送，请勿刊登。
                           </p>
-                          {/* <table>
-                            <thead>
-                              <tr>
-                                <th>物流公司</th>
-                                <th>物流方式</th>
-                                <th>目的国家</th>
-                                <th style={{ width: " 90px" }}>物流费用</th>
-                                <th>运输时间</th>
-                                <th style={{ width: " 90px" }}>备注</th>
-                              </tr>
-                            </thead>
-                            <tbody className="logistic-fee" />
-                          </table> */}
                         </div>
                       </li>
                     </ul>
@@ -796,13 +776,46 @@ class Details extends Component {
                 <div className="main-white-container similar-recommend">
                   <div className="container-name">相关推荐</div>
                   <div className="operate-btn left">
-                    <i className="glyphicon glyphicon-menu-left" />
+                    <i
+                      className="glyphicon glyphicon-menu-left"
+                      onClick={() => {
+                        if (showRLeft === 0) {
+                          this.setState({
+                            showRLeft: -1500
+                          });
+                        } else {
+                          this.setState({
+                            showRLeft: showRLeft + 250
+                          });
+                        }
+                      }}
+                    >
+                      &lt;
+                    </i>
                   </div>
                   <div className="operate-btn right">
-                    <i className="glyphicon glyphicon-menu-right" />
+                    <i
+                      className="glyphicon glyphicon-menu-right"
+                      onClick={() => {
+                        if (showRLeft === -1500) {
+                          this.setState({
+                            showRLeft: 0
+                          });
+                        } else {
+                          this.setState({
+                            showRLeft: showRLeft - 250
+                          });
+                        }
+                      }}
+                    >
+                      &gt;
+                    </i>
                   </div>
+
                   <div className="show-recommend">
-                    <ul style={{ width: " 1000%" }}>
+                    <ul
+                      style={{ width: " 1000%", marginLeft: showRLeft + "px" }}
+                    >
                       <li>
                         <div className="good-box">
                           <a target="blank" href="/sells/products/815131448592">
@@ -816,14 +829,13 @@ class Details extends Component {
                             Rack Organizer Shoe Storage
                           </div>
                           <div className="pt-price">&yen;101.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/815131448592/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -839,14 +851,13 @@ class Details extends Component {
                             Cabinet Organizer Rack Purple
                           </div>
                           <div className="pt-price">&yen;99.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/415132184427/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -862,14 +873,13 @@ class Details extends Component {
                             Wood Color
                           </div>
                           <div className="pt-price">&yen;125.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/215058738621/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -884,14 +894,14 @@ class Details extends Component {
                             Trendy Adjustable Bamboo Computer Desk Wood
                           </div>
                           <div className="pt-price">&yen;130.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/214980234032/detail_edit"
                             href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -907,14 +917,10 @@ class Details extends Component {
                             Wardrobe Gray
                           </div>
                           <div className="pt-price">&yen;130.00</div>
-                          <a
-                            className="publish"
-                            data-url="/sells/products/214985485758/detail_edit"
-                            href="javascript:void(0);"
-                          >
+                          <span className="publish">
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -930,14 +936,13 @@ class Details extends Component {
                             Cabinet Wine Red
                           </div>
                           <div className="pt-price">&yen;91.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/514985449714/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -953,14 +958,13 @@ class Details extends Component {
                             Wardrobe Dark Blue
                           </div>
                           <div className="pt-price">&yen;140.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/414985446677/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -975,14 +979,13 @@ class Details extends Component {
                             Concise 12-Batten 4 Tiers Bamboo Shoe Rack Wood
                           </div>
                           <div className="pt-price">&yen;132.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/114980245857/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -997,14 +1000,13 @@ class Details extends Component {
                             53cm Trendy Adjustable Bamboo Computer Desk
                           </div>
                           <div className="pt-price">&yen;133.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/814980267865/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                       <li>
@@ -1020,14 +1022,13 @@ class Details extends Component {
                             Massage Bed Chair Salon Equipment
                           </div>
                           <div className="pt-price">&yen;1097.00</div>
-                          <a
+                          <span
                             className="publish"
                             data-url="/sells/products/515029331618/detail_edit"
-                            href="javascript:void(0);"
                           >
                             <i className="glyphicon glyphicon-edit" />
                             立即刊登
-                          </a>
+                          </span>
                         </div>
                       </li>
                     </ul>

@@ -376,7 +376,13 @@ class Orders extends Component {
                         </td>
                         <td>{Orderstatus[a.order_status]}</td>
                         <td>{a.platform}</td>
-                        <td> - </td>
+                        <td>
+                          <Button style={{ marginRight: "10px" }}>
+                            一键发货
+                          </Button>
+
+                          <Button>自行发货</Button>
+                        </td>
                       </tr>
                     );
                   })}

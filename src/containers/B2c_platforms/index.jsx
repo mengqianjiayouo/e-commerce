@@ -22,7 +22,7 @@ class B2c_platforms extends Component {
       },
       amazon: {
         store_name: "",
-        nick_name: "",
+        // nick_name: "",
         site: "BR",
         seller_id: "",
         token: "",
@@ -121,14 +121,19 @@ class B2c_platforms extends Component {
       $.ajax({
         method: "post",
         url: "http://118.25.155.176:8080/authSave",
-        xhrFields: {
+        /* xhrFields: {
           withCredentials: true
         },
-        crossDomain: true,
+        crossDomain: true, */
         data: { ...amazon, platform },
         dataType: "json",
         success: res => {
           console.log(res);
+          if (res.state === 1) {
+            this.setState({
+              show: false
+            });
+          }
           /* let data = res.data;
         this.setState({
           data
@@ -155,20 +160,46 @@ class B2c_platforms extends Component {
     $.ajax({
       method: "get",
       url: "http://118.25.155.176:8080/auth",
-      xhrFields: {
+      /*  xhrFields: {
         withCredentials: true
       },
-      crossDomain: true,
+      crossDomain: true, */
       data: { page: 1, pageSize: 20 },
       dataType: "json",
-      success: res => {
+      error: err => {
+        console.log(err);
+      },
+      success: (res, status, xhr) => {
         if (res.state === 1) {
-          let data = res.data;
           if (res.data && res.data.data) {
             this.setState({
               amazoonData: res.data.data
             });
           }
+        }
+
+        // console.log($.cookie("csrftoken"));
+      }
+    });
+  }
+  onAuthCheck(usa_id) {
+    $.ajax({
+      method: "post",
+      url: "http://118.25.155.176:8080/authCheck",
+      /*  xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true, */
+      data: { auth_id: usa_id },
+      dataType: "json",
+      error: err => {
+        console.log(err);
+      },
+      success: res => {
+        console.log(res);
+
+        if (res.state === 1) {
+          this.getAmazonData();
         }
 
         // console.log($.cookie("csrftoken"));
@@ -229,10 +260,9 @@ class B2c_platforms extends Component {
               <thead>
                 <tr>
                   <th>店铺名称</th>
-                  <th>别名</th>
                   <th>操作时间</th>
                   <th>状态</th>
-                  <th>API状态</th>
+                  <th>国家</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -240,12 +270,19 @@ class B2c_platforms extends Component {
                 {amazoonData.map((a, b) => {
                   return (
                     <tr key={b}>
-                      <td> - </td>
-                      <td> - </td>
-                      <td>{a.usa_update_time}</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
+                      <td> {a.store_name} </td>
+                      <td>{`添加时间${a.usa_add_time}`}</td>
+                      <td>{a.usa_auth_status === 0 ? "未授权" : "已授权"}</td>
+                      <td>{country[a.usa_region]}</td>
+                      <td>
+                        <Button
+                          onClick={() => {
+                            this.onAuthCheck(a.usa_id);
+                          }}
+                        >
+                          检测
+                        </Button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -389,7 +426,7 @@ class B2c_platforms extends Component {
                     <span className="note">请输入店铺名称</span>
                   ) : null}
                 </li>
-                <li>
+                {/*  <li>
                   <p>别名:账号名缩写:2-3位的别名，将用于系统中的简要展现。</p>
                   <input
                     type="text"
@@ -399,7 +436,7 @@ class B2c_platforms extends Component {
                       this.changeAccount("amazon", "nick_name", e.target.value);
                     }}
                   />
-                </li>
+                </li> */}
                 <li>
                   <p>卖家编号:请确保填写正确,否则无法绑定账号。</p>
                   <input

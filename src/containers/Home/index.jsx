@@ -38,10 +38,10 @@ class Home extends Component {
     $.ajax({
       method: "get",
       url: "http://118.25.155.176:8080/getCategory",
-      xhrFields: {
+      /* xhrFields: {
         withCredentials: true
       },
-      crossDomain: true,
+      crossDomain: true, */
       dataType: "json",
       success: res => {
         // console.log(res);

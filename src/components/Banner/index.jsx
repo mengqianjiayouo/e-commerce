@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import $ from "jquery";
 import { Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
 export default class Banner extends Component {
   constructor(props) {
     super(props);
@@ -56,30 +57,30 @@ export default class Banner extends Component {
     return (
       <div className="category_box">
         <div className="banner_warehouse">
-          <a className="banner_color" href="#">
+          <Link className="banner_color" to="#">
             新品 &nbsp;&nbsp;
-          </a>
-          <a className="banner_color" href="#">
+          </Link>
+          <Link className="banner_color" to="#">
             热卖 &nbsp;&nbsp;
-          </a>
-          <a className="banner_color" href="#">
+          </Link>
+          <Link className="banner_color" to="#">
             美国仓 &nbsp;&nbsp;
-          </a>
-          <a className="banner_color" href="#">
+          </Link>
+          <Link className="banner_color" to="#">
             澳大利亚仓 &nbsp;&nbsp;
-          </a>
-          <a className="banner_color" href="#">
+          </Link>
+          <Link className="banner_color" to="#">
             阿联酋仓 &nbsp;&nbsp;
-          </a>
-          <a className="banner_color" href="#">
+          </Link>
+          <Link className="banner_color" to="#">
             中国香港仓 &nbsp;&nbsp;
-          </a>
+          </Link>
         </div>
         <ul className="category">
-          <a className="all-category" href="#">
+          <Link className="all-category" to="#">
             所有分类
             <span className="glyphicon glyphicon-chevron-right" />
-          </a>
+          </Link>
           {level1Ary.map((a, b) => {
             return (
               <li className="each_category" key={b}>
@@ -92,7 +93,7 @@ export default class Banner extends Component {
                 <a href="/sells/homes/search?product_category_id1=36592&amp;b2c_platform_id=27">
                   {a.pc_name}
                 </a>
-                {level2Ary[b].length > 1 ? (
+                {level2Ary[b].length > 0 ? (
                   <div className="category_detail" style={{ display: "none" }}>
                     {level2Ary[b].map((c, d) => {
                       return (
@@ -114,7 +115,7 @@ export default class Banner extends Component {
           })}
         </ul>
         <div className="right_banner">
-          <Carousel style={{ marginTop: "50px" }}>
+          <Carousel style={{ marginTop: "50px" }} interval={3000}>
             <Carousel.Item>
               <img src={require("../../images/1.jpg")} alt="" />
             </Carousel.Item>

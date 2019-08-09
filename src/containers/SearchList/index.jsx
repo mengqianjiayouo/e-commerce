@@ -125,10 +125,10 @@ class SearchList extends Component {
     $.ajax({
       method: "get",
       url: "http://118.25.155.176:8080/place",
-      xhrFields: {
+      /* xhrFields: {
         withCredentials: true
       },
-      crossDomain: true,
+      crossDomain: true, */
       data: { page, pageSize },
       dataType: "json",
       success: res => {

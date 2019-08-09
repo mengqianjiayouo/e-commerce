@@ -68,6 +68,11 @@ html {
                 box-shadow: none;
             }
         }
+
+        .table-bordered th,
+        .table-bordered td {
+            text-align: center;
+        }
     }
 }
 
@@ -87,7 +92,7 @@ html {
         font-size: 12px;
         text-align: center;
         color: #fff !important;
-        background: url(https://cdn-resources-aliyun.kjds.com/assets/right_sidebar_pic-a3eb315….png) no-repeat 5px 3px/50px 100px;
+        // background: url(https://cdn-resources-aliyun.kjds.com/assets/right_sidebar_pic-a3eb315….png) no-repeat 5px 3px/50px 100px;
     }
 
     .back_top {
