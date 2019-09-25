@@ -1,67 +1,81 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
-import { Row, Col, Table, Button, Dropdown } from "react-bootstrap";
+import { Table, Select, Button, Input } from "antd";
 import DatePicker from "react-datepicker";
 
 class Payment_records extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       platform: "",
       setStartDate: "",
       setEndDate: "",
       site: "",
       accoutnId: "",
-      order_num: ""
+      order_num: "",
+      data: []
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-  }
+  componentDidMount() {}
 
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
   getData() {}
   showLogin() {}
   render() {
-    const { islogin, platform, site, accoutnId, order_num } = this.state;
+    const { platform, site, accoutnId, order_num, data } = this.state;
     // console.log(this.props.state);
-
+    const columns = [
+      {
+        title: "下单时间",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "1"
+      },
+      {
+        title: "付款时间",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "2"
+      },
+      {
+        title: "订单号",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "3"
+      },
+      {
+        title: "订单金额",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "4"
+      },
+      {
+        title: "平台",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "5"
+      },
+      {
+        title: "账号",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "6"
+      },
+      {
+        title: "站点",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "7"
+      },
+      {
+        title: "操作",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "8"
+      }
+    ];
     return (
       <div className="home orders">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <div className="header">
               <span>付款记录</span>
@@ -73,63 +87,45 @@ class Payment_records extends Component {
               >
                 <li className="item">
                   <div className="title">平台</div>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {platform === "" ? "全部" : platform}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            platform: "Action"
-                          });
-                        }}
-                      >
-                        Action
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Select
+                    value={platform ? platform : "全部"}
+                    style={{ width: "200px" }}
+                    onChange={val => {
+                      this.setState({
+                        platform: val
+                      });
+                    }}
+                  >
+                    <Select.Option value="1">1</Select.Option>
+                  </Select>
                 </li>
                 <li className="item">
                   <div className="title">账号</div>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {accoutnId === "" ? "全部" : accoutnId}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            accoutnId: "Action"
-                          });
-                        }}
-                      >
-                        Action
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Select
+                    value={accoutnId ? accoutnId : "全部"}
+                    style={{ width: "200px" }}
+                    onChange={val => {
+                      this.setState({
+                        accoutnId: val
+                      });
+                    }}
+                  >
+                    <Select.Option value="1">1</Select.Option>
+                  </Select>
                 </li>
                 <li className="item ">
                   <div className="title">站点</div>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success">
-                      {site === "" ? "全部" : site}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            site: "Action"
-                          });
-                        }}
-                      >
-                        account
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Select
+                    value={site ? site : "全部"}
+                    style={{ width: "200px" }}
+                    onChange={val => {
+                      this.setState({
+                        site: val
+                      });
+                    }}
+                  >
+                    <Select.Option value="1">1</Select.Option>
+                  </Select>
                 </li>
               </ul>
               <ul
@@ -138,8 +134,9 @@ class Payment_records extends Component {
               >
                 <li className="item ">
                   <div className="title">订单号</div>
-                  <input
+                  <Input
                     type="text"
+                    style={{ width: "200px" }}
                     value={order_num}
                     placeholder="精准查询"
                     onChange={e => {
@@ -150,40 +147,14 @@ class Payment_records extends Component {
                   />
                 </li>
                 <li className="btns">
-                  <Button>开始查询</Button>
+                  <Button type="primary">开始查询</Button>
                 </li>
               </ul>
             </div>
             <div className="table">
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>下单时间</th>
-                    <th>付款时间</th>
-                    <th>订单号</th>
-                    <th>订单金额</th>
-                    <th>平台</th>
-                    <th>账号</th>
-                    <th>站点</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <Table columns={columns} dataSource={data} pagination={false} />
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

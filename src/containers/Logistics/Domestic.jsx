@@ -1,18 +1,12 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
-import { Row, Col, Table, Button, Dropdown } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-
+import { Table, Button, Select, Input } from "antd";
+const { Option } = Select;
 class Domestic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
-
+      data: [],
       width: "",
       weight: "",
       country: "",
@@ -20,48 +14,48 @@ class Domestic extends Component {
       height: ""
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-  }
+  componentDidMount() {}
 
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
   getData() {}
   showLogin() {}
   render() {
-    const { islogin, weight, country, long, width, height } = this.state;
+    const { weight, country, long, width, height, data } = this.state;
     // console.log(this.props.state);
-
+    const columns = [
+      {
+        title: "国家",
+        dataIndex: "1",
+        key: 1,
+        align: "center"
+      },
+      {
+        title: "价格",
+        dataIndex: "2",
+        key: 2,
+        align: "center"
+      },
+      {
+        title: "时间",
+        dataIndex: "3",
+        key: 3,
+        align: "center"
+      },
+      {
+        title: "是否签收",
+        dataIndex: "4",
+        key: 4,
+        align: "center"
+      },
+      {
+        title: "服务商",
+        dataIndex: "5",
+        key: 5,
+        align: "center"
+      }
+    ];
     return (
       <div className="home orders">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <div className="header">
               <span>国内物流查询</span>
@@ -73,9 +67,11 @@ class Domestic extends Component {
               >
                 <li className="item">
                   <div className="title">长</div>
-                  <input
+                  <Input
                     type="text"
                     value={long}
+                    style={{ width: "70%" }}
+                    placeholder="单位cm"
                     onChange={e => {
                       this.setState({
                         long: e.target.value
@@ -85,9 +81,11 @@ class Domestic extends Component {
                 </li>
                 <li className="item">
                   <div className="title">宽</div>
-                  <input
+                  <Input
                     type="text"
                     value={width}
+                    style={{ width: "70%" }}
+                    placeholder="单位cm"
                     onChange={e => {
                       this.setState({
                         width: e.target.value
@@ -97,9 +95,11 @@ class Domestic extends Component {
                 </li>
                 <li className="item">
                   <div className="title">高</div>
-                  <input
+                  <Input
                     type="text"
                     value={height}
+                    style={{ width: "70%" }}
+                    placeholder="单位cm"
                     onChange={e => {
                       this.setState({
                         height: e.target.value
@@ -114,29 +114,25 @@ class Domestic extends Component {
               >
                 <li className="item">
                   <div className="title">国家</div>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {country === "" ? "全部" : country}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            country: "Action"
-                          });
-                        }}
-                      >
-                        Action
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Select
+                    value={country === "" ? "全部" : country}
+                    style={{ width: "200px" }}
+                    onChange={val => {
+                      this.setState({
+                        country: val
+                      });
+                    }}
+                  >
+                    <Option value="1">1</Option>
+                  </Select>
                 </li>
                 <li className="item">
                   <div className="title">重量</div>
-                  <input
+                  <Input
                     type="text"
                     value={weight}
+                    style={{ width: "70%" }}
+                    placeholder="单位g"
                     onChange={e => {
                       this.setState({
                         weight: e.target.value
@@ -146,33 +142,13 @@ class Domestic extends Component {
                 </li>
               </ul>
               <div className="btns">
-                <Button>开始查询</Button>
+                <Button type="primary">开始查询</Button>
               </div>
             </div>
             <div className="table">
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>国家</th>
-                    <th>价格</th>
-                    <th>时间</th>
-                    <th>是否签收</th>
-                    <th>服务商</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <Table columns={columns} dataSource={data} />
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

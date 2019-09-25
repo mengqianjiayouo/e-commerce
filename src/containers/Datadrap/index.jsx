@@ -1,103 +1,201 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
-import { Row, Col, Table, Button, Dropdown } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Table,
+  Button,
+  Dropdown,
+  Select,
+  Menu,
+  Input,
+  Drawer
+} from "antd";
+import DetailEdit from "../Products/DetailEdit/index";
+const { Option } = Select;
 const drapTypes = {
   all: "全部",
   url: "产品网址"
 };
+const mockData = [
+  {
+    product_sku: "001-M-RD-T-002",
+    origin: "",
+    detail: "",
+    product_sales_value: "0.00",
+    product_add_time: "2019-07-30 14:28:38",
+
+    product_id: 1,
+    customer_id: 1,
+    product_title_en: "turn_light-middle-RED-T\u578b-\u5b9d\u9a6cA",
+    product_title:
+      "\u8f6c\u5411\u706f-\u4e2d\u7801[M]-\u7ea2\u8272[RD]-T\u578b[T]-\u5b9d\u9a6c-CBR1000-2008[002]",
+    product_status: 1,
+    sale_status: 1,
+    hs_code: "0",
+    currency_code: "USD",
+    pu_code: "001",
+    product_length: "10.00",
+    product_width: "10.00",
+    product_height: "10.00",
+    product_net_weight: "0.500",
+    product_weight: "0.000",
+    product_purchase_value: "1.0000",
+    product_declared_value: "2.00",
+    product_is_combination: 0,
+    product_barcode_type: 0,
+    pc_id: 0,
+    pc_attr: 0,
+    product_update_time: "0000-00-00 00:00:00",
+    contain_battery: 0,
+    prl_id: 0,
+    parent_product_id: 0,
+    seller_id: 0,
+    fbo_tax_rate: 0,
+    exp_date: 0,
+    warehouse_barcode: "",
+    gross_rofit: 0,
+    tax_rate: 0,
+    default_warehouse_id: null,
+    product_declaration_statement: "",
+    product_specs: "",
+    prt_id: 0
+  }
+];
 class Datadrap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       origin: "",
       country: "",
-      data: [{}],
+      data: [],
       drapType: "all",
-      isSaveProdut: "all"
+      isSaveProdut: "all",
+      loading: false,
+      editData: {},
+      drawVisible: false
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-  }
-
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
+  componentDidMount() {}
+  getData() {
+    this.setState({
+      loading: true
+    });
+    setTimeout(() => {
       this.setState({
-        islogin: true
+        data: mockData,
+        loading: false
       });
-    }
+    }, 500);
   }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
-  getData() {}
   showLogin() {}
   render() {
-    const { islogin, origin, drapType, data, isSaveProdut } = this.state;
-    // console.log(this.props.state);
-
+    const {
+      origin,
+      drapType,
+      data,
+      isSaveProdut,
+      loading,
+      drawVisible,
+      editData
+    } = this.state;
+    let that = this;
+    const columns = [
+      {
+        title: "产品SKU",
+        dataIndex: "product_sku",
+        key: "product_sku",
+        align: "center"
+      },
+      {
+        title: "来源",
+        dataIndex: "origin",
+        key: "origin",
+        align: "center"
+      },
+      {
+        title: "产品明细",
+        dataIndex: "detail",
+        key: "detail",
+        align: "center"
+      },
+      {
+        title: "售价",
+        dataIndex: "product_sales_value",
+        key: "product_sales_value",
+        align: "center"
+      },
+      {
+        title: "采集链接/货源链接",
+        dataIndex: "5",
+        key: 5,
+        align: "center"
+      },
+      {
+        title: "时间",
+        dataIndex: "product_add_time",
+        key: "product_add_time",
+        align: "center"
+      },
+      {
+        title: "操作",
+        dataIndex: "7",
+        key: 7,
+        align: "center",
+        render(a, item) {
+          return (
+            <Button
+              onClick={() => {
+                that.setState(
+                  {
+                    editData: item
+                  },
+                  () => {
+                    that.setState({
+                      drawVisible: true
+                    });
+                  }
+                );
+              }}
+            >
+              编辑
+            </Button>
+          );
+        }
+      }
+    ];
     return (
       <div className="home orders drap">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <div className="header">
-              <span>数据采集</span>
+              <span>添加产品</span>
             </div>
             <div className="search">
-              <Row>
-                <Col sm={2}>
+              <Row className="row">
+                <Col span={4}>
                   <div className="title">来源：</div>
                 </Col>
-                <Col sm={6} className="input">
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {origin === "" ? "全部" : origin}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            origin: "Action"
-                          });
-                        }}
-                      >
-                        来源1
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                <Col span={12} className="input">
+                  <Select
+                    value={origin === "" ? "全部" : origin}
+                    style={{ width: "200px" }}
+                    onChange={val => {
+                      this.setState({
+                        origin: val
+                      });
+                    }}
+                  >
+                    <Option value="1">1</Option>
+                  </Select>
                 </Col>
               </Row>
 
-              <Row>
-                <Col sm={2}>
+              <Row className="row">
+                <Col span={4}>
                   <div className="title">采集方式：</div>
                 </Col>
-                <Col sm={6}>
+                <Col span={12}>
                   {Object.keys(drapTypes).map((a, b) => {
                     return (
                       <div
@@ -117,11 +215,19 @@ class Datadrap extends Component {
                   })}
                 </Col>
               </Row>
-              <Row>
-                <Col sm={2}>
+              <Row className="row">
+                <Col span={4}>
+                  <div className="title" />
+                </Col>
+                <Col span={12}>
+                  <Input placeholder="请输入采集链接" />
+                </Col>
+              </Row>
+              <Row className="row">
+                <Col span={4}>
                   <div className="title">已保存为产品：</div>
                 </Col>
-                <Col sm={6}>
+                <Col span={12}>
                   <div
                     className={
                       isSaveProdut === "all" ? "active drap_item" : "drap_item"
@@ -160,59 +266,47 @@ class Datadrap extends Component {
                   </div>
                 </Col>
               </Row>
-              <Row className="btns">
-                <Col sm={2} />
-                <Col sm={6}>
-                  <Button>开始查询</Button>
+              <Row className="btns row">
+                <Col span={4} />
+                <Col span={12}>
+                  <Button
+                    style={{ marginRight: "15px" }}
+                    type="primary"
+                    onClick={() => {
+                      this.getData();
+                    }}
+                  >
+                    开始查询
+                  </Button>
                   <Button>产品采集</Button>
                 </Col>
               </Row>
             </div>
             <div className="table">
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>产品SKU</th>
-                    <th>来源</th>
-                    <th>产品明细</th>
-                    <th>售价</th>
-                    <th>采集链接/货源链接</th>
-                    <th>时间</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((a, b) => {
-                    return (
-                      <tr key={b}>
-                        <td>- </td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                          <Dropdown>
-                            <Dropdown.Toggle variant="success">
-                              操作
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                              <Dropdown.Item onClick={() => {}}>
-                                操作1
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <Table columns={columns} dataSource={data} loading={loading} />
             </div>
           </div>
-          <Footer />
         </div>
+        <Drawer
+          title="商品编辑"
+          width={800}
+          height="100%"
+          onClose={() => {
+            this.setState({
+              drawVisible: false
+            });
+          }}
+          visible={drawVisible}
+        >
+          <DetailEdit
+            data={editData}
+            onCancel={() => {
+              this.setState({
+                drawVisible: false
+              });
+            }}
+          />
+        </Drawer>
       </div>
     );
   }

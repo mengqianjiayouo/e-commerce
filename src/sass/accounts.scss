@@ -6,11 +6,11 @@
         margin-bottom: 20px;
         align-items: center;
 
-        .mid.col-sm-4 {
+        .mid.ant-col-8 {
             padding: 0 2px;
         }
 
-        .col-sm-4 {
+        .ant-col-8 {
             padding: 0;
             height: 45px;
 
@@ -56,7 +56,7 @@
             right: 20px;
             line-height: 32px;
             width: 100px;
-            border-radius: 3px;
+            border-radius: 4px;
             color: #333;
             background-color: #ffcc33;
             text-align: center;
@@ -74,7 +74,8 @@
     .form {
         padding: 40px 20px;
 
-        .row {
+        .row,
+        .ant-row {
             height: 40px;
             margin-bottom: 30px;
 
@@ -93,12 +94,14 @@
 
             .recharge {
 
-                .btn.btn-primary {
+                .btn.btn-primary,
+                .ant-btn {
                     background-color: #fff;
                     color: #f13c3c;
                     height: 32px;
                     line-height: 20px;
                     margin-left: 20px;
+                    border-color: #f13c3c;
 
                     &:hover {
                         background-color: #f13c3c;
@@ -109,7 +112,9 @@
             }
 
             .submit_btns {
-                .btn {
+
+                .btn,
+                .ant-btn {
                     height: 32px;
                     line-height: 20px;
                     margin-right: 40px;
@@ -123,7 +128,7 @@
 
         }
 
-        .col-sm-2 {
+        .ant-col-4 {
             text-align: right;
         }
     }

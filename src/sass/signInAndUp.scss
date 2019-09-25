@@ -69,7 +69,7 @@
 }
 
 #new_user {
-    width: 75%;
+    width: 750px;
     margin: 5% auto;
     padding: 9% 10%;
     border-radius: 10px;
@@ -133,7 +133,7 @@
         padding: 0 20px;
         font-size: 1em;
         border: none;
-        border-radius: 3px;
+        border-radius: 4px;
     }
 
     .forget_password {
@@ -153,9 +153,10 @@
         font-weight: 500;
         color: #fff;
         border: none;
-        border-radius: 3px;
+        border-radius: 4px;
         background: #339b99;
-        text-align: center
+        text-align: center;
+        cursor: pointer;
     }
 
     .bottom_notes {
@@ -182,6 +183,8 @@
     position: absolute;
     right: 10px;
     top: 16px;
+    width: 14px;
+    height: 14px;
     font-size: 20px;
     color: #000;
     cursor: pointer;

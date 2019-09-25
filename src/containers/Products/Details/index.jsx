@@ -1,28 +1,25 @@
 import React, { Component } from "react";
-import Topbar from "../../../components/Topbar/index";
-import ReturnTop from "../../../components/ReturnTop/index";
-import Footer from "../../../components/Footer/index";
-import SideBar from "../../../components/SideBar/index";
 import { connect } from "react-redux";
-import { Modal, Dropdown, Button, Row, Col, Carousel } from "react-bootstrap";
 import countryList from "../../../utils/detail_country.js";
+import { Select, Input, Modal, Drawer, Row, Col } from "antd";
+import DetailEdit from ".././DetailEdit/index";
+const Option = Select.Option;
 const hotCountry = [
-  16526,
-  16512,
-  16528,
-  16511,
-  16506,
-  16514,
-  16525,
-  16520,
-  16518,
-  16510
+  "16526",
+  "16512",
+  "16528",
+  "16511",
+  "16506",
+  "16514",
+  "16525",
+  "16520",
+  "16518",
+  "16510"
 ];
 class Details extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       number: 1,
       currentShow: 0,
       show: false,
@@ -82,27 +79,14 @@ class Details extends Component {
         "https://pic.kjds.com/uploads/product_image/picture_url/266291/thumb_500_500_a11333efdb7f69ebd22107c5a01fc7a5.jpg"
       ],
       showImg: "",
-      left: 35
+      left: 35,
+      drawVisible: false
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-    console.log();
-  }
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
+  componentDidMount() {}
+
   render() {
     const {
-      islogin,
       number,
       currentShow,
       show,
@@ -122,24 +106,7 @@ class Details extends Component {
     }
     return (
       <div className="home detail">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <div className="hide-top-tip" id="top_tips_container_publish">
               <div className="gb_hintbar">
@@ -341,9 +308,12 @@ class Details extends Component {
                             className="publish "
                             style={{ marginLeft: "10px" }}
                             onClick={() => {
-                              this.props.history.push(
+                              /* this.props.history.push(
                                 "/sells/products/615644704232/detail_edit"
-                              );
+                              ); */
+                              this.setState({
+                                drawVisible: true
+                              });
                             }}
                           >
                             产品编辑
@@ -385,10 +355,9 @@ class Details extends Component {
                           >
                             <i>-</i>
                           </span>
-                          <input
+                          <Input
                             className="buy-num"
-                            data-rule="quantity"
-                            type="text"
+                            type="number"
                             value={number}
                             onChange={e => {
                               if (number < 1) {
@@ -501,7 +470,7 @@ class Details extends Component {
                             <span>您也可以联系在线客服，开通会员。</span>
                             <a
                               className="qq-talk-btn"
-                              href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzgwMDE4NzA1NV80NzY0OTNfODAwMTg3MDU1XzJf"
+                              href="https://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzgwMDE4NzA1NV80NzY0OTNfODAwMTg3MDU1XzJf"
                               target="blank"
                             >
                               {/* <img
@@ -575,124 +544,149 @@ class Details extends Component {
                       >
                         <div className="calculate">
                           <div className="product-number">
-                            <Row>
-                              <Col sm={6}>
-                                <label>货号(SKU):</label>
-                                <Dropdown>
-                                  <Dropdown.Toggle variant="success">
-                                    {goods.product_sku}
-                                  </Dropdown.Toggle>
-
-                                  <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">
-                                      Action
-                                    </Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">
-                                      Another action
-                                    </Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">
-                                      Something else
-                                    </Dropdown.Item>
-                                  </Dropdown.Menu>
-                                </Dropdown>
+                            <Row className="row ">
+                              <Col span={12}>
+                                <Row>
+                                  <Col span={4}>
+                                    <span>货号(SKU):</span>
+                                  </Col>
+                                  <Col span={20}>
+                                    <Select
+                                      style={{ width: "400px" }}
+                                      value={goods.product_sku}
+                                      onChange={val => {
+                                        this.setState({
+                                          goods: {
+                                            ...goods,
+                                            product_sku: val
+                                          }
+                                        });
+                                      }}
+                                    >
+                                      <Option value="1">1</Option>
+                                    </Select>
+                                  </Col>
+                                </Row>
                               </Col>
-                              <Col sm={6}>
-                                <label>数量:</label>
-                                <input
-                                  type="text"
-                                  onChange={a => {}}
-                                  value="1"
-                                />
+                              <Col span={12}>
+                                <Row>
+                                  <Col span={4}>
+                                    <span>数量:</span>
+                                  </Col>
+                                  <Col span={20}>
+                                    <Input
+                                      type="number"
+                                      onChange={a => {}}
+                                      value="1"
+                                    />
+                                  </Col>
+                                </Row>
                               </Col>
                             </Row>
                           </div>
-                          <Row className="store-size">
-                            <Col sm={6}>
-                              <label>仓库:</label>
-                              <Dropdown>
-                                <Dropdown.Toggle variant="success">
-                                  {goods.default_warehouse_id}
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                  <Dropdown.Item href="#/action-1">
-                                    美国ZT美西洛杉矶仓
-                                  </Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown>
+                          <Row className="row store-size">
+                            <Col span={12}>
+                              <Row>
+                                <Col span={4}>
+                                  <span>仓库:</span>
+                                </Col>
+                                <Col span={20}>
+                                  <Select
+                                    value={goods.default_warehouse_id}
+                                    style={{ width: "400px" }}
+                                    onChange={val => {
+                                      this.setState({
+                                        goods: {
+                                          ...goods,
+                                          default_warehouse_id: val
+                                        }
+                                      });
+                                    }}
+                                  >
+                                    <Option value="US">
+                                      {" "}
+                                      美国ZT美西洛杉矶仓
+                                    </Option>
+                                  </Select>
+                                </Col>
+                              </Row>
                             </Col>
-                            <Col sm={6}>
-                              <p className="product_detail">
-                                <span className="size">包装尺寸:</span>
-                                <span data-bind='text: logistic_variant().package_length + "cm"'>
-                                  {goods.product_length}cm
-                                </span>
-                                <span data-bind='text: logistic_variant().package_width + "cm"'>
-                                  {goods.product_width}cm
-                                </span>
-                                <span
-                                  className="size-end"
-                                  data-bind='text: logistic_variant().package_height + "cm"'
-                                >
-                                  {goods.product_height}cm
-                                </span>
-                                <span className="weight">物流毛重:</span>
-                                <span
-                                  className="weight-end"
-                                  data-bind="text: logistic_variant().weight + logistic_variant().weight_unit"
-                                >
-                                  {goods.product_weight}
-                                </span>
-                              </p>
-                              <span className="daynumber">预计发货时间:</span>
-                              <span className="daynumber-end">2天</span>
+                            <Col span={12}>
+                              <div className="product_detail">
+                                <Row>
+                                  <Col span={4}>
+                                    <span className="size">包装尺寸:</span>
+                                  </Col>
+                                  <Col span={20}>
+                                    {" "}
+                                    <span data-bind='text: logistic_variant().package_length + "cm"'>
+                                      {goods.product_length}cm
+                                    </span>
+                                    <span data-bind='text: logistic_variant().package_width + "cm"'>
+                                      {goods.product_width}cm
+                                    </span>
+                                    <span
+                                      className="size-end"
+                                      data-bind='text: logistic_variant().package_height + "cm"'
+                                    >
+                                      {goods.product_height}cm
+                                    </span>
+                                    <span className="weight">物流毛重:</span>
+                                    <span
+                                      className="weight-end"
+                                      data-bind="text: logistic_variant().weight + logistic_variant().weight_unit"
+                                    >
+                                      {goods.product_weight}
+                                    </span>
+                                  </Col>
+                                </Row>
+                              </div>
                             </Col>
                           </Row>
                           <Row className="row country_boxs">
-                            <Col sm={6}>
-                              <label className="pull-left tip">目的国家:</label>
-                              <Dropdown>
-                                <Dropdown.Toggle variant="success">
-                                  请选择
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                  {countryList.map((a, b) => {
-                                    let checked = calcountryList.indexOf(
-                                      countryList[b][0]
-                                    );
-                                    return (
-                                      <Dropdown.Item key={b}>
-                                        <input
-                                          type="checkbox"
-                                          onClick={() => {
-                                            if (checked) {
-                                              let ary = calcountryList.filter(
-                                                a => {
-                                                  return (
-                                                    a !== countryList[b][0]
-                                                  );
-                                                }
-                                              );
-                                              this.setState({
-                                                calcountryList: ary
-                                              });
-                                            } else {
-                                              calcountryList.push(
-                                                countryList[b][0]
-                                              );
-                                              this.setState({
-                                                calcountryList
-                                              });
-                                            }
-                                          }}
-                                        />
-                                        {countryList[b][1]}
-                                      </Dropdown.Item>
-                                    );
-                                  })}
-                                </Dropdown.Menu>
-                              </Dropdown>
+                            <Col span={12}>
+                              <Row>
+                                <Col span={4}>
+                                  <span className="pull-left tip">
+                                    目的国家:
+                                  </span>
+                                </Col>
+                                <Col span={20}>
+                                  <Select
+                                    mode="tags"
+                                    style={{ width: "400px" }}
+                                    value={calcountryList}
+                                    onChange={val => {
+                                      this.setState({
+                                        calcountryList: val
+                                      });
+                                    }}
+                                  >
+                                    {countryList.map((a, b) => {
+                                      return (
+                                        <Option
+                                          value={countryList[b][0] + ""}
+                                          key={b}
+                                        >
+                                          {countryList[b][1]}
+                                        </Option>
+                                      );
+                                    })}
+                                  </Select>
+                                </Col>
+                              </Row>
+                            </Col>
+                            <Col span={12}>
+                              <Row>
+                                <Col span={4}>
+                                  <span className="daynumber">
+                                    预计发货时间:
+                                  </span>
+                                </Col>
+                                <Col span={20}>
+                                  <span className="daynumber-end">2天</span>
+                                </Col>
+                              </Row>
                             </Col>
                           </Row>
                           <div>
@@ -731,7 +725,7 @@ class Details extends Component {
                                   {countryList.map((a, b) => {
                                     if (
                                       calcountryList.indexOf(
-                                        countryList[b][0]
+                                        countryList[b][0] + ""
                                       ) !== -1
                                     ) {
                                       return (
@@ -740,7 +734,8 @@ class Details extends Component {
                                           <span
                                             onClick={() => {
                                               let ary = calcountryList.filter(
-                                                a => a !== countryList[b][0]
+                                                a =>
+                                                  a !== countryList[b][0] + ""
                                               );
                                               this.setState({
                                                 calcountryList: ary
@@ -1038,68 +1033,69 @@ class Details extends Component {
             </div>
           </div>
           <Modal
-            show={show}
-            onHide={() => {
+            visible={show}
+            onCancel={() => {
               this.setState({
                 show: false
               });
             }}
-            dialogClassName="detail_modal"
-            aria-labelledby="example-custom-modal-styling-title"
+            onOk={() => {
+              this.setState({
+                show: false
+              });
+            }}
+            cancelText="取消"
+            className="detail_modal"
+            title="立即刊登"
           >
-            <Modal.Header closeButton>
-              <Modal.Title id="example-custom-modal-styling-title">
-                立即刊登
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <ul>
-                <li>
-                  价格：
-                  <input
-                    type="number"
-                    value={price}
-                    onChange={e => {
-                      this.setState({ price: e.target.value });
-                    }}
-                  />
-                </li>
-                <li className="shopChose">
-                  {" "}
-                  店铺：
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {shopName}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            shopName: "店铺名字1"
-                          });
-                        }}
-                      >
-                        店铺名字1
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </li>
-              </ul>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                onClick={() =>
-                  this.setState({
-                    show: false
-                  })
-                }
-              >
-                确定
-              </Button>
-            </Modal.Footer>
+            <ul>
+              <li style={{ paddingLeft: "40px" }}>
+                价格：
+                <Input
+                  type="number"
+                  style={{ width: "300px" }}
+                  value={price}
+                  onChange={e => {
+                    this.setState({ price: e.target.value });
+                  }}
+                />
+              </li>
+              <li className="shopChose" style={{ paddingLeft: "40px" }}>
+                店铺：
+                <Select
+                  style={{ width: "300px" }}
+                  value={shopName}
+                  onChange={val => {
+                    this.setState({
+                      shopName: val
+                    });
+                  }}
+                >
+                  <Option value="1">店铺名字1</Option>
+                </Select>
+              </li>
+            </ul>
           </Modal>
-          <Footer />
+          <Drawer
+            title="商品编辑"
+            width={800}
+            height="100%"
+            onClose={() => {
+              this.setState({
+                drawVisible: false
+              });
+            }}
+            visible={this.state.drawVisible}
+          >
+            <DetailEdit
+              data={goods}
+              onCancel={() => {
+                this.setState({
+                  drawVisible: false
+                });
+              }}
+            />
+          </Drawer>
         </div>
       </div>
     );

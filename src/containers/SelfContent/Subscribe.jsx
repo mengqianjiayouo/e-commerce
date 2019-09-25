@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
-import { Row, Col, Table, Button, Dropdown } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-
+import { Row, Col, Button, Select } from "antd";
+const { Option } = Select;
 class Subscribe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       address: "",
       contact: "",
       phone: "",
@@ -19,21 +13,8 @@ class Subscribe extends Component {
       isEdit: false
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-  }
+  componentDidMount() {}
 
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
   getData() {}
   showLogin() {}
   classAdd(name) {
@@ -46,122 +27,56 @@ class Subscribe extends Component {
     });
   }
   render() {
-    let { islogin, class1, class2, subScribeAry, isEdit } = this.state;
+    let { class1, class2, subScribeAry, isEdit } = this.state;
     // console.log(this.props.state);
 
     return (
       <div className="home self">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main subscribe">
             <div className="header">热销和新品订阅</div>
             <div className="top">
-              <Row>
-                <Col sm={3}>
+              <Row className="row">
+                <Col span={6}>
                   <div>已订阅品类</div>
                 </Col>
-                <Col sm={9}>
+                <Col span={18}>
                   <p style={{ color: "#f13c3c" }}>
                     温馨提示：每周一次为您推送热销商品和新品，默认推荐您注册时所选择的主营品类，您可以自行修改订阅类目。
                   </p>
                 </Col>
               </Row>
-              <Row className="content">
-                <Col sm={2}>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {class1 || "一级分类"}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            class1: "分类1"
-                          });
-                        }}
-                      >
-                        分类1
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            class1: "分类2"
-                          });
-                        }}
-                      >
-                        分类2
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            class1: "分类3"
-                          });
-                        }}
-                      >
-                        分类3
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+              <Row className="content row">
+                <Col span={4}>
+                  <Select
+                    defaultValue="一级分类"
+                    style={{ width: "100%" }}
+                    onChange={val => {
+                      this.setState({
+                        class1: val
+                      });
+                    }}
+                  >
+                    <Option value="分类1">分类1</Option>
+                  </Select>
                 </Col>
-                <Col sm={2}>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {class2 || "二级分类"}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            class2: "分类1"
-                          });
-                          this.classAdd("分类1");
-                        }}
-                      >
-                        分类1
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            class2: "分类2"
-                          });
-                          this.classAdd("分类2");
-                        }}
-                      >
-                        分类2
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => {
-                          this.setState({
-                            class2: "分类3"
-                          });
-                          this.classAdd("分类3");
-                        }}
-                      >
-                        分类3
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                <Col span={4}>
+                  <Select
+                    defaultValue="二级分类"
+                    style={{ width: "100%" }}
+                    onChange={val => {
+                      this.setState({
+                        class1: val
+                      });
+                      this.classAdd(val);
+                    }}
+                  >
+                    <Option value="分类1">分类1</Option>
+                    <Option value="分类2">分类2</Option>
+                    <Option value="分类3">分类3</Option>
+                  </Select>
                 </Col>
-                <Col sm={6} className="class_content">
+                <Col span={12} className="class_content">
                   {subScribeAry.map((a, b) => {
                     return (
                       <div style={{ display: "inline-block" }} key={b}>
@@ -182,7 +97,7 @@ class Subscribe extends Component {
                     );
                   })}
                 </Col>
-                <Col sm={2}>* 已选分类</Col>
+                <Col span={4}>* 已选分类</Col>
               </Row>
               <div style={{ textAlign: "right" }}>
                 <Button>取消订阅</Button>
@@ -192,14 +107,14 @@ class Subscribe extends Component {
               <p>邮箱地址</p>
               <div className="content">
                 <Row>
-                  <Col sm={4}>
+                  <Col span={8}>
                     <input
                       type="email"
                       className="email_input"
                       disabled={!this.state.isEdit}
                     />
                   </Col>
-                  <Col sm={8} className="action">
+                  <Col span={16} className="action">
                     <span
                       onClick={() => {
                         this.setState({
@@ -228,7 +143,6 @@ class Subscribe extends Component {
               </div>
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

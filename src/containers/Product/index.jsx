@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
-import { Row, Col, Dropdown, Button, Table } from "react-bootstrap";
+import { Row, Col, Button, Table, Input, Select } from "antd";
 import DatePicker from "react-datepicker";
+const { Option } = Select;
 class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       startDate: "",
       endDate: "",
       platId: "",
@@ -18,21 +14,8 @@ class Product extends Component {
       zhandianId: ""
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-  }
+  componentDidMount() {}
 
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
   showLogin() {}
   handleChange(a, date) {
     this.setState({
@@ -40,55 +23,183 @@ class Product extends Component {
     });
   }
   render() {
-    const { islogin, platId, accountId, zhandianId } = this.state;
+    const { platId, accountId, zhandianId, data } = this.state;
     // console.log(this.props.state);
 
+    const columns = [
+      {
+        title: "商品图片",
+        dataIndex: "1",
+        align: "center",
+        key: "1",
+        width: 100
+      },
+      {
+        title: "商品编码",
+        dataIndex: "2",
+        align: "center",
+        key: "2",
+        width: 100
+      },
+      {
+        title: "父货号",
+        dataIndex: "3",
+        align: "center",
+        key: "3",
+        width: 100
+      },
+      {
+        title: "闪质大卖商品状态",
+        dataIndex: "4",
+        align: "center",
+        key: "4",
+        width: 200
+      },
+      {
+        title: "闪质大卖最近下架时间",
+        dataIndex: "5",
+        align: "center",
+        key: "5",
+        width: 200
+      },
+      {
+        title: "刊登时间",
+        dataIndex: "6",
+        align: "center",
+        key: "6",
+        width: 100
+      },
+      {
+        title: "刊登标题",
+        dataIndex: "7",
+        align: "center",
+        key: "7",
+        width: 100
+      },
+      {
+        title: "店铺下架时间",
+        dataIndex: "8",
+        align: "center",
+        key: "8",
+        width: 100
+      },
+      {
+        title: "仓库类型",
+        dataIndex: "9",
+        align: "center",
+        key: "9",
+        width: 100
+      },
+      {
+        title: "仓库所在国家",
+        dataIndex: "10",
+        align: "center",
+        key: "10",
+        width: 100
+      },
+      {
+        title: "仓库名称",
+        dataIndex: "11",
+        align: "center",
+        key: "11",
+        width: 100
+      },
+      {
+        title: "风险产品",
+        dataIndex: "12",
+        align: "center",
+        key: "12",
+        width: 100
+      },
+      {
+        title: "风险产品",
+        dataIndex: "12",
+        align: "center",
+        key: "12",
+        width: 100
+      },
+      {
+        title: "特殊属性",
+        dataIndex: "13",
+        align: "center",
+        key: "13",
+        width: 100
+      },
+      {
+        title: "刊登平台",
+        dataIndex: "14",
+        align: "center",
+        key: "14",
+        width: 100
+      },
+      {
+        title: "刊登账号",
+        dataIndex: "15",
+        align: "center",
+        key: "15",
+        width: 100
+      },
+      {
+        title: "刊登站点",
+        dataIndex: "16",
+        align: "center",
+        key: "16",
+        width: 100
+      },
+      {
+        title: "店铺状态",
+        dataIndex: "17",
+        align: "center",
+        key: "17",
+        width: 100
+      },
+      {
+        title: "Relisted",
+        dataIndex: "18",
+        align: "center",
+        key: "18",
+        width: 100
+      },
+
+      {
+        title: "操作",
+        dataIndex: "action",
+        align: "center",
+        key: "action",
+        width: 140,
+        render: () => {
+          return <div>操作</div>;
+        }
+      }
+    ];
     return (
       <div className="home product">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <div className="search">
               <Row className="row_1">
-                <Col>
+                <Col span={12}>
                   <Row>
-                    <Col sm={3}>刊登标题：</Col>
-                    <Col sm={9}>
-                      <input type="text" />
+                    <Col span={6}>刊登标题：</Col>
+                    <Col span={18}>
+                      <Input type="text" />
                     </Col>
                   </Row>
                 </Col>
-                <Col>
+                <Col span={12}>
                   <Row>
-                    <Col sm={3}>刊登货号：</Col>
-                    <Col sm={9}>
-                      <input type="text" />
+                    <Col span={6}>刊登货号：</Col>
+                    <Col span={18}>
+                      <Input type="text" />
                     </Col>
                   </Row>
                 </Col>
               </Row>
               <Row className="row_1">
-                <Col>
+                <Col span={12}>
                   <Row>
-                    <Col sm={3}>刊登商品时间：</Col>
-                    <Col sm={9}>
+                    <Col span={6}>刊登商品时间：</Col>
+                    <Col span={18}>
                       <DatePicker
                         selected={this.state.startDate}
                         onChange={b => this.changDate("startDate", b)}
@@ -101,121 +212,65 @@ class Product extends Component {
                     </Col>
                   </Row>
                 </Col>
-                <Col>
+                <Col span={12}>
                   <Row>
-                    <Col sm={3}>刊登平台:</Col>
-                    <Col sm={9}>
-                      <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          {platId == "" ? "请选择平台" : platId}
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                          <Dropdown.Item
-                            onClick={() => {
+                    <Col span={6}>刊登平台:</Col>
+                    <Col span={18}>
+                      <Row>
+                        <Col span={8}>
+                          <Select
+                            defaultValue="请选择平台"
+                            style={{ width: "100%" }}
+                            onChange={val => {
                               this.setState({
-                                platId: "else"
+                                platId: val
                               });
                             }}
                           >
-                            else
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                      <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          {accountId == "" ? "请选择账号" : accountId}
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                          <Dropdown.Item
-                            onClick={() => {
+                            <Option value="平台1">平台1</Option>
+                          </Select>
+                        </Col>
+                        <Col span={8}>
+                          <Select
+                            defaultValue="请选择账号"
+                            style={{ width: "100%" }}
+                            onChange={val => {
                               this.setState({
-                                accountId: "Something else"
+                                accountId: val
                               });
                             }}
                           >
-                            Someth
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                      <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          {zhandianId == "" ? "请选择平台" : zhandianId}
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                          <Dropdown.Item
-                            onClick={() => {
+                            <Option value="平台1">平台1</Option>
+                          </Select>
+                        </Col>
+                        <Col span={8}>
+                          <Select
+                            defaultValue="请选择站点"
+                            style={{ width: "100%" }}
+                            onChange={val => {
                               this.setState({
-                                zhandianId: "123"
+                                zhandianId: val
                               });
                             }}
                           >
-                            123
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                            <Option value="平台1">平台1</Option>
+                          </Select>
+                        </Col>
+                      </Row>
                     </Col>
                   </Row>
                 </Col>
               </Row>
               <div>
-                <Button style={{ marginLeft: 0 }}>开始查询</Button>
+                <Button type="primary" style={{ marginLeft: 0 }}>
+                  开始查询
+                </Button>
               </div>
             </div>
             <div style={{ width: "1180px", overflowX: "scroll" }}>
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>商品图片</th>
-                    <th>商品编码 </th>
-                    <th>父货号</th>
-                    <th>闪质大卖商品状态</th>
-                    <th>闪质大卖最近下架时间</th>
-                    <th>刊登时间</th>
-                    <th>刊登标题</th>
-                    <th>店铺下架时间</th>
-                    <th>仓库类型</th>
-                    <th>仓库所在国家</th>
-                    <th>仓库名称</th>
-                    <th>风险产品</th>
-                    <th>特殊属性</th>
-                    <th>刊登平台</th>
-                    <th>刊登账号</th>
-                    <th>刊登站点</th>
-                    <th>店铺状态</th>
-                    <th>Relisted</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <Table columns={columns} dataSource={data} scroll={{ x: 2600 }} />
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

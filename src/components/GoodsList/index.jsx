@@ -19,7 +19,6 @@ export default class GoodsList extends Component {
               target="_blank"
             >
               <img
-                data-original="https://pic.kjds.com/uploads/recommend_tag/icon/171/u_3894658039_3404587229_fm_26_gp_0.jpg"
                 src="https://pic.kjds.com/uploads/recommend_tag/icon/171/u_3894658039_3404587229_fm_26_gp_0.jpg"
                 alt="Default"
                 style={{ display: "inline" }}
@@ -39,11 +38,9 @@ export default class GoodsList extends Component {
                       pathname: "/sells/products/415620468008"
                     });
                   }}
-                  title="2xD1C D1S D1R 8000K Ice Blue HID Xenon Headlight Light Bulb Replace Hi/Low Lamp"
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673170/thumb_500_500_e99dbe32b90713ac3fedce57f33d7c37.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673170/thumb_500_500_e99dbe32b90713ac3fedce57f33d7c37.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -69,7 +66,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673631/thumb_500_500_56d70976a9b7fcd7781088804d8d0453.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673631/thumb_500_500_56d70976a9b7fcd7781088804d8d0453.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -95,7 +91,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673669/thumb_500_500_559e25fa2194c8225b496065b99da82b.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673669/thumb_500_500_559e25fa2194c8225b496065b99da82b.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -121,7 +116,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/674508/thumb_500_500_86fb00fb08071f64340e62a8fa0c84a7.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/674508/thumb_500_500_86fb00fb08071f64340e62a8fa0c84a7.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -148,7 +142,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673261/thumb_500_500_2caad0d0d482fddf66ee31b2b6c93250.png-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673261/thumb_500_500_2caad0d0d482fddf66ee31b2b6c93250.png-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -174,7 +167,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673395/thumb_500_500_ee93d8e1dd6fb2bdf0eb948cc7246f42.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673395/thumb_500_500_ee93d8e1dd6fb2bdf0eb948cc7246f42.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -200,7 +192,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673193/thumb_500_500_5a9b0459c3470d37ad45725ff7367cb8.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673193/thumb_500_500_5a9b0459c3470d37ad45725ff7367cb8.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -226,7 +217,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673489/thumb_500_500_eda5f7f5d5cef14c41fe0be3da23ba14.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673489/thumb_500_500_eda5f7f5d5cef14c41fe0be3da23ba14.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -252,7 +242,6 @@ export default class GoodsList extends Component {
               target="_blank"
             >
               <img
-                data-original="https://pic.kjds.com/uploads/recommend_tag/icon/171/u_3894658039_3404587229_fm_26_gp_0.jpg"
                 src="https://pic.kjds.com/uploads/recommend_tag/icon/171/u_3894658039_3404587229_fm_26_gp_0.jpg"
                 alt="Default"
                 style={{ display: "inline" }}
@@ -276,7 +265,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673170/thumb_500_500_e99dbe32b90713ac3fedce57f33d7c37.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673170/thumb_500_500_e99dbe32b90713ac3fedce57f33d7c37.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -302,7 +290,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673631/thumb_500_500_56d70976a9b7fcd7781088804d8d0453.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673631/thumb_500_500_56d70976a9b7fcd7781088804d8d0453.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -324,11 +311,9 @@ export default class GoodsList extends Component {
                       pathname: "/sells/products/415620468008"
                     });
                   }}
-                  title="Waterproof Adjustable Dog Collar No Anti-Bark Train Stop Barking Spray Control"
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673669/thumb_500_500_559e25fa2194c8225b496065b99da82b.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673669/thumb_500_500_559e25fa2194c8225b496065b99da82b.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -354,7 +339,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/674508/thumb_500_500_86fb00fb08071f64340e62a8fa0c84a7.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/674508/thumb_500_500_86fb00fb08071f64340e62a8fa0c84a7.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -381,7 +365,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673261/thumb_500_500_2caad0d0d482fddf66ee31b2b6c93250.png-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673261/thumb_500_500_2caad0d0d482fddf66ee31b2b6c93250.png-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -407,7 +390,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673395/thumb_500_500_ee93d8e1dd6fb2bdf0eb948cc7246f42.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673395/thumb_500_500_ee93d8e1dd6fb2bdf0eb948cc7246f42.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -433,7 +415,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673193/thumb_500_500_5a9b0459c3470d37ad45725ff7367cb8.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673193/thumb_500_500_5a9b0459c3470d37ad45725ff7367cb8.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}
@@ -459,7 +440,6 @@ export default class GoodsList extends Component {
                 >
                   <div className="each_box">
                     <img
-                      data-original="https://pic.kjds.com/uploads/product_image/picture_url/673489/thumb_500_500_eda5f7f5d5cef14c41fe0be3da23ba14.jpg-PIC400x400"
                       src="https://pic.kjds.com/uploads/product_image/picture_url/673489/thumb_500_500_eda5f7f5d5cef14c41fe0be3da23ba14.jpg-PIC400x400"
                       alt="Default"
                       style={{ display: "inline" }}

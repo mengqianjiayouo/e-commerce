@@ -323,6 +323,15 @@ module.exports = function(webpackEnv) {
             // smaller than specified limit in bytes as data URLs to avoid requests.
             // A missing `test` is equivalent to a match.
             {
+              test: /\.bundle\.js$/,
+              use: {
+                loader: "bundle-loader",
+                options: {
+                  name: "e-commerce"
+                }
+              }
+            },
+            {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
               loader: require.resolve("url-loader"),
               options: {
@@ -351,7 +360,8 @@ module.exports = function(webpackEnv) {
                         }
                       }
                     }
-                  ]
+                  ],
+                  ["import", { libraryName: "antd", style: true }]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -450,6 +460,36 @@ module.exports = function(webpackEnv) {
                 },
                 "sass-loader"
               )
+            },
+            {
+              test: /\.less$/,
+              use: [
+                {
+                  loader: "style-loader"
+                },
+                {
+                  loader: "css-loader" // translates CSS into CommonJS
+                },
+                {
+                  loader: "less-loader", // compiles Less to CSS
+                  options: {
+                    modifyVars: {
+                      "btn-primary-bg": "#f13c3c",
+                      "tabs-card-active-color": "#f13c3c",
+                      "tabs-ink-bar-color": "#f13c3c",
+                      "tabs-active-color": "#f13c3c",
+                      "tabs-highlight-color": "#f13c3c",
+                      "tabs-hover-color": "#ff6e69",
+                      "link-color": "#f13c3c",
+                      "border-radius-base": "4px",
+                      "btn-height-base": "32px"
+                      // or
+                    },
+                    javascriptEnabled: true
+                  }
+                }
+              ]
+              // ...other rules
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.

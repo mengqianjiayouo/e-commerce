@@ -3,6 +3,10 @@
         background: #ffffff;
         margin-top: 50px;
 
+        .ant-col {
+            padding: 0 15px;
+        }
+
         .header {
             padding: 0;
             text-align: center;
@@ -16,7 +20,7 @@
         }
 
         .member_charge {
-            .btn {
+            .ant-btn {
                 margin-right: 20px;
                 background-color: #fff;
                 color: #f13c3c;
@@ -24,6 +28,7 @@
                 &:hover,
                 &.current {
                     background-color: #f13c3c;
+                    border-color: #f13c3c;
                     color: #fff;
                 }
             }
@@ -35,11 +40,18 @@
                 height: 40px;
                 line-height: 40px;
 
-                .col-sm-3 {
+                .col-sm-3,
+                .ant-col-6 {
                     text-align: right;
+
                 }
 
-                .btn {
+                .ant-col-6,
+                .ant-col-18 {
+                    padding: 0 15px;
+                }
+
+                .ant-btn {
                     margin-right: 50px;
                     border: 1px solid #ffcc33;
                     background-color: #ffcc33;
@@ -52,7 +64,7 @@
                 }
 
                 &.free_member {
-                    .btn {
+                    .ant-btn {
 
 
                         &.active {
@@ -72,7 +84,11 @@
     }
 }
 
-.member_modal.modal {
+.member_modal.ant-modal-wrap {
+    .ant-modal-close-x {
+        display: none;
+    }
+
     .head {
         background-color: #f13c3c;
         text-align: center;
@@ -93,7 +109,7 @@
         margin-top: 20px;
         text-align: center;
 
-        .btn {
+        .ant-btn {
             width: 100px;
             height: 32px;
             line-height: 20px;

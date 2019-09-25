@@ -15,7 +15,7 @@ import "swiper/dist/css/swiper.min.css";
 import "react-datepicker/dist/react-datepicker.css";
 import Reducer from "./reducers";
 
-import App from "./App";
+import Root from "./Routers";
 import * as serviceWorker from "./serviceWorker";
 const persistConfig = {
   key: "root",
@@ -29,7 +29,7 @@ const persistor = persistStore(store);
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <Root />
     </PersistGate>
   </Provider>,
   document.getElementById("root")

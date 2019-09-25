@@ -55,8 +55,7 @@
 }
 
 .b2c_modal {
-    width: 700px !important;
-    max-width: 700px !important;
+
 
     .note {
         min-height: 20px;
@@ -146,6 +145,59 @@
                     }
                 }
             }
+        }
+    }
+}
+
+.pagination {
+    span {
+        display: inline-block;
+        padding: 0 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 0 4px;
+        cursor: pointer;
+        height: 30px;
+        line-height: 30px;
+
+        &:hover,
+        &.active {
+            color: #f13c3c;
+            border-color: #f13c3c;
+        }
+
+        &.disable {
+            color: #ccc;
+            cursor: no-drop;
+
+            &:hover {
+                border-color: #ccc;
+                color: #ccc;
+            }
+        }
+    }
+
+    .dropdown {
+        margin: 0 4px;
+
+        .dropdown-toggle {
+            height: 30px;
+            line-height: 18px;
+            background-color: #fff !important;
+            color: #333 !important;
+            border-color: #ccc;
+            border-radius: 4px;
+            width: 60px;
+
+            &:focus {
+                box-shadow: none !important;
+                border-color: #ccc !important;
+            }
+        }
+
+        .dropdown-menu.show {
+            width: 60px;
+            min-width: 60px;
         }
     }
 }

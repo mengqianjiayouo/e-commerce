@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import $ from "jquery";
 export default class SignIn extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ export default class SignIn extends Component {
       return;
     }
     sessionStorage.setItem("user", true);
-    this.props.history.push("/");
+    window.location.href = "/";
   }
   render() {
     const { nameError, wordError, name, password } = this.state;
@@ -61,14 +62,9 @@ export default class SignIn extends Component {
               name="authenticity_token"
               value="kw6OrGSuzjcyTD4u5N+N5ivlNQdSNxW5SX0Ast4E5F/KHgjBIlmgErh6nQKpCkiHWQDzaH/TzfkoggybfG+EiA=="
             />
-            <a
-              className="login_back"
-              href="../index/index.html"
-              data-dismiss="modal"
-            />
             <img
               className="logo"
-              src="../../e-commerce/images/logo.png"
+              src={require("../../images/logo.png")}
               alt="Logo white"
             />
             <p>欢迎登录</p>
@@ -130,14 +126,7 @@ export default class SignIn extends Component {
             </div>
             <div className="bottom_notes sign_up">
               还没账户?
-              <a
-                href="#"
-                onClick={() => {
-                  this.props.history.push("/signup");
-                }}
-              >
-                去注册!
-              </a>
+              <Link to="/signup">前往注册!</Link>
             </div>
           </form>
         </div>

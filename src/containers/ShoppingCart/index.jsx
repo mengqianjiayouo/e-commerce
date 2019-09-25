@@ -1,41 +1,11 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
-import { Row, Col, Table, Button, Dropdown } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-const Orderstatus = {
-  0: "删除",
-  1: "草稿",
-  2: "确认",
-  3: "异常",
-  4: "已提交",
-  5: "已打印",
-  6: "已下架",
-  7: "已打包",
-  8: "已装袋",
-  9: "装袋完成",
-  10: "已加挂",
-  11: "物流完成",
-  12: "物流发货",
-  13: "已签收"
-};
+import { Table, Button } from "antd";
+
 class ShoppingCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
-      platform: "",
-      setStartDate: "",
-      setEndDate: "",
-      account: "",
-      site: "",
-      accountType: "订单编号",
-      logists: "",
-      country: "",
-      orderType: 0,
       data: [
         {
           order_id: 1,
@@ -67,148 +37,141 @@ class ShoppingCart extends Component {
           site_id: "",
           seller_id: "1",
           sync_count: 0,
-          sync_express_ship: 0
+          sync_express_ship: 0,
+          key: 1
         }
       ]
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-  }
+  componentDidMount() {}
 
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
   getData() {}
   showLogin() {}
   render() {
-    const {
-      islogin,
-      platform,
-      account,
-      site,
-      accountType,
-      logists,
-      orderType,
-      country,
-      data
-    } = this.state;
+    const { data } = this.state;
+    let that = this;
     // console.log(this.props.state);
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(
+          `selectedRowKeys: ${selectedRowKeys}`,
+          "selectedRows: ",
+          selectedRows
+        );
+      },
+      getCheckboxProps: record => ({})
+    };
 
+    const columns = [
+      {
+        title: "商品",
+        dataIndex: "order_platform_code",
+        align: "center",
+        key: "order_platform_code"
+      },
+      {
+        title: "单价",
+        dataIndex: "parcel_declared_value",
+        align: "center",
+        key: "parcel_declared_value"
+      },
+      {
+        title: "数量",
+        dataIndex: "",
+        align: "center",
+        key: "",
+        render(a, record, b) {
+          return (
+            <div>
+              <span
+                className="mins"
+                style={{
+                  display: "inlineBlock",
+                  background: "#ccc",
+                  color: "#fff",
+                  cursor: "pointer",
+                  padding: " 0 5px",
+                  margin: " 0 9px"
+                }}
+                onClick={() => {
+                  if (a.parcel_quantity <= 1) {
+                    return;
+                  } else {
+                    data[b].parcel_quantity = a.parcel_quantity - 1;
+                    that.setState({
+                      data
+                    });
+                  }
+                }}
+              >
+                -
+              </span>
+              {a.parcel_quantity}
+              <span
+                className="add"
+                style={{
+                  display: "inlineBlock",
+                  background: "#ccc",
+                  color: "#fff",
+                  cursor: "pointer",
+                  padding: " 0 5px",
+                  margin: " 0 9px"
+                }}
+                onClick={() => {
+                  data[b].parcel_quantity = a.parcel_quantity + 1;
+                  that.setState({
+                    data
+                  });
+                }}
+              >
+                +
+              </span>
+            </div>
+          );
+        }
+      },
+      {
+        title: "金额",
+        align: "center",
+        key: "money",
+        render(a) {
+          return `¥ ${a.parcel_quantity * a.parcel_declared_value}`;
+        }
+      },
+      {
+        title: "平台",
+        dataIndex: "platform",
+        align: "center",
+        key: "platform"
+      },
+      {
+        title: "操作",
+        align: "center",
+        key: "action",
+        render(a) {
+          return <span>删除</span>;
+        }
+      }
+    ];
     return (
       <div className="home orders">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <div className="header">
               <span>我的购物车</span>
             </div>
             <div className="plats" style={{ padding: "  20px" }}>
-              <Button style={{ marginRight: "40px" }}>Amazon</Button>
-              <Button>Shopee</Button>
+              <Button style={{ marginRight: "40px" }} type="primary">
+                Amazon
+              </Button>
+              <Button type="primary">Shopee</Button>
             </div>
             <div className="table">
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>
-                      <input type="checkbox" />
-                    </th>
-                    <th>商品</th>
-                    <th>单价 </th>
-                    <th>数量 </th>
-                    <th> 金额</th>
-                    <th>平台</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((a, b) => {
-                    return (
-                      <tr key={b}>
-                        <td>
-                          <input type="checkbox" />
-                        </td>
-                        <td>{a.order_platform_code}</td>
-                        <td>{a.parcel_declared_value}</td>
-                        <td>
-                          <span
-                            className="mins"
-                            style={{
-                              display: "inlineBlock",
-                              background: "#ccc",
-                              color: "#fff",
-                              cursor: "pointer",
-                              padding: " 0 5px",
-                              margin: " 0 9px"
-                            }}
-                            onClick={() => {
-                              if (a.parcel_quantity <= 1) {
-                                return;
-                              } else {
-                                data[b].parcel_quantity = a.parcel_quantity - 1;
-                                this.setState({
-                                  data
-                                });
-                              }
-                            }}
-                          >
-                            -
-                          </span>
-                          {a.parcel_quantity}
-                          <span
-                            className="add"
-                            style={{
-                              display: "inlineBlock",
-                              background: "#ccc",
-                              color: "#fff",
-                              cursor: "pointer",
-                              padding: " 0 5px",
-                              margin: " 0 9px"
-                            }}
-                            onClick={() => {
-                              data[b].parcel_quantity = a.parcel_quantity + 1;
-                              this.setState({
-                                data
-                              });
-                            }}
-                          >
-                            +
-                          </span>
-                        </td>
-                        <td>¥{a.parcel_quantity * a.parcel_declared_value}</td>
-                        <td>{a.platform}</td>
-                        <td> 删除</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <Table
+                rowSelection={rowSelection}
+                columns={columns}
+                dataSource={data}
+              />
             </div>
             <div
               className="bom"
@@ -219,15 +182,16 @@ class ShoppingCart extends Component {
               }}
             >
               <div>
-                <Button>删除</Button>
+                <Button type="primary">删除</Button>
               </div>
               <div>
                 去结算合计(不含运费和订单处理费)：￥0.00
-                <Button style={{ marginLeft: 40 }}>去结算</Button>
+                <Button type="primary" style={{ marginLeft: 40 }}>
+                  去结算
+                </Button>
               </div>
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

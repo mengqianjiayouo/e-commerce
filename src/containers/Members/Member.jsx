@@ -1,37 +1,20 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Row, Col, Table, Button, Dropdown, Modal } from "react-bootstrap";
+import { Row, Col, Table, Button, Modal } from "antd";
 
 class Members extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       recharge_money: "",
       isFreeMember: true,
-      show: false
+      show: false,
+      data: []
     };
   }
-  componentDidMount() {
-    this.checkIsLogin();
-  }
+  componentDidMount() {}
 
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
-  }
   getData() {}
   showLogin() {}
   handleClose() {
@@ -40,38 +23,20 @@ class Members extends Component {
     });
   }
   render() {
-    const { islogin, isFreeMember, show } = this.state;
+    const { isFreeMember, show, data } = this.state;
     // console.log(this.props.state);
 
     return (
       <div className="home members">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <div className="header">我的会员</div>
             <div className="content">
-              <Row className="free_member">
-                <Col sm={3}>我的会员级别：</Col>
+              <Row className="free_member row">
+                <Col span={6}>我的会员级别：</Col>
 
                 {isFreeMember ? (
-                  <Col sm={9}>
+                  <Col span={18}>
                     <Button className="active">免费会员</Button>
                     <Button>
                       <Link to="/sells/members/subscription" target="_blank">
@@ -80,20 +45,20 @@ class Members extends Component {
                     </Button>
                   </Col>
                 ) : (
-                  <Col sm={9}>
+                  <Col span={18}>
                     <Button className="active">普通会员</Button>
                   </Col>
                 )}
               </Row>
-              <Row>
-                <Col sm={3}>会员权限：</Col>
-                <Col sm={9}>
+              <Row className="row">
+                <Col span={6}>会员权限：</Col>
+                <Col span={18}>
                   <Button>查看会员权限</Button>
                 </Col>
               </Row>
-              <Row>
-                <Col sm={3}>购买记录：</Col>
-                <Col sm={9}>
+              <Row className="row">
+                <Col span={6}>购买记录：</Col>
+                <Col span={18}>
                   <Button
                     onClick={() => {
                       this.setState({
@@ -108,41 +73,44 @@ class Members extends Component {
             </div>
           </div>
           <Modal
-            show={show}
-            onHide={this.handleClose.bind(this)}
-            className="member_modal"
+            visible={show}
+            onCancel={this.handleClose.bind(this)}
+            wrapClassName="member_modal"
+            footer={null}
           >
-            <Modal.Body>
+            <div>
               <div className="head">购买记录</div>
               <div className="record">
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>日期</th>
-                      <th>购买途径 </th>
-                      <th>金额</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>time</td>
-                      <td>from</td>
-                      <td>money</td>
-                    </tr>
-                  </tbody>
-                </Table>
+                <Table
+                  dataSource={data}
+                  closable={false}
+                  columns={[
+                    {
+                      title: "日期",
+                      dataIndex: "1",
+                      key: 1,
+                      align: "center"
+                    },
+                    {
+                      title: "购买途径",
+                      dataIndex: "2",
+                      key: 2,
+                      align: "center"
+                    },
+                    {
+                      title: "金额",
+                      dataIndex: "3",
+                      key: 3,
+                      align: "center"
+                    }
+                  ]}
+                />
               </div>
-              <div className="footer">
-                <Button
-                  variant="secondary"
-                  onClick={this.handleClose.bind(this)}
-                >
-                  关闭
-                </Button>
+              <div style={{ textAlign: "center", marginTop: "15px" }}>
+                <Button onClick={this.handleClose.bind(this)}>关闭</Button>
               </div>
-            </Modal.Body>
+            </div>
           </Modal>
-          <Footer />
         </div>
       </div>
     );

@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import user_icon from "../../images/sidebar_users.png";
+import member_icon from "../../images/sidebar_members.png";
+import logisitcs_icon from "../../images/sidebar_logistics.png";
+import datagrap_icon from "../../images/sidebar_datagrap.png";
+import file_icon from "../../images/sidebar_file.png";
+import financial_icon from "../../images/sidebar_financial.png";
+import move_icon from "../../images/sidebar_move.png";
+import analysis_icon from "../../images/sidebar_analysis.png";
+import order_icon from "../../images/sidebar_order.png";
+import study_online_icon from "../../images/study_online.png";
+import authorize_icon from "../../images/sidebar_authorize.png";
+import email_icon from "../../images/email.png";
+import $ from "jquery";
 export default class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = { h: "" };
   }
-  componentDidMount() {
-    let h = document.body.clientHeight;
-    this.setState({ h: h + 371 });
-  }
+  componentDidMount() {}
   render() {
     return (
       <div>
-        <nav className="left_sidebar" style={{ height: this.state.h }}>
+        <nav className="left_sidebar">
           <div className="left_bar_close" />
           <div className="logo-container">
             <a href="/">
@@ -22,11 +32,8 @@ export default class SideBar extends Component {
           </div>
           <div className="option-box hover-box">
             <Link to="/sells/users">
+              <img src={user_icon} alt="User default avatar" />
               个人中心
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/user_default_avatar-4e570b12afe281b3e0cee7b2079e8abc.png"
-                alt="User default avatar"
-              /> */}
             </Link>
 
             <div className="hide-box">
@@ -36,29 +43,19 @@ export default class SideBar extends Component {
               <div className="each-item">
                 <Link to="/sells/changePass">修改密码</Link>
               </div>
-
-              <div className="each-item">
-                <Link to="/sells/users/subscribe">我的订阅</Link>
-              </div>
             </div>
           </div>
           <div className="option-box hover-box">
             <Link to="/sells/members">
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/member_icon-954804cff28697bdf9dae6fc05f81426.png"
-                alt="Member icon"
-              /> */}
+              <img src={member_icon} alt="Member icon" />
               <div className="name">我的会员</div>
             </Link>
           </div>
           <div className="option-box hover-box">
-            <a>
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon10-5c2866878238693b4f1598fc2a3af3e8.png"
-                alt="Icon10"
-              /> */}
+            <div>
+              <img src={authorize_icon} alt="Icon10" />
               <div className="name">账号授权</div>
-            </a>
+            </div>
             <div className="hide-box">
               <div className="each-item">
                 <Link to="/sells/b2c_platforms">B2C账号授权</Link>
@@ -67,10 +64,7 @@ export default class SideBar extends Component {
           </div>
           <div className="option-box hover-box">
             <Link to="/sells/products">
-              {/*  <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon2-1eff06d5ed25119d8303581f95aa5aa8.png"
-                alt="Icon2"
-              /> */}
+              <img src={file_icon} alt="Icon2" />
               <div className="name">一键刊登</div>
             </Link>
             <div className="hide-box">
@@ -85,11 +79,8 @@ export default class SideBar extends Component {
             </div>
           </div>
           <div className="option-box hover-box">
-            <Link to="/product_exports/product_download_file">
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon2-1eff06d5ed25119d8303581f95aa5aa8.png"
-                alt="Icon2"
-              /> */}
+            <Link to="#">
+              <img src={logisitcs_icon} alt="Icon2" />
               <div className="name">物流配送</div>
             </Link>
             <div className="hide-box">
@@ -103,19 +94,13 @@ export default class SideBar extends Component {
           </div>
           <div className="option-box hover-box">
             <Link to="/sells/inventories">
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon2-1eff06d5ed25119d8303581f95aa5aa8.png"
-                alt="Icon2"
-              /> */}
+              <img src={move_icon} alt="Icon2" />
               <div className="name">店铺搬家</div>
             </Link>
           </div>
           <div className="option-box hover-box">
             <Link to="/sells/orders">
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon3-7ef36eb63ff68c53ba11e47b70cba6f1.png"
-                alt="Icon3"
-              /> */}
+              <img src={order_icon} alt="Icon3" />
               <div className="name">订单管理</div>
             </Link>
             <div className="hide-box">
@@ -139,13 +124,10 @@ export default class SideBar extends Component {
             </div>
           </div>
           <div className="option-box hover-box">
-            <a>
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon8-f0645d5c9039c05d38d56c6eb821351b.png"
-                alt="Icon8"
-              /> */}
+            <div>
+              <img src={financial_icon} alt="Icon8" />
               <div className="name">财务管理</div>
-            </a>
+            </div>
             <div className="hide-box">
               <div className="each-item">
                 <Link to="/sells/accounts/recharge_histories">个人账户</Link>
@@ -158,10 +140,7 @@ export default class SideBar extends Component {
             </div>
           </div>
           <div className="option-box hover-box">
-            {/*  <img
-              src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon9-0a440e9d44189725c256f2bf35400a42.png"
-              alt="Icon9"
-            /> */}
+            <img src={analysis_icon} alt="Icon9" />
             <div className="name">经营分析</div>
             <div className="hide-box">
               <div
@@ -179,29 +158,41 @@ export default class SideBar extends Component {
           </div>
           <div className="option-box hover-box">
             <Link to="/analysis/data_grap">
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon6-a7b717adf63425774ef52f413e44bcb7.png"
-                alt="Icon6"
-              /> */}
+              <img src={datagrap_icon} alt="Icon6" />
               <div className="name">数据抓取</div>
             </Link>
           </div>
           <div className="option-box hover-box">
-            <a>
-              {/* <img
-                src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/icon2-1eff06d5ed25119d8303581f95aa5aa8.png"
-                alt="Icon2"
-              /> */}
-              <div className="name">文件中心</div>
-            </a>
+            <img src={study_online_icon} alt="Icon9" />
+            <div className="name">在线学习</div>
             <div className="hide-box">
-              <div className="each-item">
-                <a href="/sells/records_centers/export_file">文件导出</a>
+              <div
+                className="each-item"
+                style={{ minHeight: "inherit", lineHeight: "55px" }}
+              >
+                <Link
+                  to="#"
+                  style={{ minHeight: "inherit", lineHeight: "55px" }}
+                >
+                  亚马逊大学
+                </Link>
               </div>
-              <div className="each-item">
-                <a href="/sells/records_centers/import_file">文件导入</a>
+              <div
+                className="each-item"
+                style={{ minHeight: "inherit", lineHeight: "55px" }}
+              >
+                <Link
+                  to="#"
+                  style={{ minHeight: "inherit", lineHeight: "55px" }}
+                >
+                  shopee大学
+                </Link>
               </div>
             </div>
+          </div>
+          <div className="option-box hover-box">
+            <img src={email_icon} alt="Icon9" />
+            <div className="name">邮箱</div>
           </div>
         </nav>
       </div>

@@ -2,94 +2,102 @@ import React, { Component } from "react";
 export default class Footer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      qqurl:
+        "https://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzgwMDE4NzA1NV80NzY0OTNfODAwMTg3MDU1XzJf"
+    };
   }
   componentDidMount() {}
   render() {
+    const { qqurl } = this.state;
     return (
-      <div>
-        <footer>
-          <div className="container">
-            <div className="helps_box clearfix">
-              <div className="help">
-                <h4>新手入门</h4>
-                <ul>
-                  <li>
-                    <a target="blank" href="https://rumen.kjds.com">
-                      入门指引
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/2">
-                      物流方式
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/3">
-                      支付方式
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/4">
-                      工作时间
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="help">
-                <h4>商务合作</h4>
-                <ul>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/7">
-                      成为分销商
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/6">
-                      成为物流商
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/5">
-                      成为供应商
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/8">
-                      合作伙伴
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="help">
-                <h4>加入我们</h4>
-                <ul>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/9">
-                      关于我们
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/10">
-                      加入我们
-                    </a>
-                  </li>
-                  <li>
-                    <a target="blank" href="/sells/customer_services/11">
-                      联系我们
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="help">
-                {/*  <h4>扫描关注</h4>
+      <footer>
+        <div className="container">
+          <div className="helps_box clearfix">
+            <div className="help">
+              <h4>新手入门</h4>
+              <ul>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    营业执照代办理
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    各站招商经理
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    vps购买
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    连连支付
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    账号申诉
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="help">
+              <h4>商务合作</h4>
+              <ul>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    成为运营商
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    成为物流商
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    成为供应商
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    合作伙伴
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="help">
+              <h4>加入我们</h4>
+              <ul>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    关于我们
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    加入我们
+                  </a>
+                </li>
+                <li>
+                  <a target="blank" href={qqurl}>
+                    联系我们
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="help">
+              {/*  <h4>扫描关注</h4>
                 <ul>
                   <li>
                     <img src="https://pic.kjds.com/kjds.jpg" alt="Kjds" />
                   </li>
                 </ul> */}
-              </div>
-              {/* <div className="bomb_Mask">
+            </div>
+            {/* <div className="bomb_Mask">
                 <div className="maskBg" />
                 <div className="maskContent">
                   <div className="top">
@@ -101,79 +109,82 @@ export default class Footer extends Component {
                   <button className="btn_okay">确定</button>
                 </div>
               </div> */}
-            </div>
           </div>
-          <div className="frined_link clearfix">
-            <h4>友情链接</h4>
-            <ul className="clear">
-              <li>
-                <a href="http://www.sellergrowth.com" target="blank">
-                  卖家成长
-                </a>
-              </li>
-              <li>
-                <a href="http://www.dianxiaomi.com" target="blank">
-                  店小秘
-                </a>
-              </li>
-              <li>
-                <a href="http://www.cifnews.com" target="blank">
-                  雨果网
-                </a>
-              </li>
-              <li>
-                <a href="http://www.trackingmore.com/cn.html" target="blank">
-                  Trackingmore
-                </a>
-              </li>
-              <li>
-                <a href="http://www.ebay.com" target="blank">
-                  eBay
-                </a>
-              </li>
-              <li>
-                <a href="http://www.aliexpress.com" target="blank">
-                  AliExpress
-                </a>
-              </li>
-              <li>
-                <a href="http://www.amazon.com" target="blank">
-                  Amazon
-                </a>
-              </li>
-              <li>
-                <a href="http://www.wish.com" target="blank">
-                  Wish
-                </a>
-              </li>
-              <li>
-                <a href="http://www.cdiscount.com" target="blank">
-                  C.Discount
-                </a>
-              </li>
-              <li>
-                <a href="http://www.newegg.com" target="blank">
-                  New Egg
-                </a>
-              </li>
-              <li>
-                <a href="http://www.rakuten.co.jp" target="blank">
-                  Rakuten
-                </a>
-              </li>
-              <li>
-                <a href="http://www.shein.com" target="blank">
-                  Shein
-                </a>
-              </li>
-            </ul>
-            <div className="foot-record">
-              <p>版权所有：山西递八方科技有限公司</p>
-              {/* <p><a href="http://www.miitbeian.gov.cn"target="blank">沪ICP备15016946号 </a></p><p>增值电信业务经营许可证：沪B2-20180141</p> */}
-            </div>
+        </div>
+        <div className="frined_link clearfix">
+          <h4>友情链接</h4>
+          <ul className="clear">
+            <li>
+              <a href="https://www.sellergrowth.com" target="blank">
+                卖家成长
+              </a>
+            </li>
+            <li>
+              <a href="https://www.dianxiaomi.com" target="blank">
+                店小秘
+              </a>
+            </li>
+            <li>
+              <a href="https://www.cifnews.com" target="blank">
+                雨果网
+              </a>
+            </li>
+            <li>
+              <a href="https://www.trackingmore.com/cn.html" target="blank">
+                Trackingmore
+              </a>
+            </li>
+            <li>
+              <a href="https://www.ebay.com" target="blank">
+                eBay
+              </a>
+            </li>
+            <li>
+              <a href="https://www.aliexpress.com" target="blank">
+                AliExpress
+              </a>
+            </li>
+            <li>
+              <a href="https://www.amazon.com" target="blank">
+                Amazon
+              </a>
+            </li>
+            <li>
+              <a href="https://www.wish.com" target="blank">
+                Wish
+              </a>
+            </li>
+            <li>
+              <a href="https://www.cdiscount.com" target="blank">
+                C.Discount
+              </a>
+            </li>
+            <li>
+              <a href="https://www.newegg.com" target="blank">
+                New Egg
+              </a>
+            </li>
+            <li>
+              <a href="https://www.rakuten.co.jp" target="blank">
+                Rakuten
+              </a>
+            </li>
+            <li>
+              <a href="https://www.shein.com" target="blank">
+                Shein
+              </a>
+            </li>
+          </ul>
+          <div className="foot-record">
+            <p>版权所有：山西递八方科技有限公司</p>
+            <p>晋ICP备：18008201号</p>
+            <p>
+              <img src={require("../../images/gonganwang.png")} alt="" />
+              晋公网安备：14019202000181
+            </p>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     );
   }
 }

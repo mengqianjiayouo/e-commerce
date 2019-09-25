@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import Topbar from "../../../components/Topbar/index";
 import $ from "jquery";
 import { connect } from "react-redux";
-import { Button, Table, Modal, Dropdown } from "react-bootstrap";
 class Notehtml extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       show: false,
       platform: ""
     };
@@ -31,7 +28,7 @@ class Notehtml extends Component {
   }
 
   render() {
-    const { islogin, amazoonData } = this.state;
+    const { amazoonData } = this.state;
     // console.log(this.props.state);
     let h = document.documentElement.clientHeight;
     return (

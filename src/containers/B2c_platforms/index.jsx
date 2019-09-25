@@ -1,20 +1,18 @@
 import React, { Component } from "react";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import { connect } from "react-redux";
-import { Button, Table, Modal, Dropdown } from "react-bootstrap";
+import { Table, Button, Select, Modal, Input } from "antd";
 import { country } from "../../utils/countryFreight";
+import Pagination from "../../components/Pagination/index";
+const { Option } = Select;
 class B2c_platforms extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      islogin: false,
       show: false,
       platform: "",
+      tipMessage: "",
       shopee: {
         account: "",
         account2: "",
@@ -28,12 +26,17 @@ class B2c_platforms extends Component {
         token: "",
         status: 0
       },
+      amazonPages: {
+        page: 1,
+        total: 1,
+        pageSize: 20
+      },
       amazonStatus: {
         store_name_status: "",
         seller_id_status: "",
         token_status: ""
       },
-      amazoonData: [
+      amazonData: [
         {
           usa_id: 1,
           user_id: 10,
@@ -68,21 +71,7 @@ class B2c_platforms extends Component {
     };
   }
   componentDidMount() {
-    this.checkIsLogin();
     this.getAmazonData();
-  }
-
-  checkIsLogin() {
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true,
-        show: false
-      });
-    }
-  }
-  changePlat(a) {
-    this.props.dispatch({ type: "PLATCHANGE", plat: a });
   }
   changFormStatus(a, b, c) {
     this.setState(
@@ -120,7 +109,7 @@ class B2c_platforms extends Component {
       }
       $.ajax({
         method: "post",
-        url: "http://118.25.155.176:8080/authSave",
+        url: "https://118.25.155.176:8080/authSave",
         /* xhrFields: {
           withCredentials: true
         },
@@ -157,14 +146,15 @@ class B2c_platforms extends Component {
   }
 
   getAmazonData() {
+    let { amazonPages } = this.state;
     $.ajax({
       method: "get",
-      url: "http://118.25.155.176:8080/auth",
+      url: "https://118.25.155.176:8080/auth",
       /*  xhrFields: {
         withCredentials: true
       },
       crossDomain: true, */
-      data: { page: 1, pageSize: 20 },
+      data: { page: amazonPages.page, pageSize: amazonPages.pageSize },
       dataType: "json",
       error: err => {
         console.log(err);
@@ -173,7 +163,13 @@ class B2c_platforms extends Component {
         if (res.state === 1) {
           if (res.data && res.data.data) {
             this.setState({
-              amazoonData: res.data.data
+              amazonData: res.data.data.filter((a, b) => {
+                a.key = b;
+              }),
+              amazonPages: {
+                ...this.state.amazonPages,
+                total: res.data.last_page
+              }
             });
           }
         }
@@ -185,7 +181,7 @@ class B2c_platforms extends Component {
   onAuthCheck(usa_id) {
     $.ajax({
       method: "post",
-      url: "http://118.25.155.176:8080/authCheck",
+      url: "https://118.25.155.176:8080/authCheck",
       /*  xhrFields: {
         withCredentials: true
       },
@@ -193,13 +189,21 @@ class B2c_platforms extends Component {
       data: { auth_id: usa_id },
       dataType: "json",
       error: err => {
-        console.log(err);
+        Modal.error({
+          content: "检测失败！"
+        });
       },
       success: res => {
-        console.log(res);
+        if (res.message === "Success") {
+          Modal.success({
+            content: "检测成功！"
+          });
 
-        if (res.state === 1) {
           this.getAmazonData();
+        } else {
+          Modal.error({
+            content: "绑定失败！"
+          });
         }
 
         // console.log($.cookie("csrftoken"));
@@ -209,40 +213,122 @@ class B2c_platforms extends Component {
 
   render() {
     const {
-      islogin,
       show,
       platform,
       shopee,
       amazon,
-      amazoonData,
+      amazonData,
       siteList,
-      amazonStatus
+      amazonStatus,
+      amazonPages
     } = this.state;
     // console.log(this.props.state);
-
+    let that = this;
+    const amazonColumns = [
+      {
+        title: "店铺名称",
+        dataIndex: "store_name",
+        align: "center",
+        key: "store_name"
+      },
+      {
+        title: "操作时间",
+        align: "center",
+        key: "usa_add_time",
+        render(a) {
+          return `添加时间${a.usa_add_time}`;
+        }
+      },
+      {
+        title: "状态",
+        align: "center",
+        key: "usa_auth_status",
+        render(a) {
+          return a.usa_auth_status === 0 ? "未授权" : "已授权";
+        }
+      },
+      {
+        title: "国家",
+        align: "center",
+        key: "usa_region",
+        render(a) {
+          return country[a.usa_region];
+        }
+      },
+      {
+        title: "操作",
+        align: "center",
+        key: "action",
+        render(a) {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                that.onAuthCheck(a.usa_id);
+              }}
+            >
+              检测
+            </Button>
+          );
+        }
+      }
+    ];
+    const shopeeColumns = [
+      {
+        title: "shopee账号",
+        dataIndex: "store_name",
+        align: "center",
+        key: "store_name"
+      },
+      {
+        title: "账号缩写",
+        align: "center",
+        key: "usa_add_time",
+        render(a) {
+          return `添加时间${a.usa_add_time}`;
+        }
+      },
+      {
+        title: "收款账号",
+        align: "center",
+        key: "usa_auth_status",
+        render(a) {
+          return a.usa_auth_status === 0 ? "未授权" : "已授权";
+        }
+      },
+      {
+        title: "API状态",
+        align: "center",
+        key: "usa_region",
+        render(a) {
+          return country[a.usa_region];
+        }
+      },
+      {
+        title: "操作",
+        align: "center",
+        key: "action",
+        render(a) {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                that.onAuthCheck(a.usa_id);
+              }}
+            >
+              检测
+            </Button>
+          );
+        }
+      }
+    ];
     return (
       <div className="home B2c">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
-            }}
-          />
-          <ReturnTop />
-
+        <div className="home_right">
           <div className="main">
             <Button
+              type="primary"
+              style={{ marginRight: "20px" }}
               onClick={() => {
                 this.showModal("amazon");
               }}
@@ -256,74 +342,61 @@ class B2c_platforms extends Component {
             >
               Amazon亚马逊店铺授权方法
             </Link>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>店铺名称</th>
-                  <th>操作时间</th>
-                  <th>状态</th>
-                  <th>国家</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                {amazoonData.map((a, b) => {
-                  return (
-                    <tr key={b}>
-                      <td> {a.store_name} </td>
-                      <td>{`添加时间${a.usa_add_time}`}</td>
-                      <td>{a.usa_auth_status === 0 ? "未授权" : "已授权"}</td>
-                      <td>{country[a.usa_region]}</td>
-                      <td>
-                        <Button
-                          onClick={() => {
-                            this.onAuthCheck(a.usa_id);
-                          }}
-                        >
-                          检测
-                        </Button>
-                      </td>
-                    </tr>
+            <Table
+              columns={amazonColumns}
+              dataSource={amazonData}
+              pagination={false}
+            />
+
+            {amazonPages.total > 1 ? (
+              <Pagination
+                page={amazonPages.page}
+                total={amazonPages.total}
+                pageSize={amazonPages.pageSize}
+                onPageChange={page => {
+                  this.setState(
+                    {
+                      amazonPages: {
+                        ...amazonPages,
+                        page
+                      }
+                    },
+                    () => {
+                      this.getAmazonData();
+                    }
                   );
-                })}
-              </tbody>
-            </Table>
+                }}
+                onPageSizeChange={pageSize => {
+                  this.setState(
+                    {
+                      amazonPages: {
+                        ...amazonPages,
+                        pageSize,
+                        page: 1
+                      }
+                    },
+                    () => {
+                      this.getAmazonData();
+                    }
+                  );
+                }}
+              />
+            ) : null}
             <Button
+              type="primary"
               onClick={() => {
                 this.showModal("shopee");
               }}
             >
               添加shopee账号
             </Button>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>shopee账号</th>
-                  <th>账号缩写</th>
-                  <th>收款账号</th>
-                  <th>状态</th>
-                  <th>API状态</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-              </tbody>
-            </Table>
+            <Table columns={shopeeColumns} dataSource={[]} pagination={false} />
           </div>
-          <Footer />
         </div>
         <Modal
-          dialogClassName="b2c_modal"
-          show={show}
-          onHide={() => {
+          wrapClassName="b2c_modal"
+          visible={show}
+          onCancel={() => {
             this.setState({
               show: false,
               amazonStatus: {
@@ -333,11 +406,15 @@ class B2c_platforms extends Component {
               }
             });
           }}
+          width={700}
+          title="请输入你想添加的账号"
+          onOk={() => {
+            this.addCount();
+          }}
+          okText="确定"
+          cancelText="取消"
         >
-          <Modal.Header closeButton>
-            <Modal.Title>请输入你想添加的账号</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+          <div className="modal-body">
             {platform === "shopee" ? (
               <div className="note">
                 <p>温馨提示：</p>
@@ -364,7 +441,7 @@ class B2c_platforms extends Component {
                   <p>
                     shopee账号:可以是非shopee账号名的任何名称，您只需要保证自己和同事都认识它。
                   </p>
-                  <input
+                  <Input
                     type="text"
                     placeholder="请输入你想添加的账号"
                     value={shopee.account}
@@ -375,7 +452,7 @@ class B2c_platforms extends Component {
                 </li>
                 <li>
                   <p>账号名缩写:2-3位的字母或数字，将用于系统中的简要展现。</p>
-                  <input
+                  <Input
                     type="text"
                     placeholder="请输入账号缩写"
                     value={shopee.account2}
@@ -388,7 +465,7 @@ class B2c_platforms extends Component {
                   <p>
                     收款账号:请确认Paypal账号已与对应的shopee做好关联,该账号将提供给shopee收取刊登费用，并接受买家的订单付款。
                   </p>
-                  <input
+                  <Input
                     type="text"
                     placeholder="请输入收款账号"
                     value={shopee.recive}
@@ -404,7 +481,7 @@ class B2c_platforms extends Component {
                   <p>
                     店铺名称:可以是非店铺名称的任何名称，您只需要保证自己和同事都认识它。
                   </p>
-                  <input
+                  <Input
                     type="text"
                     placeholder="请输入店铺名称"
                     className={
@@ -428,7 +505,7 @@ class B2c_platforms extends Component {
                 </li>
                 {/*  <li>
                   <p>别名:账号名缩写:2-3位的别名，将用于系统中的简要展现。</p>
-                  <input
+                  <Input
                     type="text"
                     placeholder="请输入名称缩写"
                     value={amazon.nick_name}
@@ -439,7 +516,7 @@ class B2c_platforms extends Component {
                 </li> */}
                 <li>
                   <p>卖家编号:请确保填写正确,否则无法绑定账号。</p>
-                  <input
+                  <Input
                     type="text"
                     placeholder="请输入卖家编号"
                     value={amazon.seller_id}
@@ -459,33 +536,30 @@ class B2c_platforms extends Component {
                 </li>
                 <li>
                   <p>站点</p>
-                  <Dropdown>
-                    <Dropdown.Toggle>{country[amazon.site]}</Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      {siteList.map((a, b) => {
-                        return (
-                          <Dropdown.Item
-                            key={b}
-                            onClick={() => {
-                              this.setState({
-                                amazon: {
-                                  ...amazon,
-                                  site: a
-                                }
-                              });
-                            }}
-                          >
-                            {country[a]}
-                          </Dropdown.Item>
-                        );
-                      })}
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Select
+                    style={{ width: "100%" }}
+                    value={amazon.site}
+                    onChange={val => {
+                      this.setState({
+                        amazon: {
+                          ...amazon,
+                          site: val
+                        }
+                      });
+                    }}
+                  >
+                    {siteList.map((a, b) => {
+                      return (
+                        <Option key={b} value={a}>
+                          {country[a]}
+                        </Option>
+                      );
+                    })}
+                  </Select>
                 </li>
                 <li>
                   <p>MWS授权码:请确保填写正确,否则无法绑定账号。</p>
-                  <input
+                  <Input
                     value={amazon.token}
                     className={
                       amazonStatus.token_status == "error" ? "err_input" : ""
@@ -504,7 +578,7 @@ class B2c_platforms extends Component {
                 <li>
                   <p>状态：</p>
                   <span>启用</span>{" "}
-                  <input
+                  <Input
                     type="checkbox"
                     style={{
                       display: "inline-block",
@@ -526,7 +600,7 @@ class B2c_platforms extends Component {
                     }}
                   />
                   <span>禁用</span>
-                  <input
+                  <Input
                     type="checkbox"
                     checked={amazon.status === 0}
                     style={{
@@ -549,25 +623,7 @@ class B2c_platforms extends Component {
                 </li>
               </ul>
             )}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                this.setState({ show: false });
-              }}
-            >
-              取消
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                this.addCount();
-              }}
-            >
-              确定
-            </Button>
-          </Modal.Footer>
+          </div>
         </Modal>
       </div>
     );

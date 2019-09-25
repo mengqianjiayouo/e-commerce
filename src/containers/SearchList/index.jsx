@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import $ from "jquery";
-import Topbar from "../../components/Topbar/index";
-import ReturnTop from "../../components/ReturnTop/index";
 import SearchBox from "../../components/SearchBox/index";
-import Footer from "../../components/Footer/index";
-import SideBar from "../../components/SideBar/index";
-// import { Pagination } from "react-bootstrap";
 import { connect } from "react-redux";
 import Pagination from "react-js-pagination";
-
+import { Select, Input, Button, Popover, Row, Radio } from "antd";
+const { Option } = Select;
+const InputGroup = Input.Group;
 const storeContury = ["全部", "美国", "澳大利亚"];
 const amaZonContury = [
   "全部",
@@ -84,7 +81,19 @@ class SearchList extends Component {
           product_specs: "",
           prt_id: 0
         }
-      ]
+      ],
+      changeItems: {
+        name: "option1", //设置批量设置的name
+        value: "", //设置批量设置的value
+        popType: "setAttr", //replace insert
+        popValue: "",
+        language: "default",
+        attrName: "title",
+        position: "before", //插入文本的位置
+        keywords: "", //插入或需要替换的文本
+        setValue: "" //要更改替换的值
+      },
+      popVisible: false
     };
   }
   componentDidMount() {
@@ -102,12 +111,6 @@ class SearchList extends Component {
     } else {
       this.getData();
     }
-    let user = sessionStorage.getItem("user");
-    if (user) {
-      this.setState({
-        islogin: true
-      });
-    }
   }
   changePlat(a) {
     if (a === this.state.plat) {
@@ -124,7 +127,7 @@ class SearchList extends Component {
 
     $.ajax({
       method: "get",
-      url: "http://118.25.155.176:8080/place",
+      url: "https://118.25.155.176:8080/place",
       /* xhrFields: {
         withCredentials: true
       },
@@ -143,38 +146,149 @@ class SearchList extends Component {
   }
   render() {
     const {
-      islogin,
       countryId,
       sortType,
       data,
       checkAry,
-      storeConturyId
+      storeConturyId,
+      changeItems,
+      popVisible
     } = this.state;
     const { plat } = this.props.state.platId;
     let isCheckAll = false;
     if (checkAry.length === data.length) {
       isCheckAll = true;
     }
-    return (
-      <div className="home searchList">
-        {islogin ? (
-          <div className="home_left">
-            <SideBar {...this.props} />
-          </div>
-        ) : null}
-
-        <div
-          className="home_right"
-          style={{ paddingLeft: islogin ? "118px" : 0 }}
-        >
-          <Topbar
-            {...this.props}
-            islogin={this.state.islogin}
-            changePlat={a => {
-              this.changePlat(a);
+    const rowStyle = {
+      marginBottom: "15px"
+    };
+    const content = (
+      <div>
+        <Row style={rowStyle}>
+          <Radio.Group
+            onChange={e => {
+              this.setState({
+                changeItems: {
+                  ...changeItems,
+                  popType: e.target.value
+                }
+              });
+            }}
+            value={changeItems.popType}
+          >
+            <Radio.Button value="setAttr">批量设置属性值</Radio.Button>
+            <Radio.Button value="replace">查找替换文本</Radio.Button>
+            <Radio.Button value="insert">插入文本</Radio.Button>
+          </Radio.Group>
+        </Row>
+        <Row style={rowStyle}>
+          <InputGroup compact>
+            <Select
+              style={{
+                width: changeItems.popType === "insert" ? "25%" : "50%"
+              }}
+              value={changeItems.language}
+              onChange={val => {
+                this.setState({
+                  changeItems: {
+                    ...changeItems,
+                    language: val
+                  }
+                });
+              }}
+            >
+              <Option value="default">原文</Option>
+              <Option value="chinese">中文</Option>
+            </Select>
+            {changeItems.popType === "setAttr" ? null : (
+              <Input
+                style={{ width: "50%" }}
+                value={changeItems.keywords}
+                onChange={e => {
+                  this.setState({
+                    changeItems: {
+                      ...changeItems,
+                      keywords: e.target.value
+                    }
+                  });
+                }}
+              />
+            )}
+            {changeItems.popType === "setAttr" ? (
+              <Select
+                value={changeItems.attrName}
+                style={{ width: "50%" }}
+                onChange={val => {
+                  this.setState({
+                    changeItems: {
+                      ...changeItems,
+                      attrName: val
+                    }
+                  });
+                }}
+              >
+                <Option value="title">商品标题</Option>
+                <Option value="keyword">检索关键字</Option>
+                <Option value="abstract1">商品摘要1</Option>
+              </Select>
+            ) : null}
+            {changeItems.popType === "insert" ? (
+              <Select
+                style={{ width: "25%" }}
+                value={changeItems.position}
+                onChange={val => {
+                  this.setState({
+                    changeItems: {
+                      ...changeItems,
+                      position: val
+                    }
+                  });
+                }}
+              >
+                <Option value="before">前</Option>
+                <Option value="after">后</Option>
+              </Select>
+            ) : null}
+          </InputGroup>
+        </Row>
+        <Row style={rowStyle}>
+          <Input.TextArea
+            rows={4}
+            value={changeItems.setValue}
+            placeholder={
+              changeItems.popType === "setAttr"
+                ? "请输入批量设置的值"
+                : changeItems.popType === "replace"
+                ? "请输入替换文本"
+                : "请输入插入文本"
+            }
+            onChange={e => {
+              this.setState({
+                changeItems: {
+                  ...changeItems,
+                  setValue: e.target.value
+                }
+              });
             }}
           />
-          <ReturnTop />
+        </Row>
+        <Row style={{ ...rowStyle, textAlign: "right" }}>
+          {/* <Button style={{ marginRight: "10px" }}>取消</Button> */}
+          <Button
+            disabled={
+              changeItems.popType === "setAttr"
+                ? changeItems.setValue === ""
+                : changeItems.setValue === "" || changeItems.keywords === ""
+            }
+          >
+            确定
+          </Button>
+        </Row>
+      </div>
+    );
+    return (
+      <div className="home searchList">
+        <div className="home_right">
           <div className="main">
             <SearchBox {...this.props} />
             <div className="searchArea">
@@ -275,6 +389,7 @@ class SearchList extends Component {
                       {shopeeContury.map((a, b) => {
                         return (
                           <span
+                            key={b}
                             className={countryId == b ? "item active" : "item"}
                             onClick={() => {
                               this.setState({
@@ -372,8 +487,52 @@ class SearchList extends Component {
                     >
                       全选
                     </div>
-                    <div className="rightBtn">批量上传</div>
                   </div>
+                </li>
+
+                <li>
+                  <Button type="primary" style={{ marginRight: "10px" }}>
+                    批量上传
+                  </Button>
+                  <InputGroup compact>
+                    <Select
+                      defaultValue="Option1"
+                      onChange={val => {
+                        this.setState({
+                          changeItems: {
+                            ...changeItems,
+                            name: val
+                          }
+                        });
+                      }}
+                    >
+                      <Option value="Option1">生产厂商</Option>
+                      <Option value="Option2">商品名称</Option>
+                    </Select>
+                    <Input
+                      style={{ width: "130px" }}
+                      value={changeItems.value}
+                      onChange={e => {
+                        this.setState({
+                          changeItems: {
+                            ...changeItems,
+                            value: e.target.value
+                          }
+                        });
+                      }}
+                    />
+                    <Button disabled={changeItems.value === ""}>
+                      批量设置
+                    </Button>
+                    <Popover
+                      title={null}
+                      content={content}
+                      trigger="click"
+                      placement="bottom"
+                    >
+                      <Button>···</Button>
+                    </Popover>
+                  </InputGroup>
                 </li>
               </ul>
               <div className="goods">
@@ -459,7 +618,6 @@ class SearchList extends Component {
               </div>
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

@@ -76,6 +76,10 @@ html {
     }
 }
 
+.ant-modal-close-x:focus,
+.ant-drawer-close:focus {
+    outline: none
+}
 
 /* 返回顶部与客服 */
 .right_sidebar {
@@ -83,22 +87,33 @@ html {
     bottom: 25%;
     right: 0;
     z-index: 50;
-    background: rgba(241, 60, 60, 0.6);
+    background: rgba(133, 127, 127, 0.6);
 
     a {
         display: block;
+        padding: 10px 0;
         width: 60px;
-        padding: 53px 0 0;
         font-size: 12px;
         text-align: center;
         color: #fff !important;
-        // background: url(https://cdn-resources-aliyun.kjds.com/assets/right_sidebar_pic-a3eb315….png) no-repeat 5px 3px/50px 100px;
+
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        // background: url(http://cdn-resources-aliyun.kjds.com/assets/right_sidebar_pic-a3eb315….png) no-repeat 5px 3px/50px 100px;
     }
 
     .back_top {
+
         padding-bottom: 10px;
         background-size: 60px 120px;
         background-position: -1px -69px;
+
+        a {
+            padding-top: 0;
+        }
     }
 }
 
@@ -152,4 +167,19 @@ html {
             }
         }
     }
+
+    .ant-input-group-addon .ant-select-open .ant-select-selection,
+    .ant-input-group-addon .ant-select-focused .ant-select-selection {
+        color: #fff;
+    }
+}
+
+
+#root .ant-input-group-addon .ant-select-open .ant-select-selection,
+#root .ant-input-group-addon .ant-select-focused .ant-select-selection {
+    color: rgba(0, 0, 0, .65);
+}
+
+.react-datepicker-popper {
+    z-index: 2 !important;
 }

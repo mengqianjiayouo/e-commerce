@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import $ from "jquery";
-import { Carousel } from "react-bootstrap";
+import { Carousel } from "antd";
 import { Link } from "react-router-dom";
 export default class Banner extends Component {
   constructor(props) {
     super(props);
     this.state = {
       level1Ary: [],
-      level2Ary: []
+      level2Ary: [],
+      imgList: [
+        require("../../images/1.jpeg"),
+        require("../../images/2.jpeg"),
+        require("../../images/3.jpeg"),
+        require("../../images/4.jpeg"),
+        require("../../images/5.jpeg"),
+        require("../../images/6.jpeg")
+      ]
     };
   }
   componentDidMount() {
@@ -53,7 +61,7 @@ export default class Banner extends Component {
     });
   }
   render() {
-    let { level1Ary, level2Ary } = this.state;
+    let { level1Ary, level2Ary, imgList } = this.state;
     return (
       <div className="category_box">
         <div className="banner_warehouse">
@@ -115,19 +123,14 @@ export default class Banner extends Component {
           })}
         </ul>
         <div className="right_banner">
-          <Carousel style={{ marginTop: "50px" }} interval={3000}>
-            <Carousel.Item>
-              <img src={require("../../images/1.jpg")} alt="" />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img src={require("../../images/2.jpg")} alt="" />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img src={require("../../images/3.jpg")} alt="" />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img src={require("../../images/4.jpg")} alt="" />
-            </Carousel.Item>
+          <Carousel style={{ marginTop: "50px" }} autoplay>
+            {imgList.map((a, index) => {
+              return (
+                <div key={index}>
+                  <img src={a} alt="" />
+                </div>
+              );
+            })}
           </Carousel>
         </div>
       </div>

@@ -6,6 +6,8 @@
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
+    position: relative;
+
 }
 
 @media screen and (max-height: 639px) {
@@ -105,7 +107,7 @@
     float: left;
     width: 91px;
     height: 62px;
-    // background: url(https://cdn-resources-aliyun.kjds.com/assets/logo-543d2c7….png) no-repeat center/contain;
+    // background: url(http://cdn-resources-aliyun.kjds.com/assets/logo-543d2c7….png) no-repeat center/contain;
 }
 
 .common_header .show-platform .active {
@@ -125,20 +127,21 @@
 .common_header .show-platform {
     list-style-type: none;
     width: 470px;
-    float: left;
     padding: 0;
     text-align: center;
-    margin-left: 200px;
+    position: absolute;
+    left: 200px;
 
     a,
     span {
         color: #666666;
-        height: 56px;
+        height: 62px;
+        line-height: 62px;
         text-decoration: none;
         font-weight: bold;
         font-size: 18px;
         display: block;
-        padding: 15px;
+        padding: 0 15px;
         cursor: pointer;
     }
 
@@ -166,7 +169,8 @@
     margin-top: 20px;
 }
 
-.common_header .header_btn>a {
+.common_header .header_btn>div,
+.common_header .header_btn>div a {
     display: block;
     float: right;
     height: 40px;
@@ -176,10 +180,14 @@
     color: #58c093;
 }
 
-.common_header .header_btn>a:hover {
+.common_header .header_btn>div:hover {
     color: #fff;
     background: #58c093;
     border-radius: 7px;
+
+    a {
+        color: #fff
+    }
 }
 
 @media screen and (min-height: 791px) {
@@ -199,13 +207,16 @@
 }
 
 @media screen and (max-height: 639px) {
-    .common_header .header_platform a {
+
+    .common_header .header_platform>div,
+    .common_header .header_platform>a {
         height: 56px;
         line-height: 56px;
     }
 }
 
-.common_header .header_platform a {
+.common_header .header_platform>div,
+.common_header .header_platform>a {
     display: block;
     float: left;
     height: 62px;
@@ -214,11 +225,15 @@
     text-align: center;
     font-size: 1.2em;
     color: #666;
+    cursor: pointer;
+
+    &:hover {
+        color: #f13c3c
+    }
 }
 
 .common_header .header_platform .bulletins {
     position: relative;
-    width: 125px;
 }
 
 .common_header .header_platform .bulletins img,
@@ -231,8 +246,6 @@
 
 .common_header .header_platform .shopping_cart {
     position: relative;
-    width: 120px;
-    text-align: left;
 }
 
 .common_header .header_platform .shopping_cart img {
@@ -272,8 +285,7 @@
 }
 
 .common_header .header_platform .navbar-custom-menu {
-    display: inline-block;
-    float: right;
+    float: left;
     height: 56px;
     width: 150px;
 
@@ -383,6 +395,21 @@
     }
 }
 
+.common_header .header_platform .money-menu {
+    float: left;
+    padding-right: 30px;
+
+    a {
+        float: none;
+        display: inline;
+        margin-left: 15px;
+
+        &:hover {
+            color: #f13c3c
+        }
+    }
+}
+
 .navbar-nav>li>.dropdown-menu {
     margin-top: 0;
     border-top-right-radius: 0;
@@ -412,8 +439,7 @@
         &>div {
             width: 100%;
             padding: 0;
-            line-height: 62px;
-
+            line-height: 59px;
             justify-content: space-between;
 
             img {
@@ -629,6 +655,62 @@
             background-color: transparent;
         }
 
+    }
+
+}
+
+.user_menu_pop {
+    .ant-popover-inner {
+        border-radius: 6px;
+        overflow: hidden;
+
+        .ant-popover-inner-content {
+            padding: 0;
+            background-color: #f13c3c;
+            height: 244px;
+
+            .user-header {
+                width: 278px;
+                height: 165px;
+                text-align: center;
+                padding-top: 20px;
+                color: #fff;
+
+                p {
+                    margin-top: 15px;
+                    color: #fff;
+                    font-size: 20px;
+
+                    small {
+                        display: block;
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .sell-user-footer {
+                overflow: hidden;
+                background-color: #fff;
+                border-top: 2px solid #d3d3d3;
+
+                .col-xs-4 {
+                    width: 33.33%;
+                    float: left;
+                    height: 62px;
+                    line-height: 62px;
+                    text-align: center;
+
+                    a {
+                        color: #333;
+                    }
+                }
+
+                .sell:nth-child(2) {
+                    border-left: 1px solid #ccc;
+                    border-right: 1px solid #ccc;
+                }
+            }
+        }
     }
 
 }
