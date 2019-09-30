@@ -34,13 +34,20 @@ footer {
                     height: 150px;
                 }
 
+                span,
                 a {
                     color: #ffffff;
                     font-size: 14px;
+                    cursor: pointer;
                 }
 
-                &:hover a {
-                    color: #f13c3c;
+                &:hover {
+
+                    span,
+                    a {
+                        color: #f13c3c;
+                    }
+
                 }
 
 

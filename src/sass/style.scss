@@ -89,13 +89,17 @@ html {
     z-index: 50;
     background: rgba(133, 127, 127, 0.6);
 
-    a {
-        display: block;
+    div {
         padding: 10px 0;
         width: 60px;
         font-size: 12px;
         text-align: center;
-        color: #fff !important;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+            color: #f13c3c;
+        }
 
         img {
             display: block;

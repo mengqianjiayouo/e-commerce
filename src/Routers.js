@@ -262,6 +262,7 @@ import PageSubscribe from "./containers/SelfContent/Subscribe";
   );
 }; */
 import PageDatadrap from "./containers/Datadrap/index";
+import PageAbout from "./components/About/index";
 
 const history = createHistory({
   basename: "/"
@@ -283,6 +284,8 @@ const Root = () => {
       </Switch>
       <div style={{ paddingLeft: islogin ? "140px" : 0, minHeight: "858px" }}>
         <Route exact path="/" component={PageHome} />
+        <Route exact path="/about" component={PageAbout} />
+
         <Route exact path="/sells/products/:id" component={PageDetails} />
         <Route path="/sells/search" component={PageSearchList} />
         <Route exact path="/sells/b2c_platforms" component={PageB2cplatforms} />
@@ -357,7 +360,7 @@ const Root = () => {
         <Route exact path="/analysis/data_grap" component={PageDatadrap} />
       </div>
       <div style={{ marginTop: "20px" }}>
-        <Footer />
+        <Footer history={history} />
       </div>
     </Router>
   );

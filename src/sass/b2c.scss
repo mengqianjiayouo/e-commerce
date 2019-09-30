@@ -42,6 +42,22 @@
                 }
             }
         }
+
+        &.note {
+            padding: 40px;
+
+            img {
+                width: 90%;
+                display: block;
+                margin: 30px auto 40px;
+            }
+
+            p {
+                line-height: 30px;
+                font-weight: 800;
+                font-size: 18px;
+            }
+        }
     }
 
 }

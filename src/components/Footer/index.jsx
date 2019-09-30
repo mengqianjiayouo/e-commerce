@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import createHistory from "history/createBrowserHistory";
+const history = createHistory({
+  basename: "/"
+});
 export default class Footer extends Component {
   constructor(props) {
     super(props);
@@ -18,29 +22,19 @@ export default class Footer extends Component {
               <h4>新手入门</h4>
               <ul>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    营业执照代办理
-                  </a>
+                  <span id="three_party_supply_business">营业执照代办理</span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    各站招商经理
-                  </a>
+                  <span id="three_party_attract">各站招商经理</span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    vps购买
-                  </a>
+                  <span id="three_party_vps">vps购买</span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    连连支付
-                  </a>
+                  <span id="three_party_pay">连连支付</span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    账号申诉
-                  </a>
+                  <span id="three_party_appeal">账号申诉</span>
                 </li>
               </ul>
             </div>
@@ -48,24 +42,18 @@ export default class Footer extends Component {
               <h4>商务合作</h4>
               <ul>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    成为运营商
-                  </a>
+                  <span id="three_party_operate">成为运营商</span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    成为物流商
-                  </a>
+                  <span id="three_party_logistics">成为物流商</span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    成为供应商
-                  </a>
+                  <span id="three_party_supply">成为供应商</span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
+                  <span target="blank" href={qqurl}>
                     合作伙伴
-                  </a>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -73,19 +61,17 @@ export default class Footer extends Component {
               <h4>加入我们</h4>
               <ul>
                 <li>
-                  <a target="blank" href={qqurl}>
-                    关于我们
-                  </a>
+                  <a href="/about">关于我们</a>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
+                  <span target="blank" href={qqurl}>
                     加入我们
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a target="blank" href={qqurl}>
+                  <span target="blank" href={qqurl}>
                     联系我们
-                  </a>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -114,16 +100,6 @@ export default class Footer extends Component {
         <div className="frined_link clearfix">
           <h4>友情链接</h4>
           <ul className="clear">
-            <li>
-              <a href="https://www.sellergrowth.com" target="blank">
-                卖家成长
-              </a>
-            </li>
-            <li>
-              <a href="https://www.dianxiaomi.com" target="blank">
-                店小秘
-              </a>
-            </li>
             <li>
               <a href="https://www.cifnews.com" target="blank">
                 雨果网
