@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Table, Select, Button, Input } from "antd";
 import DatePicker from "react-datepicker";
+import { getCookie } from "../../server/cookies";
 
 class Payment_records extends Component {
   constructor(props) {
@@ -13,10 +14,18 @@ class Payment_records extends Component {
       site: "",
       accoutnId: "",
       order_num: "",
-      data: []
+      data: [],
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   getData() {}
   showLogin() {}
@@ -74,7 +83,15 @@ class Payment_records extends Component {
       }
     ];
     return (
-      <div className="home orders">
+      <div
+        className="home orders"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">

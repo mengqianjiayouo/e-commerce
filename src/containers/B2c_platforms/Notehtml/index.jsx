@@ -13,16 +13,25 @@ import step_5_3 from "../../../images/b2c_step_5_3.png";
 import step_5_4 from "../../../images/b2c_step_5_4.png";
 import step_5_5 from "../../../images/b2c_step_5_5.png";
 import step_6 from "../../../images/b2c_step_6.png";
+import { getCookie } from "../../../server/cookies";
+
 class Notehtml extends Component {
   constructor(props) {
     super(props);
     this.state = {
       show: false,
-      platform: ""
+      platform: "",
+      islogin: false
     };
   }
   componentDidMount() {
     // this.changeContent();
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
   }
   changeContent() {
     var $iFrame = $("#content");
@@ -44,7 +53,15 @@ class Notehtml extends Component {
     // console.log(this.props.state);
     // let h = document.documentElement.clientHeight;
     return (
-      <div className="home B2c">
+      <div
+        className="home B2c"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="main note">
           <p>第一步：在系统首页选择 账号授权—B2C账号授权；</p>
           <img src={step_1} alt="" />

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Button } from "antd";
+import { getCookie } from "../../server/cookies";
 
 class Subscription extends Component {
   constructor(props) {
@@ -11,10 +12,18 @@ class Subscription extends Component {
         { month: 3, money: "799.00" },
         { month: 12, money: "2999.00" }
       ],
-      recharge_money: "299.00"
+      recharge_money: "299.00",
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   getData() {}
   showLogin() {}
@@ -23,7 +32,15 @@ class Subscription extends Component {
     // console.log(this.props.state);
 
     return (
-      <div className="home members accounts">
+      <div
+        className="home members accounts"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="form">

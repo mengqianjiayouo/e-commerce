@@ -4,6 +4,8 @@ import SearchBox from "../../components/SearchBox/index";
 import { connect } from "react-redux";
 import Pagination from "react-js-pagination";
 import { Select, Input, Button, Popover, Row, Radio } from "antd";
+import { getCookie } from "../../server/cookies";
+
 const { Option } = Select;
 const InputGroup = Input.Group;
 const storeContury = ["全部", "美国", "澳大利亚"];
@@ -93,7 +95,8 @@ class SearchList extends Component {
         keywords: "", //插入或需要替换的文本
         setValue: "" //要更改替换的值
       },
-      popVisible: false
+      popVisible: false,
+      islogin: false
     };
   }
   componentDidMount() {
@@ -110,6 +113,12 @@ class SearchList extends Component {
       );
     } else {
       this.getData();
+    }
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
     }
   }
   changePlat(a) {
@@ -287,7 +296,15 @@ class SearchList extends Component {
       </div>
     );
     return (
-      <div className="home searchList">
+      <div
+        className="home searchList"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <SearchBox {...this.props} />

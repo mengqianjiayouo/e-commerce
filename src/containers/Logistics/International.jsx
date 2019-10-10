@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Table, Input, Select, Button } from "antd";
 import { country, countryList } from "../../utils/countryFreight";
 import computeFreight from "../../utils/computeFreight";
+import { getCookie } from "../../server/cookies";
+
 const { Option } = Select;
 class International extends Component {
   constructor(props) {
@@ -13,11 +15,18 @@ class International extends Component {
       countryId: "",
       long: "",
       height: "",
-      freight: []
+      freight: [],
+      islogin: false
     };
   }
   componentDidMount() {
     this.getFreight();
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
   }
 
   getData() {}
@@ -178,7 +187,15 @@ class International extends Component {
       }
     ];
     return (
-      <div className="home orders">
+      <div
+        className="home orders"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">

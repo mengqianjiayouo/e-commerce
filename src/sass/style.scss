@@ -176,6 +176,34 @@ html {
     .ant-input-group-addon .ant-select-focused .ant-select-selection {
         color: #fff;
     }
+
+    .amazon_school {
+        .message_content {
+            video {
+                width: 100%
+            }
+
+
+        }
+
+        .title {
+            background: #f13c3c;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .sub_title {
+            height: 36px;
+            line-height: 36px;
+            padding-left: 10px;
+        }
+    }
+
 }
 
 

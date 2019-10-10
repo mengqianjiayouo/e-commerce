@@ -1,23 +1,64 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Modal } from "antd";
+import { apiList1 } from "../../server/apiMap";
+import { Api } from "../../server/_ajax";
+import { getCookie } from "../../server/cookies";
 
+const api = new Api();
 class Recharge extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recharge_money: ""
+      recharge_money: 500,
+      islogin: false
     };
   }
-  componentDidMount() {}
-  getData() {}
-  showLogin() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
+
+  sureRecharge() {
+    let { recharge_money } = this.state;
+    if (recharge_money === "") {
+      Modal.error({
+        content: "请输入充值金额！"
+      });
+      return;
+    }
+    api.$post(
+      apiList1.recharge.path,
+      { money: parseFloat(recharge_money) },
+      res => {
+        if (res.Success) {
+          window.open(res.Data.payUrl);
+        } else {
+          Modal.error({
+            content: res.Msg
+          });
+        }
+      }
+    );
+  }
   render() {
     const { recharge_money } = this.state;
     // console.log(this.props.state);
 
     return (
-      <div className="home orders accounts">
+      <div
+        className="home orders accounts"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">
@@ -41,8 +82,8 @@ class Recharge extends Component {
               <Row>
                 <Col span={4}>充值金额：</Col>
                 <Col span={20} className="recharge">
-                  <input
-                    type="text"
+                  {/* <input
+                    type="number"
                     className="recharge_money"
                     value={recharge_money}
                     placeholder="请输入您的充值金额"
@@ -52,8 +93,12 @@ class Recharge extends Component {
                       });
                     }}
                   />
-                  <span>元</span>
+                  <span>元</span> */}
                   <Button
+                    style={{
+                      background: recharge_money === 500 ? "#f13c3c" : "#fff",
+                      color: recharge_money === 500 ? "#fff" : "#f13c3c"
+                    }}
                     onClick={() => {
                       this.setState({
                         recharge_money: 500
@@ -63,6 +108,10 @@ class Recharge extends Component {
                     500
                   </Button>
                   <Button
+                    style={{
+                      background: recharge_money === 1000 ? "#f13c3c" : "#fff",
+                      color: recharge_money === 1000 ? "#fff" : "#f13c3c"
+                    }}
                     onClick={() => {
                       this.setState({
                         recharge_money: 1000
@@ -72,6 +121,10 @@ class Recharge extends Component {
                     1000
                   </Button>
                   <Button
+                    style={{
+                      background: recharge_money === 2000 ? "#f13c3c" : "#fff",
+                      color: recharge_money === 2000 ? "#fff" : "#f13c3c"
+                    }}
                     onClick={() => {
                       this.setState({
                         recharge_money: 2000
@@ -81,6 +134,10 @@ class Recharge extends Component {
                     2000
                   </Button>
                   <Button
+                    style={{
+                      background: recharge_money === 5000 ? "#f13c3c" : "#fff",
+                      color: recharge_money === 5000 ? "#fff" : "#f13c3c"
+                    }}
                     onClick={() => {
                       this.setState({
                         recharge_money: 5000
@@ -100,7 +157,14 @@ class Recharge extends Component {
               <Row>
                 <Col span={4} />
                 <Col span={20} className="submit_btns">
-                  <Button type="primary">提交</Button>
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      this.sureRecharge();
+                    }}
+                  >
+                    提交
+                  </Button>
                   <Button
                     className="gray"
                     onClick={() => {

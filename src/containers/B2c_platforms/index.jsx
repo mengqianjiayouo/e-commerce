@@ -5,6 +5,11 @@ import { connect } from "react-redux";
 import { Table, Button, Select, Modal, Input } from "antd";
 import { country } from "../../utils/countryFreight";
 import Pagination from "../../components/Pagination/index";
+import { apiList1 } from "../../server/apiMap";
+import { Api } from "../../server/_ajax";
+import { getCookie } from "../../server/cookies";
+
+const api = new Api();
 const { Option } = Select;
 class B2c_platforms extends Component {
   constructor(props) {
@@ -21,10 +26,10 @@ class B2c_platforms extends Component {
       amazon: {
         store_name: "",
         // nick_name: "",
-        site: "BR",
+        site: "",
         seller_id: "",
         token: "",
-        status: 0
+        status: 1
       },
       amazonPages: {
         page: 1,
@@ -36,42 +41,20 @@ class B2c_platforms extends Component {
         seller_id_status: "",
         token_status: ""
       },
-      amazonData: [
-        {
-          usa_id: 1,
-          user_id: 10,
-          usa_online_status: 10,
-          usa_auth_status: 10,
-          usa_auth_code: "111",
-          usa_quick_login: 1,
-          usa_add_time: "2019-08-01 10:10:20",
-          usa_update_time: "2019-08-01 10:10:23",
-          usa_auth_time: "2019-08-01 10:10:25",
-          usa_login_time: "2019-08-01 10:10:27",
-          usa_logout_time: "2019-08-01 10:10:29"
-        }
-      ],
-      siteList: [
-        "BR",
-        "CA",
-        "MX",
-        "US",
-        //阿拉伯联合酋长国（U.A.E.）
-        "AE",
-        "DE",
-        "ES",
-        "FR",
-        "GB",
-        "IN",
-        "IT",
-        "TR",
-        "AU",
-        "JP"
-      ]
+      amazonData: [],
+      siteList: [],
+      islogin: false
     };
   }
   componentDidMount() {
     this.getAmazonData();
+    this.getSiteList();
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
   }
   changFormStatus(a, b, c) {
     this.setState(
@@ -93,42 +76,55 @@ class B2c_platforms extends Component {
     });
   }
   addCount() {
-    let { platform, amazon, shopee } = this.state;
+    let {
+      platform,
+      amazon: { store_name, seller_id, token, site, status },
+      shopee
+    } = this.state;
     if (platform === "amazon") {
-      if (amazon.store_name == "") {
+      if (store_name == "") {
         this.changFormStatus("amazonStatus", "store_name", "error");
         return;
       }
-      if (amazon.seller_id == "") {
+      if (seller_id == "") {
         this.changFormStatus("amazonStatus", "seller_id", "error");
         return;
       }
-      if (amazon.token == "") {
+      if (token == "") {
         this.changFormStatus("amazonStatus", "token", "error");
         return;
       }
-      $.ajax({
-        method: "post",
-        url: "https://118.25.155.176:8080/authSave",
-        /* xhrFields: {
-          withCredentials: true
+      api.$post(
+        apiList1.addAmazonshop.path,
+        {
+          shopName: store_name,
+          sellerId: seller_id,
+          mwsAuthToken: token,
+          MarketPlaceId: site,
+          isEnabled: status === 1
         },
-        crossDomain: true, */
-        data: { ...amazon, platform },
-        dataType: "json",
-        success: res => {
-          console.log(res);
-          if (res.state === 1) {
-            this.setState({
-              show: false
+        res => {
+          if (res.Success) {
+            this.setState(
+              {
+                show: false
+              },
+              () => {
+                Modal.success({
+                  content: res.Msg
+                });
+              }
+            );
+
+            this.getAmazonData();
+          } else {
+            Modal.error({
+              content: res.Msg
             });
           }
-          /* let data = res.data;
-        this.setState({
-          data
-        }); */
         }
-      });
+      );
+
       /* this.setState({
         show: false
       }); */
@@ -147,35 +143,51 @@ class B2c_platforms extends Component {
 
   getAmazonData() {
     let { amazonPages } = this.state;
-    $.ajax({
-      method: "get",
-      url: "https://118.25.155.176:8080/auth",
-      /*  xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true, */
-      data: { page: amazonPages.page, pageSize: amazonPages.pageSize },
-      dataType: "json",
-      error: err => {
-        console.log(err);
-      },
-      success: (res, status, xhr) => {
-        if (res.state === 1) {
-          if (res.data && res.data.data) {
-            this.setState({
-              amazonData: res.data.data.filter((a, b) => {
-                a.key = b;
-              }),
-              amazonPages: {
-                ...this.state.amazonPages,
-                total: res.data.last_page
-              }
-            });
-          }
-        }
+    api.$post(apiList1.amazonList.path, null, res => {
+      console.log(res);
+      this.setState({
+        amazonData: res
+      });
+    });
+    // $.ajax({
+    //   method: "get",
+    //   url: "https://118.25.155.176:8080/auth",
+    //   /*  xhrFields: {
+    //     withCredentials: true
+    //   },
+    //   crossDomain: true, */
+    //   data: { page: amazonPages.page, pageSize: amazonPages.pageSize },
+    //   dataType: "json",
+    //   error: err => {
+    //     console.log(err);
+    //   },
+    //   success: (res, status, xhr) => {
+    //     if (res.state === 1) {
+    //       if (res.data && res.data.data) {
+    //         this.setState({
+    //           amazonData: res.data.data.filter((a, b) => {
+    //             a.key = b;
+    //           }),
+    //           amazonPages: {
+    //             ...this.state.amazonPages,
+    //             total: res.data.last_page
+    //           }
+    //         });
+    //       }
+    //     }
 
-        // console.log($.cookie("csrftoken"));
-      }
+    //   }
+    // });
+  }
+  getSiteList() {
+    api.$post(apiList1.amazonSiteList.path, null, res => {
+      this.setState({
+        siteList: res,
+        amazon: {
+          ...this.state.amazon,
+          site: res[0] ? res[0].Id : ""
+        }
+      });
     });
   }
   onAuthCheck(usa_id) {
@@ -227,33 +239,31 @@ class B2c_platforms extends Component {
     const amazonColumns = [
       {
         title: "店铺名称",
-        dataIndex: "store_name",
+        dataIndex: "ShopName",
         align: "center",
-        key: "store_name"
+        key: "ShopName"
       },
       {
         title: "操作时间",
         align: "center",
         key: "usa_add_time",
         render(a) {
-          return `添加时间${a.usa_add_time}`;
+          return "";
         }
       },
       {
         title: "状态",
         align: "center",
-        key: "usa_auth_status",
+        key: "IsEnabled",
         render(a) {
-          return a.usa_auth_status === 0 ? "未授权" : "已授权";
+          return a.IsEnabled ? "启用" : "禁用";
         }
       },
       {
         title: "国家",
         align: "center",
-        key: "usa_region",
-        render(a) {
-          return country[a.usa_region];
-        }
+        key: "CountryName",
+        dataIndex: "CountryName"
       },
       {
         title: "操作",
@@ -323,7 +333,15 @@ class B2c_platforms extends Component {
       }
     ];
     return (
-      <div className="home B2c">
+      <div
+        className="home B2c"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <Button
@@ -335,15 +353,12 @@ class B2c_platforms extends Component {
             >
               添加账号
             </Button>
-            <Link
-              className="tip_note"
-              to="/sells/b2c_platforms/note"
-              target="_blank"
-            >
+            <Link className="tip_note" to="/sells/b2c_platforms/note">
               Amazon亚马逊店铺授权方法
             </Link>
             <Table
               columns={amazonColumns}
+              rowKey="Id"
               dataSource={amazonData}
               pagination={false}
             />
@@ -550,8 +565,8 @@ class B2c_platforms extends Component {
                   >
                     {siteList.map((a, b) => {
                       return (
-                        <Option key={b} value={a}>
-                          {country[a]}
+                        <Option key={b} value={a.Id}>
+                          {a.CountryName}
                         </Option>
                       );
                     })}
@@ -589,14 +604,12 @@ class B2c_platforms extends Component {
                     }}
                     checked={amazon.status === 1}
                     onChange={e => {
-                      if (e.target.checked) {
-                        this.setState({
-                          amazon: {
-                            ...amazon,
-                            status: 1
-                          }
-                        });
-                      }
+                      this.setState({
+                        amazon: {
+                          ...amazon,
+                          status: 1
+                        }
+                      });
                     }}
                   />
                   <span>禁用</span>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Table, Button } from "antd";
+import { getCookie } from "../../server/cookies";
 
 class ShoppingCart extends Component {
   constructor(props) {
@@ -40,10 +41,18 @@ class ShoppingCart extends Component {
           sync_express_ship: 0,
           key: 1
         }
-      ]
+      ],
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   getData() {}
   showLogin() {}
@@ -154,7 +163,15 @@ class ShoppingCart extends Component {
       }
     ];
     return (
-      <div className="home orders">
+      <div
+        className="home orders"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">

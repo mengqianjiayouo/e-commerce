@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { message } from "antd";
+import { message, Modal } from "antd";
+import { Api } from "../../server/_ajax";
+import { apiList1 } from "../../server/apiMap";
 import $ from "jquery";
+const api = new Api();
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -9,9 +12,12 @@ export default class SignUp extends Component {
       nameError: false,
       wordError: false,
       codeError: false,
+      mobileError: false,
+      mobileErrMsg: "",
+      mobile: "",
       name: "",
       password: "",
-      invitationCode: ""
+      inviteCode: ""
     };
   }
   componentDidMount() {
@@ -35,7 +41,21 @@ export default class SignUp extends Component {
   }
 
   signUp() {
-    let { name, password, invitationCode } = this.state;
+    let { name, password, inviteCode, mobile } = this.state;
+    if (!mobile) {
+      this.setState({
+        mobileError: true,
+        mobileErrMsg: "请输入手机号"
+      });
+      return;
+    }
+    if (!/^1[3456789]\d{9}$/.test(mobile)) {
+      this.setState({
+        mobileError: true,
+        mobileErrMsg: "请填写正确手机号"
+      });
+      return;
+    }
     if (!name) {
       this.setState({ nameError: true });
       return;
@@ -46,29 +66,39 @@ export default class SignUp extends Component {
       });
       return;
     }
-    message.success("注册成功，正在前往登录...", 1, () => {
-      this.props.history.push("/signin");
-    });
+
+    api.$post(
+      apiList1.signUp.path,
+      { name, mobile, password, inviteCode },
+      res => {
+        if (res.Success) {
+          message.success("注册成功，正在前往登录...", 1, () => {
+            this.props.history.push("/signin");
+          });
+        } else {
+          Modal.error({
+            content: res.Msg
+          });
+        }
+      }
+    );
   }
   render() {
     const {
       nameError,
       wordError,
+      mobileError,
+      mobileErrMsg,
       name,
+      mobile,
       password,
-      invitationCode,
+      inviteCode,
       codeError
     } = this.state;
     return (
       <div className="sign_container">
         <div className="signin">
           <form className="new_user" id="new_user" action="#">
-            <input name="utf8" type="hidden" value="✓" />
-            <input
-              type="hidden"
-              name="authenticity_token"
-              value="kw6OrGSuzjcyTD4u5N+N5ivlNQdSNxW5SX0Ast4E5F/KHgjBIlmgErh6nQKpCkiHWQDzaH/TzfkoggybfG+EiA=="
-            />
             <img
               className="logo"
               src={require("../../images/logo.png")}
@@ -79,7 +109,24 @@ export default class SignUp extends Component {
               <input
                 className="input"
                 autoFocus="autofocus"
-                placeholder="请输入用户名"
+                placeholder="请输入手机号码"
+                type="tel"
+                value={mobile}
+                onChange={a => {
+                  this.setState({ mobile: a.target.value });
+                }}
+              />
+              {mobileError ? (
+                <p>
+                  <span>!</span>
+                  {mobileErrMsg}
+                </p>
+              ) : null}
+            </div>
+            <div className="login">
+              <input
+                className="input"
+                placeholder="请输入真实姓名"
                 type="text"
                 value={name}
                 onChange={a => {
@@ -117,9 +164,9 @@ export default class SignUp extends Component {
                 autoComplete="off"
                 placeholder="请输入邀请码"
                 type="text"
-                value={invitationCode}
+                value={inviteCode}
                 onChange={a => {
-                  this.setState({ invitationCode: a.target.value });
+                  this.setState({ inviteCode: a.target.value });
                 }}
               />
               {codeError ? (

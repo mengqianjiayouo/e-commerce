@@ -18,6 +18,7 @@ import moment from "moment";
 import { country, countryList } from "../../utils/countryFreight";
 
 import computeFreight from "../../utils/computeFreight";
+import { getCookie } from "../../server/cookies";
 
 const Option = Select.Option;
 const Orderstatus = {
@@ -89,11 +90,18 @@ class Orders extends Component {
         "TR",
         "AU",
         "JP"
-      ]
+      ],
+      islogin: false
     };
   }
   componentDidMount() {
     this.getData();
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
   }
 
   getData() {
@@ -332,7 +340,15 @@ class Orders extends Component {
     let fregiht = fregihtData[0];
 
     return (
-      <div className="home orders">
+      <div
+        className="home orders"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">

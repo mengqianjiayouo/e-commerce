@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Table } from "antd";
+import { getCookie } from "../../server/cookies";
+
 class AuthLogistics extends Component {
   constructor(props) {
     super(props);
@@ -17,10 +19,18 @@ class AuthLogistics extends Component {
         client_secret: "",
         client_id: ""
       },
-      data: []
+      data: [],
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   addCount() {}
 
@@ -66,7 +76,15 @@ class AuthLogistics extends Component {
       }
     ];
     return (
-      <div className="home B2c">
+      <div
+        className="home B2c"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header"> 账号授权 > 物流账号授权</div>

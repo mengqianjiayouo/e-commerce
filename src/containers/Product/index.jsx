@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Button, Table, Input, Select } from "antd";
 import DatePicker from "react-datepicker";
+import { getCookie } from "../../server/cookies";
+
 const { Option } = Select;
 class Product extends Component {
   constructor(props) {
@@ -11,10 +13,18 @@ class Product extends Component {
       endDate: "",
       platId: "",
       accountId: "",
-      zhandianId: ""
+      zhandianId: "",
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   showLogin() {}
   handleChange(a, date) {
@@ -173,7 +183,15 @@ class Product extends Component {
       }
     ];
     return (
-      <div className="home product">
+      <div
+        className="home product"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="search">

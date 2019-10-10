@@ -1,26 +1,56 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Button, Input } from "antd";
+import { apiList1 } from "../../../server/apiMap";
+import { Api } from "../../../server/_ajax";
+import { getCookie } from "../../../server/cookies";
 
+const api = new Api();
 class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
       address: "",
       contact: "",
-      phone: ""
+      phone: "",
+      member: {},
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.getData();
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
-  getData() {}
+  getData() {
+    api.$post(apiList1.memberInfo.path, null, res => {
+      if (res.Success) {
+        this.setState({
+          member: res.Data
+        });
+      }
+    });
+  }
   showLogin() {}
   render() {
-    const { address, phone, contact } = this.state;
+    const { address, phone, contact, member } = this.state;
     // console.log(this.props.state);
 
     return (
-      <div className="home self">
+      <div
+        className="home self"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">我的基本信息</div>
@@ -31,11 +61,11 @@ class User extends Component {
               </Row>
               <Row className="row">
                 <Col span={8}>上传产品数量：</Col>
-                <Col span={16}>1</Col>
+                <Col span={16}>{member.UploadAmount}</Col>
               </Row>
               <Row className="row">
                 <Col span={8}>余额：</Col>
-                <Col span={16}>¥ 0.00</Col>
+                <Col span={16}>¥ {member.Balance}</Col>
               </Row>
               <Row className="row">
                 <Col span={8}>收货地址：</Col>

@@ -3,16 +3,24 @@ import Banner from "../../components/Banner/index";
 import SearchBox from "../../components/SearchBox/index";
 import GoodsList from "../../components/GoodsList/index";
 import { connect } from "react-redux";
+import { getCookie } from "../../server/cookies";
 import $ from "jquery";
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      classData: []
+      classData: [],
+      islogin: false
     };
   }
   componentDidMount() {
-    this.getPlatList();
+    // this.getPlatList();
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
   }
 
   showLogin() {}
@@ -38,10 +46,13 @@ class Home extends Component {
   }
 
   render() {
-    const { classData } = this.state;
+    const { classData, islogin } = this.state;
 
     return (
-      <div className="home">
+      <div
+        className="home"
+        style={{ paddingLeft: islogin ? "140px" : 0, minHeight: "908px" }}
+      >
         <div className="home_right">
           <div className="main">
             <SearchBox {...this.props} />

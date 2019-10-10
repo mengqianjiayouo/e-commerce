@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import countryList from "../../../utils/detail_country.js";
 import { Select, Input, Modal, Drawer, Row, Col } from "antd";
 import DetailEdit from ".././DetailEdit/index";
+import { getCookie } from "../../../server/cookies";
+
 const Option = Select.Option;
 const hotCountry = [
   "16526",
@@ -80,10 +82,18 @@ class Details extends Component {
       ],
       showImg: "",
       left: 35,
-      drawVisible: false
+      drawVisible: false,
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   render() {
     const {
@@ -105,7 +115,15 @@ class Details extends Component {
       });
     }
     return (
-      <div className="home detail">
+      <div
+        className="home detail"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="hide-top-tip" id="top_tips_container_publish">

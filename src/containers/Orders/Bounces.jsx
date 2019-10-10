@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Table, Button, Dropdown, Input, Select } from "antd";
+import { getCookie } from "../../server/cookies";
+
 const { Option } = Select;
 class Bounces extends Component {
   constructor(props) {
@@ -13,10 +15,18 @@ class Bounces extends Component {
       reason: "",
       status: "",
       handleStatus: "",
-      data: []
+      data: [],
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   getData() {}
   showLogin() {}
@@ -94,7 +104,15 @@ class Bounces extends Component {
       }
     ];
     return (
-      <div className="home orders">
+      <div
+        className="home orders"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">

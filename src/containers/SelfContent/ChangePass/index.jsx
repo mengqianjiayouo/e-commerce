@@ -1,13 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Button, Input } from "antd";
+import { getCookie } from "../../../server/cookies";
 
 class ChangePass extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      islogin: false
+    };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   getData() {}
   showLogin() {}
@@ -16,7 +26,15 @@ class ChangePass extends Component {
     // console.log(this.props.state);
 
     return (
-      <div className="home self">
+      <div
+        className="home self"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">修改密码</div>

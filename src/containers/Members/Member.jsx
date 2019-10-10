@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Row, Col, Table, Button, Modal } from "antd";
+import { getCookie } from "../../server/cookies";
 
 class Members extends Component {
   constructor(props) {
@@ -10,10 +11,18 @@ class Members extends Component {
       recharge_money: "",
       isFreeMember: true,
       show: false,
-      data: []
+      data: [],
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   getData() {}
   showLogin() {}
@@ -27,7 +36,15 @@ class Members extends Component {
     // console.log(this.props.state);
 
     return (
-      <div className="home members">
+      <div
+        className="home members"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">我的会员</div>

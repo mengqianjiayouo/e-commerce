@@ -63,6 +63,10 @@ export default class SideBar extends Component {
             </div>
           </div>
           <div className="option-box hover-box">
+            <img src={email_icon} alt="Icon9" />
+            <div className="name">我的邮箱</div>
+          </div>
+          <div className="option-box hover-box">
             <Link to="/sells/products">
               <img src={file_icon} alt="Icon2" />
               <div className="name">一键刊登</div>
@@ -171,7 +175,7 @@ export default class SideBar extends Component {
                 style={{ minHeight: "inherit", lineHeight: "55px" }}
               >
                 <Link
-                  to="#"
+                  to="/amazonSchool"
                   style={{ minHeight: "inherit", lineHeight: "55px" }}
                 >
                   亚马逊大学
@@ -189,10 +193,6 @@ export default class SideBar extends Component {
                 </Link>
               </div>
             </div>
-          </div>
-          <div className="option-box hover-box">
-            <img src={email_icon} alt="Icon9" />
-            <div className="name">邮箱</div>
           </div>
         </nav>
       </div>

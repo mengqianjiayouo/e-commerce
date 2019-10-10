@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import $ from "jquery";
 import { Carousel } from "antd";
 import { Link } from "react-router-dom";
+import { apiList2 } from "../../server/apiMap";
+import { Api } from "../../server/_ajax";
+const api = new Api();
 export default class Banner extends Component {
   constructor(props) {
     super(props);
@@ -9,12 +12,12 @@ export default class Banner extends Component {
       level1Ary: [],
       level2Ary: [],
       imgList: [
-        require("../../images/1.jpeg"),
+        /* require("../../images/1.jpeg"),
         require("../../images/2.jpeg"),
         require("../../images/3.jpeg"),
         require("../../images/4.jpeg"),
         require("../../images/5.jpeg"),
-        require("../../images/6.jpeg")
+        require("../../images/6.jpeg") */
       ]
     };
   }
@@ -36,9 +39,17 @@ export default class Banner extends Component {
       });
     });
     this.changeClassStyle(this.props);
+    this.getBannerList();
   }
   componentWillReceiveProps(nextprops) {
     this.changeClassStyle(nextprops);
+  }
+  getBannerList() {
+    api.$get(apiList2.bannerList.path, null, res => {
+      this.setState({
+        imgList: res.bannerList
+      });
+    });
   }
 
   changeClassStyle(props) {
@@ -127,7 +138,7 @@ export default class Banner extends Component {
             {imgList.map((a, index) => {
               return (
                 <div key={index}>
-                  <img src={a} alt="" />
+                  <img src={a.imgUrl} alt="" />
                 </div>
               );
             })}

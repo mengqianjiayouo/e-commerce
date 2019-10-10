@@ -1,5 +1,4 @@
 .sign_container {
-    background: url(https://cdn-uat.kjds.com/assets/bg_login-c92cd78….jpg) no-repeat 0 0/150% 200%;
 
     .signin {
         margin: 0 auto;
@@ -15,7 +14,6 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    background: url(https://cdn-uat.kjds.com/assets/icon_login_back-4934667….png) no-repeat 0 0/100% 100%;
 }
 
 @media (max-height: 550px) {
@@ -32,46 +30,10 @@
 
 }
 
-@media (max-height: 550px) {
-    #new_user {
-        margin: 2% auto;
-        padding: 5% 10% 9%;
-
-        .login_back {
-            top: -25px;
-            left: 55px;
-        }
-    }
-}
-
-@media (max-height: 650px) {
-    #new_user {
-        margin: 5% auto;
-        padding: 5% 10% 9%;
-
-        .login_back {
-            top: -20px;
-            left: 55px;
-        }
-    }
-}
-
-@media (max-height: 750px) {
-    #new_user {
-        margin: 8% auto;
-        padding: 5% 10%;
-
-        .login_back {
-            top: -30px;
-            left: 95px;
-        }
-    }
-}
-
 #new_user {
-    width: 750px;
-    margin: 5% auto;
-    padding: 9% 10%;
+    width: 540px;
+    margin: 20px auto;
+    padding: 40px 60px;
     border-radius: 10px;
     background: #333;
     box-shadow: 0 16px 100px 12px rgba(33, 33, 33, 0.7);
@@ -85,7 +47,6 @@
         width: 30px;
         height: 30px;
         cursor: pointer;
-        background: url(https://cdn-uat.kjds.com/assets/icon_login_back-4934667….png) no-repeat 0 0/100% 100%;
     }
 
     .password,
@@ -109,7 +70,6 @@
 
     .logo {
         position: relative;
-        left: 3%;
         display: block;
         width: 30%;
         margin: 0 auto 3%;
@@ -204,7 +164,6 @@
             height: 22px;
             margin: 0 10px 0 0;
             vertical-align: middle;
-            background: url(https://cdn-uat.kjds.com/assets/choosen-b0210e4….png) no-repeat -128px -38px/505% 265%;
         }
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { Dropdown, Popover } from "antd";
+import { clearCookie } from "../../server/cookies.js";
 export default class Topbar extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,7 @@ export default class Topbar extends Component {
     });
   }
   render() {
-    const { islogin } = this.props;
+    const { islogin, member } = this.props;
     const { plat } = this.state;
     const content = (
       <ul>
@@ -37,9 +38,7 @@ export default class Topbar extends Component {
                               className="img-circle"
                               src="https://cdn-resources-aliyun.kjds.com/assets/user_default_avatar-4e570b12afe281b3e0cee7b2079e8abc.png"
                             /> */}
-          <p>
-            王祚家<small>2019年01月18日 17:25 加入</small>
-          </p>
+          <p>{member.Name}</p>
         </li>
         <li className="sell-user-footer">
           <div className="col-xs-4 sell">
@@ -61,8 +60,9 @@ export default class Topbar extends Component {
               data-method="get"
               to="#"
               onClick={() => {
-                sessionStorage.setItem("user", false);
-                window.location.href = "/";
+                clearCookie("ApiKey");
+                // window.location.href = "/signin";
+                this.props.history.push("/signin");
               }}
             >
               <span>退出</span>
@@ -78,14 +78,10 @@ export default class Topbar extends Component {
           {islogin ? (
             <div className="header_platform pull-right">
               <div className="dropdown" />
-              <Link to="https://rumen.kjds.com" target="_blank">
+              <Link to="/guid">
                 <span className="newer">入门指引</span>
               </Link>
               <Link className="bulletins" to="/sells/bulletins">
-                {/* <img
-                  src="https://cdn-resources-aliyun.kjds.com/assets/sells/users/bulletins-98b611d32f6139557f140f239f4525f9.png"
-                  alt="Bulletins"
-                /> */}
                 <span>公告</span>
               </Link>
               <div
@@ -117,14 +113,14 @@ export default class Topbar extends Component {
                       trigger="click"
                       overlayClassName="user_menu_pop"
                     >
-                      <span className="hidden-xs">王祚家</span>
+                      <span className="hidden-xs">{member.Name}</span>
                     </Popover>
                   </li>
                 </ul>
               </div>
               <div className="money-menu">
                 <span style={{ marginRight: 15, color: "#f13c3c" }}>
-                  0.00元
+                  {member.Balance}
                 </span>
                 |<Link to="/sells/financial_management/recharge">充值</Link>
               </div>
@@ -146,9 +142,7 @@ export default class Topbar extends Component {
                 注册
               </div>
               <div>
-                <a target="blank" href="https://rumen.kjds.com">
-                  入门指引
-                </a>
+                <Link to="/guid">入门指引</Link>
               </div>
             </div>
           )}

@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 // import Bundle from "./bundle";
 import Footer from "./components/Footer/index";
+import { getCookie } from "./server/cookies";
 
 /*
  * 代码分割模型
@@ -261,107 +262,109 @@ import PageSubscribe from "./containers/SelfContent/Subscribe";
     </Bundle>
   );
 }; */
+import PageFeedBack from "./containers/FeedBack/index";
 import PageDatadrap from "./containers/Datadrap/index";
+import PageBulletins from "./containers/Bulletins/index";
 import PageAbout from "./components/About/index";
+import PageGuid from "./components/Guid/index";
+import PageSuccess from "./components/RechargeSuccess/index";
+import PageAmazonSchool from "./components/AmazonSchool/index";
 
 const history = createHistory({
   basename: "/"
 });
 
 const Root = () => {
-  let islogin = false;
-  let user = sessionStorage.getItem("user");
-  if (JSON.parse(user)) {
-    islogin = true;
-  }
-
   return (
     <Router history={history}>
       <Switch>
         <Route exact path="/signup" component={PageSignUp} />
         <Route exact path="/signin" component={PageSignIn} />
+        <Route exact path="/rechargeSuccess" component={PageSuccess} />
         <Route component={PageApp} />
       </Switch>
-      <div style={{ paddingLeft: islogin ? "140px" : 0, minHeight: "858px" }}>
-        <Route exact path="/" component={PageHome} />
-        <Route exact path="/about" component={PageAbout} />
+      <Route exact path="/" component={PageHome} />
+      <Route exact path="/about" component={PageAbout} />
+      <Route exact path="/guid" component={PageGuid} />
+      <Route exact path="/amazonSchool" component={PageAmazonSchool} />
 
-        <Route exact path="/sells/products/:id" component={PageDetails} />
-        <Route path="/sells/search" component={PageSearchList} />
-        <Route exact path="/sells/b2c_platforms" component={PageB2cplatforms} />
-        <Route
-          exact
-          path="/sells/b2c_platforms/note"
-          component={PageNotehtml}
-        />
-        <Route exact path="/sells/products" component={PageProduct} />
-        <Route
-          exact
-          path="/sells/products/:id/detail_edit"
-          component={PageDetailEdit}
-        />
-        <Route exact path="/sells/orders" component={PageOrders} />
-        <Route
-          exact
-          path="/sells/orders/abnormal_order"
-          component={PageAbnormalOrder}
-        />
-        <Route
-          exact
-          path="/sells/orders/overtime_order"
-          component={PageTimeOrder}
-        />
-        <Route exact path="/sells/bounces" component={PageBounces} />
-        <Route
-          exact
-          path="/analysis/data_analyses/sales_analysis"
-          component={PageSalesAnalysis}
-        />
-        <Route
-          exact
-          path="/sells/b2c_platforms/auth_logistics"
-          component={PageAuthLogistics}
-        />
-        <Route
-          exact
-          path="/logistics/international"
-          component={PageInternational}
-        />
-        <Route exact path="/logistics/domestic" component={PageDomestic} />
-        <Route
-          exact
-          path="/sells/orders/shopping_cart"
-          component={PageShoppingCart}
-        />
-        <Route exact path="/sells/users" component={PageUser} />
-        <Route exact path="/sells/changePass" component={PageChangePass} />
-        <Route exact path="/sells/users/subscribe" component={PageSubscribe} />
-        <Route
-          exact
-          path="/sells/accounts/recharge_histories"
-          component={PageRechargeHistories}
-        />
-        <Route
-          exact
-          path="/sells/financial_management/recharge"
-          component={PageRecharge}
-        />
-        <Route exact path="/sells/members" component={PageMember} />
-        <Route
-          exact
-          path="/sells/members/subscription"
-          component={PageSubscription}
-        />
-        <Route
-          exact
-          path="/sells/financial_management/payment_records"
-          component={PagePaymentRecords}
-        />
-        <Route exact path="/analysis/data_grap" component={PageDatadrap} />
-      </div>
-      <div style={{ marginTop: "20px" }}>
-        <Footer history={history} />
-      </div>
+      <Route exact path="/sells/products/:id" component={PageDetails} />
+      <Route path="/sells/search" component={PageSearchList} />
+      <Route exact path="/sells/b2c_platforms" component={PageB2cplatforms} />
+      <Route exact path="/sells/b2c_platforms/note" component={PageNotehtml} />
+      <Route exact path="/sells/products" component={PageProduct} />
+      <Route
+        exact
+        path="/sells/products/:id/detail_edit"
+        component={PageDetailEdit}
+      />
+      <Route exact path="/sells/orders" component={PageOrders} />
+      <Route
+        exact
+        path="/sells/orders/abnormal_order"
+        component={PageAbnormalOrder}
+      />
+      <Route
+        exact
+        path="/sells/orders/overtime_order"
+        component={PageTimeOrder}
+      />
+      <Route exact path="/sells/bounces" component={PageBounces} />
+      <Route
+        exact
+        path="/analysis/data_analyses/sales_analysis"
+        component={PageSalesAnalysis}
+      />
+      <Route
+        exact
+        path="/sells/b2c_platforms/auth_logistics"
+        component={PageAuthLogistics}
+      />
+      <Route
+        exact
+        path="/logistics/international"
+        component={PageInternational}
+      />
+      <Route exact path="/logistics/domestic" component={PageDomestic} />
+      <Route
+        exact
+        path="/sells/orders/shopping_cart"
+        component={PageShoppingCart}
+      />
+      <Route exact path="/sells/users" component={PageUser} />
+      <Route exact path="/sells/changePass" component={PageChangePass} />
+      <Route exact path="/sells/users/subscribe" component={PageSubscribe} />
+      <Route
+        exact
+        path="/sells/accounts/recharge_histories"
+        component={PageRechargeHistories}
+      />
+      <Route
+        exact
+        path="/sells/financial_management/recharge"
+        component={PageRecharge}
+      />
+      <Route exact path="/sells/members" component={PageMember} />
+      <Route
+        exact
+        path="/sells/members/subscription"
+        component={PageSubscription}
+      />
+      <Route
+        exact
+        path="/sells/financial_management/payment_records"
+        component={PagePaymentRecords}
+      />
+      <Route exact path="/analysis/data_grap" component={PageDatadrap} />
+      <Route exact path="/sells/bulletins" component={PageBulletins} />
+      <Route exact path="/feedBack" component={PageFeedBack} />
+      <Switch>
+        <Route path="/" component={Footer}>
+          {/* <div style={{ marginTop: "20px" }}>
+          <Footer history={history} />
+        </div> */}
+        </Route>
+      </Switch>
     </Router>
   );
 };

@@ -19,7 +19,11 @@ export default class ReturnTop extends Component {
           <img src={require("../../images/QQ.png")} alt="" />
           在线客服
         </div>
-        <div>
+        <div
+          onClick={() => {
+            this.props.history.push("/feedBack");
+          }}
+        >
           <img src={require("../../images/yijian_icon.png")} alt="" />
           意见箱
         </div>

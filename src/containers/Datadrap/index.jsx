@@ -12,6 +12,8 @@ import {
   Drawer
 } from "antd";
 import DetailEdit from "../Products/DetailEdit/index";
+import { getCookie } from "../../server/cookies";
+
 const { Option } = Select;
 const drapTypes = {
   all: "全部",
@@ -73,10 +75,18 @@ class Datadrap extends Component {
       isSaveProdut: "all",
       loading: false,
       editData: {},
-      drawVisible: false
+      drawVisible: false,
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
   getData() {
     this.setState({
       loading: true
@@ -165,7 +175,15 @@ class Datadrap extends Component {
       }
     ];
     return (
-      <div className="home orders drap">
+      <div
+        className="home orders drap"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">

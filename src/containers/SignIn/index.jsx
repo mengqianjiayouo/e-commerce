@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { message, Modal } from "antd";
 import $ from "jquery";
+import { Api } from "../../server/_ajax";
+import { apiList1 } from "../../server/apiMap";
+import { setCookie, getCookie } from "../../server/cookies";
+
+const api = new Api();
 export default class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameError: false,
+      mobileError: false,
       wordError: false,
-      name: "",
+      mobile: "",
       password: ""
     };
   }
@@ -36,9 +42,9 @@ export default class SignIn extends Component {
   }
 
   login() {
-    let { name, password } = this.state;
-    if (!name) {
-      this.setState({ nameError: true });
+    let { mobile, password } = this.state;
+    if (!mobile) {
+      this.setState({ mobileError: true });
       return;
     }
     if (!password) {
@@ -47,21 +53,26 @@ export default class SignIn extends Component {
       });
       return;
     }
-    sessionStorage.setItem("user", true);
-    window.location.href = "/";
+    api.$post(apiList1.login.path, { mobile, password }, res => {
+      if (res.Success) {
+        message.success("登录成功", 1, () => {
+          setCookie("ApiKey", res.Data.token);
+          this.props.history.push("/");
+          // window.open("/");
+        });
+      } else {
+        Modal.error({
+          content: res.Msg
+        });
+      }
+    });
   }
   render() {
-    const { nameError, wordError, name, password } = this.state;
+    const { mobileError, wordError, mobile, password } = this.state;
     return (
       <div className="sign_container">
         <div className="signin">
           <form className="new_user" id="new_user" action="#">
-            <input name="utf8" type="hidden" value="✓" />
-            <input
-              type="hidden"
-              name="authenticity_token"
-              value="kw6OrGSuzjcyTD4u5N+N5ivlNQdSNxW5SX0Ast4E5F/KHgjBIlmgErh6nQKpCkiHWQDzaH/TzfkoggybfG+EiA=="
-            />
             <img
               className="logo"
               src={require("../../images/logo.png")}
@@ -74,15 +85,15 @@ export default class SignIn extends Component {
                 autoFocus="autofocus"
                 placeholder="请输入邮箱/手机号"
                 type="text"
-                value={name}
+                value={mobile}
                 onChange={a => {
-                  this.setState({ name: a.target.value });
+                  this.setState({ mobile: a.target.value });
                 }}
                 id="user_login"
               />
-              {nameError ? (
+              {mobileError ? (
                 <p>
-                  <span>!</span>该用户不存在
+                  <span>!</span>请输入手机号
                 </p>
               ) : null}
             </div>
@@ -107,6 +118,7 @@ export default class SignIn extends Component {
             </div>
             <div className="remember_me check_box">
               <p>
+                <input type="checkbox" />
                 <span />
                 记住我
               </p>

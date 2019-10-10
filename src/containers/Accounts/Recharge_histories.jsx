@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col } from "antd";
 import { Table } from "antd";
+import { getCookie } from "../../server/cookies";
 
 class Recharge_histories extends Component {
   constructor(props) {
@@ -10,10 +11,18 @@ class Recharge_histories extends Component {
       currentList: "recharge",
       rechargeData: [],
       consumeData: [],
-      refundData: []
+      refundData: [],
+      islogin: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let ApiKey = getCookie("ApiKey");
+    if (ApiKey && ApiKey !== "") {
+      this.setState({
+        islogin: true
+      });
+    }
+  }
 
   getData() {}
   showLogin() {}
@@ -105,7 +114,15 @@ class Recharge_histories extends Component {
       }
     ];
     return (
-      <div className="home orders accounts">
+      <div
+        className="home orders accounts"
+        style={{
+          paddingTop: "40px",
+          /* paddingLeft: this.state.islogin ? "140px" : 0, */
+          paddingLeft: "140px",
+          minHeight: "908px"
+        }}
+      >
         <div className="home_right">
           <div className="main">
             <div className="header">
