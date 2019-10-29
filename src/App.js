@@ -74,13 +74,22 @@ class App extends Component {
     // this.creatQQScript();
   }
   getMemberInfo() {
-    api.$post(apiList1.memberInfo.path, null, res => {
-      if (res.Success) {
-        this.setState({
-          member: res.Data
-        });
+    api.$post(
+      apiList1.memberInfo.path,
+      null,
+      res => {
+        if (res.Success) {
+          this.setState({
+            member: res.Data
+          });
+        }
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
       }
-    });
+    );
   }
   changePlat(a) {
     this.props.dispatch({ type: "PLATCHANGE", plat: a });

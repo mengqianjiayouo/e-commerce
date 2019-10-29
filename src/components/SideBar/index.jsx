@@ -13,6 +13,7 @@ import study_online_icon from "../../images/study_online.png";
 import authorize_icon from "../../images/sidebar_authorize.png";
 import email_icon from "../../images/email.png";
 import $ from "jquery";
+
 export default class SideBar extends Component {
   constructor(props) {
     super(props);
@@ -186,7 +187,7 @@ export default class SideBar extends Component {
                 style={{ minHeight: "inherit", lineHeight: "55px" }}
               >
                 <Link
-                  to="#"
+                  to="/shopeeSchool"
                   style={{ minHeight: "inherit", lineHeight: "55px" }}
                 >
                   shopee大学

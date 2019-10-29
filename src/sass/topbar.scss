@@ -271,6 +271,18 @@
                 color: #000;
             }
 
+            .hidden-xs {
+                display: inline-block;
+                position: relative;
+
+                img {
+                    position: absolute;
+                    width: 20px;
+                    top: 21px;
+                    left: -26px;
+                }
+            }
+
             .user-image {
                 background-size: contain;
                 width: 25px;

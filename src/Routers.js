@@ -266,9 +266,12 @@ import PageFeedBack from "./containers/FeedBack/index";
 import PageDatadrap from "./containers/Datadrap/index";
 import PageBulletins from "./containers/Bulletins/index";
 import PageAbout from "./components/About/index";
+import PageUsedEmail from "./components/UsedEmail/index";
 import PageGuid from "./components/Guid/index";
 import PageSuccess from "./components/RechargeSuccess/index";
 import PageAmazonSchool from "./components/AmazonSchool/index";
+import PageShopeeSchool from "./components/ShopeeSchool/index";
+import PageLeasingManager from "./components/LeasingManager/index";
 
 const history = createHistory({
   basename: "/"
@@ -287,6 +290,7 @@ const Root = () => {
       <Route exact path="/about" component={PageAbout} />
       <Route exact path="/guid" component={PageGuid} />
       <Route exact path="/amazonSchool" component={PageAmazonSchool} />
+      <Route exact path="/shopeeSchool" component={PageShopeeSchool} />
 
       <Route exact path="/sells/products/:id" component={PageDetails} />
       <Route path="/sells/search" component={PageSearchList} />
@@ -358,6 +362,8 @@ const Root = () => {
       <Route exact path="/analysis/data_grap" component={PageDatadrap} />
       <Route exact path="/sells/bulletins" component={PageBulletins} />
       <Route exact path="/feedBack" component={PageFeedBack} />
+      <Route exact path="/emails" component={PageUsedEmail} />
+      <Route exact path="/leasing" component={PageLeasingManager} />
       <Switch>
         <Route path="/" component={Footer}>
           {/* <div style={{ marginTop: "20px" }}>

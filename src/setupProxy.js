@@ -14,10 +14,10 @@ module.exports = function(app) {
   app.use(
     proxy("/server2/**", {
       // target: "http://118.25.155.176/",
-      target: "https://news.cnshanzhi.com",
+      target: "https://company.cnshanzhi.com",
       changeOrigin: true,
       pathRewrite: {
-        "^/server2": "https://news.cnshanzhi.com" //路径重写
+        "^/server2": "https://company.cnshanzhi.com" //路径重写
       }
     })
   );

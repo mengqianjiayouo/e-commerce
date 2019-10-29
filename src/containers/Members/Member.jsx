@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Row, Col, Table, Button, Modal } from "antd";
 import { getCookie } from "../../server/cookies";
+import { Api } from "../../server/_ajax";
+import { apiList2 } from "../../server/apiMap";
+
+const api = new Api();
 
 class Members extends Component {
   constructor(props) {
@@ -12,7 +16,9 @@ class Members extends Component {
       isFreeMember: true,
       show: false,
       data: [],
-      islogin: false
+      islogin: false,
+      visible: false,
+      list: []
     };
   }
   componentDidMount() {
@@ -22,17 +28,32 @@ class Members extends Component {
         islogin: true
       });
     }
+    this.getData();
   }
 
-  getData() {}
-  showLogin() {}
   handleClose() {
     this.setState({
       show: false
     });
   }
+  getData() {
+    api.$get(
+      apiList2.messageList.path,
+      { cate: "会员权限" },
+      res => {
+        this.setState({
+          list: res.messageList
+        });
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
+      }
+    );
+  }
   render() {
-    const { isFreeMember, show, data } = this.state;
+    const { isFreeMember, show, data, visible, list } = this.state;
     // console.log(this.props.state);
 
     return (
@@ -70,7 +91,15 @@ class Members extends Component {
               <Row className="row">
                 <Col span={6}>会员权限：</Col>
                 <Col span={18}>
-                  <Button>查看会员权限</Button>
+                  <Button
+                    onClick={() => {
+                      this.setState({
+                        visible: true
+                      });
+                    }}
+                  >
+                    查看会员权限
+                  </Button>
                 </Col>
               </Row>
               <Row className="row">
@@ -125,6 +154,41 @@ class Members extends Component {
               </div>
               <div style={{ textAlign: "center", marginTop: "15px" }}>
                 <Button onClick={this.handleClose.bind(this)}>关闭</Button>
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            visible={visible}
+            onCancel={() => {
+              this.setState({
+                visible: false
+              });
+            }}
+            wrapClassName="member_modal"
+            footer={null}
+          >
+            <div>
+              {list.length > 0
+                ? list.map((a, b) => {
+                    return (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: a.content
+                        }}
+                      />
+                    );
+                  })
+                : "没有数据"}
+              <div style={{ textAlign: "center", marginTop: "15px" }}>
+                <Button
+                  onClick={() => {
+                    this.setState({
+                      visible: false
+                    });
+                  }}
+                >
+                  关闭
+                </Button>
               </div>
             </div>
           </Modal>

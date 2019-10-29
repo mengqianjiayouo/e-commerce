@@ -72,7 +72,7 @@ class Api {
         if (status == "abort") return;
         if (xhr.status === 401) {
           delete _this._locks[url];
-          _this.ajaxError("登录过期，请重新登录！", error, true);
+          _this.ajaxError("登录过期，请重新登录！", xhr.status, error);
         }
         delete _this._locks[url];
         _this.ajaxError(null, error);
@@ -80,21 +80,20 @@ class Api {
     });
   }
 
-  ajaxError(str, error, isLogin) {
+  ajaxError(str, code, error) {
     if (str) {
       Modal.warning({
         title: "提示",
         content: str || "网络出错了，请刷新后重试!!",
         onOk: () => {
-          if (isLogin) {
-            clearCookie("ApiKey");
-            history.push("/signin");
-            // window.open("/signin");
+          if (code === 401) {
+            error && error(401);
           }
         }
       });
+    } else {
+      return error && error();
     }
-    return error && error();
   }
 }
 

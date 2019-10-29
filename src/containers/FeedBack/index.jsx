@@ -27,19 +27,28 @@ export default class FeedBack extends Component {
       description: "",
       content: `<div>${content}</div>`
     };
-    api.$postJSON(apiList2.addMessage.path, { ...data }, res => {
-      this.setState({
-        isSave: false
-      });
-      if (res.code === 0) {
-        Modal.success({
-          content: "意见反馈成功！"
-        });
+    api.$postJSON(
+      apiList2.addMessage.path,
+      { ...data },
+      res => {
         this.setState({
-          content: ""
+          isSave: false
         });
+        if (res.code === 0) {
+          Modal.success({
+            content: "意见反馈成功！"
+          });
+          this.setState({
+            content: ""
+          });
+        }
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
       }
-    });
+    );
   }
 
   render() {
@@ -60,6 +69,7 @@ export default class FeedBack extends Component {
             </Col>
             <Col span={20}>
               <Input.TextArea
+                rows={8}
                 className="TextArea"
                 value={this.state.content}
                 onChange={e => {
@@ -68,8 +78,17 @@ export default class FeedBack extends Component {
                   });
                 }}
               />
+              <p
+                style={{
+                  textAlign: "left",
+                  color: "#777"
+                }}
+              >
+                感谢您提出的宝贵意见
+              </p>
             </Col>
           </Row>
+
           <Button
             style={{ marginTop: "20px" }}
             onClick={() => {

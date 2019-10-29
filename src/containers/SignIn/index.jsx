@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { message, Modal } from "antd";
+import { message, Modal, Col, Row, Icon } from "antd";
 import $ from "jquery";
 import { Api } from "../../server/_ajax";
 import { apiList1 } from "../../server/apiMap";
 import { setCookie, getCookie } from "../../server/cookies";
+import Particle from "zhihu-particle";
 
 const api = new Api();
 export default class SignIn extends Component {
@@ -39,6 +40,12 @@ export default class SignIn extends Component {
         $(this).toggleClass("active");
       });
     });
+    let h = document.clientHeight || document.body.clientHeight;
+    $(".sign_container").css("height", h);
+    new Particle(this.background, {
+      interactive: true,
+      density: "low"
+    });
   }
 
   login() {
@@ -53,44 +60,83 @@ export default class SignIn extends Component {
       });
       return;
     }
-    api.$post(apiList1.login.path, { mobile, password }, res => {
-      if (res.Success) {
-        message.success("登录成功", 1, () => {
-          setCookie("ApiKey", res.Data.token);
-          this.props.history.push("/");
-          // window.open("/");
-        });
-      } else {
-        Modal.error({
-          content: res.Msg
-        });
+    api.$post(
+      apiList1.login.path,
+      { mobile, password },
+      res => {
+        if (res.Success) {
+          message.success("登录成功", 1, () => {
+            setCookie("ApiKey", res.Data.token);
+            this.props.history.push("/");
+            // window.open("/");
+          });
+        } else {
+          Modal.error({
+            content: res.Msg
+          });
+        }
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
       }
-    });
+    );
   }
   render() {
     const { mobileError, wordError, mobile, password } = this.state;
     return (
-      <div className="sign_container">
+      <div
+        className="sign_container"
+        ref={background => {
+          this.background = background;
+        }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 0,
+          overflow: "hidden"
+        }}
+      >
         <div className="signin">
-          <form className="new_user" id="new_user" action="#">
+          <form
+            className="new_user"
+            id="new_user"
+            action="#"
+            autocomplete="off"
+          >
             <img
               className="logo"
               src={require("../../images/logo.png")}
               alt="Logo white"
             />
-            <p>欢迎登录</p>
+            <p>闪质跨境供应链</p>
             <div className="login">
-              <input
-                className="input"
-                autoFocus="autofocus"
-                placeholder="请输入邮箱/手机号"
-                type="text"
-                value={mobile}
-                onChange={a => {
-                  this.setState({ mobile: a.target.value });
-                }}
-                id="user_login"
-              />
+              <Row>
+                <Col span={2} style={{ height: 40, lineHeight: "40px" }}>
+                  <Icon
+                    type="user"
+                    style={{ color: "#fff", fontSize: "16px" }}
+                  />
+                </Col>
+                <Col span={22}>
+                  <input
+                    className="input"
+                    autoFocus="autofocus"
+                    placeholder="请输入邮箱/手机号"
+                    type="text"
+                    value={mobile}
+                    onChange={a => {
+                      this.setState({ mobile: a.target.value });
+                    }}
+                    id="user_login"
+                  />
+                </Col>
+              </Row>
+
               {mobileError ? (
                 <p>
                   <span>!</span>请输入手机号
@@ -98,17 +144,28 @@ export default class SignIn extends Component {
               ) : null}
             </div>
             <div className="password">
-              <input
-                className="input"
-                autoComplete="off"
-                placeholder="请输入密码"
-                type="password"
-                value={password}
-                onChange={a => {
-                  this.setState({ password: a.target.value });
-                }}
-                id="user_password"
-              />
+              <Row>
+                <Col span={2} style={{ height: 40, lineHeight: "40px" }}>
+                  <Icon
+                    type="lock"
+                    style={{ color: "#fff", fontSize: "16px" }}
+                  />
+                </Col>
+                <Col span={22}>
+                  <input
+                    className="input"
+                    autoComplete="off"
+                    placeholder="请输入密码"
+                    type="password"
+                    value={password}
+                    onChange={a => {
+                      this.setState({ password: a.target.value });
+                    }}
+                    id="user_password"
+                  />
+                </Col>
+              </Row>
+
               <i className="glyphicon glyphicon-eye-open password-visible-control" />
               {wordError ? (
                 <p>

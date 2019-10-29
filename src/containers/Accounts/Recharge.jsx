@@ -4,6 +4,7 @@ import { Row, Col, Button, Modal } from "antd";
 import { apiList1 } from "../../server/apiMap";
 import { Api } from "../../server/_ajax";
 import { getCookie } from "../../server/cookies";
+import apply_icon from "../../images/apliay_icon.png";
 
 const api = new Api();
 class Recharge extends Component {
@@ -42,6 +43,11 @@ class Recharge extends Component {
             content: res.Msg
           });
         }
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
       }
     );
   }
@@ -72,11 +78,7 @@ class Recharge extends Component {
               <Row>
                 <Col span={4}>充值方式：</Col>
                 <Col span={20}>
-                  <img
-                    className="apply"
-                    src="https://cdn-resources-aliyun.kjds.com/assets/apliay_icon-48a1bd6b43746bc7c8d7a4b65017ab0a.png"
-                    alt=""
-                  />
+                  <img className="apply" src={apply_icon} alt="" />
                 </Col>
               </Row>
               <Row>

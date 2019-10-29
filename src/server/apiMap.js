@@ -1,7 +1,7 @@
 // const server1 = "http://47.94.223.5:8004"; //张文宝接口前缀
 const server1 = "https://important.cnshanzhi.com"; //张文宝接口前缀
 // const server2 = "http://118.25.155.176/"; //祚家接口前缀
-const server2 = "https://news.cnshanzhi.com"; //祚家接口前缀
+const server2 = "https://company.cnshanzhi.com"; //祚家接口前缀
 const isDev = process.env.NODE_ENV === "development";
 const apiList1 = {
   login: {
@@ -32,6 +32,12 @@ const apiList2 = {
   },
   bannerList: {
     path: "/api/banner/getAll"
+  },
+  getSubCate: {
+    path: "/api/category/getSubCateByCate"
+  },
+  getCata: {
+    path: "/api/category/getCateList"
   },
   addMessage: {
     path: "/api/message/add"

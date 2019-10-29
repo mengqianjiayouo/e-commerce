@@ -61,7 +61,8 @@ export default class Footer extends Component {
                     <span id="three_party_supply_business">营业执照代办理</span>
                   </li>
                   <li>
-                    <span id="three_party_attract">各站招商经理</span>
+                    <Link to="/leasing">各站招商经理</Link>
+                    {/* <span id="three_party_attract">各站招商经理</span> */}
                   </li>
                   <li>
                     <span id="three_party_vps">vps购买</span>
@@ -83,6 +84,9 @@ export default class Footer extends Component {
               <div className="help">
                 <h4>商务合作</h4>
                 <ul>
+                  <li>
+                    <Link to="/emails">常用邮箱列表</Link>
+                  </li>
                   <li>
                     <span id="three_party_operate">成为运营商</span>
                   </li>

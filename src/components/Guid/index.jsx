@@ -24,11 +24,20 @@ export default class Guid extends Component {
     }
   }
   getData() {
-    api.$get(apiList2.messageList.path, { cate: "入门指引" }, res => {
-      this.setState({
-        list: res.messageList
-      });
-    });
+    api.$get(
+      apiList2.messageList.path,
+      { cate: "入门指引" },
+      res => {
+        this.setState({
+          list: res.messageList
+        });
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
+      }
+    );
   }
   render() {
     const { list } = this.state;
@@ -40,7 +49,9 @@ export default class Guid extends Component {
           paddingLeft: "140px",
           minHeight: "908px"
         }}
-        dangerouslySetInnerHTML={{ __html: list[0] ? list[0].content : "" }}
+        dangerouslySetInnerHTML={{
+          __html: list[0] ? list[0].content : "没有数据"
+        }}
       />
     );
   }

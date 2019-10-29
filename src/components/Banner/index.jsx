@@ -45,11 +45,20 @@ export default class Banner extends Component {
     this.changeClassStyle(nextprops);
   }
   getBannerList() {
-    api.$get(apiList2.bannerList.path, null, res => {
-      this.setState({
-        imgList: res.bannerList
-      });
-    });
+    api.$get(
+      apiList2.bannerList.path,
+      null,
+      res => {
+        this.setState({
+          imgList: res.bannerList
+        });
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
+      }
+    );
   }
 
   changeClassStyle(props) {

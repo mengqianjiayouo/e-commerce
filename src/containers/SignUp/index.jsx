@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { message, Modal } from "antd";
+import { message, Modal, Row, Col, Icon } from "antd";
 import { Api } from "../../server/_ajax";
 import { apiList1 } from "../../server/apiMap";
 import $ from "jquery";
+import Particle from "zhihu-particle";
+
 const api = new Api();
 export default class SignUp extends Component {
   constructor(props) {
@@ -38,6 +40,12 @@ export default class SignUp extends Component {
         }
       });
     });
+    new Particle(this.background, {
+      interactive: true,
+      density: "low"
+    });
+    let h = document.clientHeight || document.body.clientHeight;
+    $(".sign_container").css("height", h);
   }
 
   signUp() {
@@ -80,6 +88,11 @@ export default class SignUp extends Component {
             content: res.Msg
           });
         }
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
       }
     );
   }
@@ -96,26 +109,57 @@ export default class SignUp extends Component {
       codeError
     } = this.state;
     return (
-      <div className="sign_container">
+      <div
+        className="sign_container"
+        ref={background => {
+          this.background = background;
+        }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 0,
+          overflow: "hidden"
+        }}
+      >
         <div className="signin">
-          <form className="new_user" id="new_user" action="#">
+          <form
+            className="new_user"
+            id="new_user"
+            action="#"
+            autocomplete="off"
+          >
             <img
               className="logo"
               src={require("../../images/logo.png")}
               alt="Logo white"
             />
-            <p>注册</p>
+            <p>闪质跨境供应链</p>
             <div className="login">
-              <input
-                className="input"
-                autoFocus="autofocus"
-                placeholder="请输入手机号码"
-                type="tel"
-                value={mobile}
-                onChange={a => {
-                  this.setState({ mobile: a.target.value });
-                }}
-              />
+              <Row>
+                <Col span={2} style={{ height: 40, lineHeight: "40px" }}>
+                  <Icon
+                    type="phone"
+                    style={{ color: "#fff", fontSize: "16px" }}
+                  />
+                </Col>
+                <Col span={22}>
+                  {" "}
+                  <input
+                    className="input"
+                    autoFocus="autofocus"
+                    placeholder="请输入手机号码"
+                    type="tel"
+                    value={mobile}
+                    onChange={a => {
+                      this.setState({ mobile: a.target.value });
+                    }}
+                  />
+                </Col>
+              </Row>
+
               {mobileError ? (
                 <p>
                   <span>!</span>
@@ -124,15 +168,26 @@ export default class SignUp extends Component {
               ) : null}
             </div>
             <div className="login">
-              <input
-                className="input"
-                placeholder="请输入真实姓名"
-                type="text"
-                value={name}
-                onChange={a => {
-                  this.setState({ name: a.target.value });
-                }}
-              />
+              <Row>
+                <Col span={2} style={{ height: 40, lineHeight: "40px" }}>
+                  <Icon
+                    type="user"
+                    style={{ color: "#fff", fontSize: "16px" }}
+                  />
+                </Col>
+                <Col span={22}>
+                  <input
+                    className="input"
+                    placeholder="请输入真实姓名"
+                    type="text"
+                    value={name}
+                    onChange={a => {
+                      this.setState({ name: a.target.value });
+                    }}
+                  />
+                </Col>
+              </Row>
+
               {nameError ? (
                 <p>
                   <span>!</span>请输入用户名
@@ -140,17 +195,28 @@ export default class SignUp extends Component {
               ) : null}
             </div>
             <div className="password">
-              <input
-                className="input"
-                autoComplete="off"
-                placeholder="请输入密码"
-                type="password"
-                value={password}
-                onChange={a => {
-                  this.setState({ password: a.target.value });
-                }}
-                id="user_password"
-              />
+              <Row>
+                <Col span={2} style={{ height: 40, lineHeight: "40px" }}>
+                  <Icon
+                    type="lock"
+                    style={{ color: "#fff", fontSize: "16px" }}
+                  />
+                </Col>
+                <Col span={22}>
+                  <input
+                    className="input"
+                    autoComplete="off"
+                    placeholder="请输入密码"
+                    type="password"
+                    value={password}
+                    onChange={a => {
+                      this.setState({ password: a.target.value });
+                    }}
+                    id="user_password"
+                  />
+                </Col>
+              </Row>
+
               <i className="glyphicon glyphicon-eye-open password-visible-control" />
               {wordError ? (
                 <p>
@@ -159,16 +225,27 @@ export default class SignUp extends Component {
               ) : null}
             </div>
             <div className="password">
-              <input
-                className="input"
-                autoComplete="off"
-                placeholder="请输入邀请码"
-                type="text"
-                value={inviteCode}
-                onChange={a => {
-                  this.setState({ inviteCode: a.target.value });
-                }}
-              />
+              <Row>
+                <Col span={2} style={{ height: 40, lineHeight: "40px" }}>
+                  <Icon
+                    type="key"
+                    style={{ color: "#fff", fontSize: "16px" }}
+                  />
+                </Col>
+                <Col span={22}>
+                  <input
+                    className="input"
+                    autoComplete="off"
+                    placeholder="请输入邀请码"
+                    type="text"
+                    value={inviteCode}
+                    onChange={a => {
+                      this.setState({ inviteCode: a.target.value });
+                    }}
+                  />
+                </Col>
+              </Row>
+
               {codeError ? (
                 <p>
                   <span>!</span>邀请码错误!

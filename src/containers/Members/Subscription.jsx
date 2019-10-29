@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Button } from "antd";
 import { getCookie } from "../../server/cookies";
+import apply_icon from "../../images/apliay_icon.png";
+import member_icon from "../../images/member.png";
+import { Api } from "../../server/_ajax";
+import { apiList1 } from "../../server/apiMap";
 
+const api = new Api();
 class Subscription extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +18,8 @@ class Subscription extends Component {
         { month: 12, money: "2999.00" }
       ],
       recharge_money: "299.00",
-      islogin: false
+      islogin: false,
+      member: {}
     };
   }
   componentDidMount() {
@@ -23,12 +29,29 @@ class Subscription extends Component {
         islogin: true
       });
     }
+    this.getMemberInfo();
+  }
+  getMemberInfo() {
+    api.$post(
+      apiList1.memberInfo.path,
+      null,
+      res => {
+        if (res.Success) {
+          this.setState({
+            member: res.Data
+          });
+        }
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
+      }
+    );
   }
 
-  getData() {}
-  showLogin() {}
   render() {
-    const { rechargeList, recharge_money } = this.state;
+    const { rechargeList, recharge_money, member } = this.state;
     // console.log(this.props.state);
 
     return (
@@ -46,11 +69,22 @@ class Subscription extends Component {
             <div className="form">
               <Row>
                 <Col span={4}>会员类型：</Col>
-                <Col span={20}>普通会员</Col>
+                <Col span={20}>
+                  <img
+                    src={member_icon}
+                    alt=""
+                    style={{
+                      width: "20px",
+                      verticalAlign: "middle",
+                      marginRight: "10px"
+                    }}
+                  />
+                  普通会员
+                </Col>
               </Row>
               <Row>
                 <Col span={4}>当前账号：</Col>
-                <Col span={20}>zhanghao</Col>
+                <Col span={20}>{member.Name}</Col>
               </Row>
               <Row>
                 <Col span={4}>开通时长：</Col>
@@ -75,11 +109,7 @@ class Subscription extends Component {
               <Row>
                 <Col span={4}>支付方式：</Col>
                 <Col span={20}>
-                  <img
-                    className="apply"
-                    src="https://cdn-resources-aliyun.kjds.com/assets/apliay_icon-48a1bd6b43746bc7c8d7a4b65017ab0a.png"
-                    alt=""
-                  />
+                  <img className="apply" src={apply_icon} alt="" />
                 </Col>
               </Row>
 

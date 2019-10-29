@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
-import { Dropdown, Popover } from "antd";
+import { Modal, Popover } from "antd";
 import { clearCookie } from "../../server/cookies.js";
+import member_icon from "../../images/member.png";
+import no_member_icon from "../../images/no_mem.png";
+
 export default class Topbar extends Component {
   constructor(props) {
     super(props);
@@ -33,27 +36,18 @@ export default class Topbar extends Component {
     const content = (
       <ul>
         <li className="user-header">
-          {/* <img
-                              alt="用户头像"
-                              className="img-circle"
-                              src="https://cdn-resources-aliyun.kjds.com/assets/user_default_avatar-4e570b12afe281b3e0cee7b2079e8abc.png"
-                            /> */}
           <p>{member.Name}</p>
         </li>
         <li className="sell-user-footer">
           <div className="col-xs-4 sell">
             <a href="/sells/users">
-              {/*  <img
-                                  src="https://cdn-resources-aliyun.kjds.com/assets/sells/icon_mini_personal-7a48fa6b2e927d3258e81ad1392ed368.png"
-                                  alt="Icon mini personal"
-                                /> */}
               <span>个人中心</span>
             </a>
           </div>
           <div className="col-xs-4 sell">
-            <a data-method="get" href="/users/sign_out">
+            <Link to="/sells/members">
               <span className="member-level-value">免费会员</span>
-            </a>
+            </Link>
           </div>
           <div className="col-xs-4 sell">
             <Link
@@ -113,7 +107,17 @@ export default class Topbar extends Component {
                       trigger="click"
                       overlayClassName="user_menu_pop"
                     >
-                      <span className="hidden-xs">{member.Name}</span>
+                      <span className="hidden-xs">
+                        {member.Name}
+                        <img
+                          src={
+                            member.VipExpireTime !== ""
+                              ? member_icon
+                              : no_member_icon
+                          }
+                          alt=""
+                        />
+                      </span>
                     </Popover>
                   </li>
                 </ul>
@@ -174,6 +178,31 @@ export default class Topbar extends Component {
                 }}
               >
                 shopee
+              </span>
+            </li>
+
+            <li className={plat == 3 ? "active" : ""}>
+              <span
+                onClick={() => {
+                  Modal.info({
+                    content: "暂未开通！"
+                  });
+                  // this.pushSearch(3);
+                }}
+              >
+                速卖通
+              </span>
+            </li>
+            <li className={plat == 4 ? "active" : ""}>
+              <span
+                onClick={() => {
+                  Modal.info({
+                    content: "暂未开通！"
+                  });
+                  // this.pushSearch(4);
+                }}
+              >
+                wish
               </span>
             </li>
             <div className="clear_float" />

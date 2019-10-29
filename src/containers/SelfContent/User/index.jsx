@@ -28,13 +28,22 @@ class User extends Component {
   }
 
   getData() {
-    api.$post(apiList1.memberInfo.path, null, res => {
-      if (res.Success) {
-        this.setState({
-          member: res.Data
-        });
+    api.$post(
+      apiList1.memberInfo.path,
+      null,
+      res => {
+        if (res.Success) {
+          this.setState({
+            member: res.Data
+          });
+        }
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
       }
-    });
+    );
   }
   showLogin() {}
   render() {

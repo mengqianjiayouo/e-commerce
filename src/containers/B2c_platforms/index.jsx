@@ -122,6 +122,11 @@ class B2c_platforms extends Component {
               content: res.Msg
             });
           }
+        },
+        code => {
+          if (code === 401) {
+            this.props.history.push("/signin");
+          }
         }
       );
 
@@ -143,12 +148,21 @@ class B2c_platforms extends Component {
 
   getAmazonData() {
     let { amazonPages } = this.state;
-    api.$post(apiList1.amazonList.path, null, res => {
-      console.log(res);
-      this.setState({
-        amazonData: res
-      });
-    });
+    api.$post(
+      apiList1.amazonList.path,
+      null,
+      res => {
+        console.log(res);
+        this.setState({
+          amazonData: res
+        });
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
+        }
+      }
+    );
     // $.ajax({
     //   method: "get",
     //   url: "https://118.25.155.176:8080/auth",
@@ -180,15 +194,24 @@ class B2c_platforms extends Component {
     // });
   }
   getSiteList() {
-    api.$post(apiList1.amazonSiteList.path, null, res => {
-      this.setState({
-        siteList: res,
-        amazon: {
-          ...this.state.amazon,
-          site: res[0] ? res[0].Id : ""
+    api.$post(
+      apiList1.amazonSiteList.path,
+      null,
+      res => {
+        this.setState({
+          siteList: res,
+          amazon: {
+            ...this.state.amazon,
+            site: res[0] ? res[0].Id : ""
+          }
+        });
+      },
+      code => {
+        if (code === 401) {
+          this.props.history.push("/signin");
         }
-      });
-    });
+      }
+    );
   }
   onAuthCheck(usa_id) {
     $.ajax({

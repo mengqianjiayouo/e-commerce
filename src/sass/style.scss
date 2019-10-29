@@ -57,7 +57,12 @@ html {
 
     body {
         background-color: #eee;
-
+        &>span>a{
+            display: block;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
         .btn-primary,
         .btn-primary:hover {
             color: #fff;
@@ -132,6 +137,12 @@ html {
 }
 
 #root {
+
+    input:-internal-autofill-selected {
+        background-color: transparent !important;
+    }
+
+
     .pagination {
         display: flex;
         padding-left: 0;

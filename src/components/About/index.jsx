@@ -59,15 +59,26 @@ export default class About extends Component {
             }}
           >
             <p>
-              <div style={{ display: "inline-block", width: "28px" }} />{" "}
+              <div style={{ display: "inline-block", width: "28px" }} />
               闪质是山西递八方科技有限公司旗下一款为全球电商卖家提供一站式服务的SAAS模式跨境电商ERP平台，平台深度打通电商平台、物流仓储与商家，通过电商大数据和云技术，深度发掘用户需求，每年超千次迭代优化，智能界面交互极简；致力于让“买全球、卖全球”变的更简单。
             </p>
 
             <p>
+              <div style={{ display: "inline-block", width: "28px" }} />
               闪质8大核心功能：一键上传，一键发货，一键搬家，订单管理，关键词检索，移动办公，智能翻译，智能物流，成就一站式智能化电商运营。
             </p>
-            <p>企业核心理念： 创新 开放 共享 共赢 企业使命： 降低运营成本</p>
-            <p>提升工作效率 增加店铺收益 企业愿景： 货通天下</p>
+            <p>
+              <div style={{ display: "inline-block", width: "28px" }} />
+              企业核心理念： 创新 开放 共享 共赢{" "}
+            </p>
+            <p>
+              <div style={{ display: "inline-block", width: "28px" }} />
+              企业使命： 降低运营成本 提升工作效率 增加店铺收益
+            </p>
+            <p>
+              <div style={{ display: "inline-block", width: "28px" }} />
+              企业愿景： 货通天下
+            </p>
           </div>
         </div>
       </div>

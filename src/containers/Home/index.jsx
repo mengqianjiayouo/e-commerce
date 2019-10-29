@@ -51,7 +51,7 @@ class Home extends Component {
     return (
       <div
         className="home"
-        style={{ paddingLeft: islogin ? "140px" : 0, minHeight: "908px" }}
+        style={{ paddingLeft: "140px", minHeight: "908px" }}
       >
         <div className="home_right">
           <div className="main">
