@@ -85,8 +85,15 @@
 }
 
 .member_modal.ant-modal-wrap {
+
     .ant-modal-close-x {
         display: none;
+    }
+
+    .ant-modal-body {
+        img {
+            width: 100%;
+        }
     }
 
     .head {

@@ -125,12 +125,16 @@
 
         &:-webkit-autofill,
         &:-internal-autofill-selected {
-            background-color: rgb(232, 240, 254) !important;
-            // background-color: transparent !important;
+            background-color: transparent !important;
             background-image: none;
             -webkit-text-fill-color: #fff;
             color: #fff;
         }
+
+        &:-internal-autofill-selected {
+            background: transparent !important;
+        }
+
     }
 
     input:-internal-autofill-selected {
@@ -222,4 +226,10 @@
             vertical-align: middle;
         }
     }
+}
+
+input:-webkit-autofill {
+    background-color: transparent !important;
+    transition: background-color 5000s ease-in-out 0s;
+
 }

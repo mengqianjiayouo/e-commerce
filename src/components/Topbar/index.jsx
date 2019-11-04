@@ -190,7 +190,7 @@ export default class Topbar extends Component {
                   // this.pushSearch(3);
                 }}
               >
-                速卖通
+                AliExpress
               </span>
             </li>
             <li className={plat == 4 ? "active" : ""}>

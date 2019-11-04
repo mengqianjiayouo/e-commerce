@@ -164,6 +164,7 @@ class Members extends Component {
                 visible: false
               });
             }}
+            width="60%"
             wrapClassName="member_modal"
             footer={null}
           >
