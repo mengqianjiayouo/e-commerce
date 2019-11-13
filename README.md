@@ -15,3 +15,5 @@
 配置代理
 
 ### /src/setupProxy.js
+
+node 版本 v8.11.3
