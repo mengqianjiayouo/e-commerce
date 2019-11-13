@@ -91,8 +91,7 @@ class International extends Component {
     }
   }
 
-  getData() {}
-  showLogin() {}
+  /* 前端计算运费 */
   getFreight() {
     let { height, weight, long, width, countryId } = this.state;
     height = height ? Number(height) : 0;

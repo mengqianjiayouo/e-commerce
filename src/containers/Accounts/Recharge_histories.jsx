@@ -23,12 +23,8 @@ class Recharge_histories extends Component {
       });
     }
   }
-
-  getData() {}
-  showLogin() {}
   render() {
     const { currentList, rechargeData, consumeData, refundData } = this.state;
-    // console.log(this.props.state);
     const rechargeColumns = [
       {
         title: "时间",

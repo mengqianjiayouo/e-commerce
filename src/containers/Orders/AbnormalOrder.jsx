@@ -28,8 +28,6 @@ class AbnormalOrder extends Component {
     }
   }
 
-  getData() {}
-  showLogin() {}
   render() {
     const { platform, reason, accountType, orderType, data } = this.state;
 

@@ -31,6 +31,7 @@ class Subscription extends Component {
     }
     this.getMemberInfo();
   }
+  /* 获取会员信息 */
   getMemberInfo() {
     api.$post(
       apiList1.memberInfo.path,

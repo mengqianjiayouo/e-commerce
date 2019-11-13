@@ -22,8 +22,6 @@ class SalesAnalysis extends Component {
     }
   }
 
-  getData() {}
-  showLogin() {}
   render() {
     const { goodsNumber, goodsName, data } = this.state;
     // console.log(this.props.state);

@@ -28,8 +28,6 @@ class Bounces extends Component {
     }
   }
 
-  getData() {}
-  showLogin() {}
   render() {
     const {
       platform,

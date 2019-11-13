@@ -87,6 +87,7 @@ class Datadrap extends Component {
       });
     }
   }
+  /* 获取数据 */
   getData() {
     this.setState({
       loading: true
@@ -98,7 +99,7 @@ class Datadrap extends Component {
       });
     }, 500);
   }
-  showLogin() {}
+
   render() {
     const {
       origin,

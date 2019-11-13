@@ -27,8 +27,6 @@ class Payment_records extends Component {
     }
   }
 
-  getData() {}
-  showLogin() {}
   render() {
     const { platform, site, accoutnId, order_num, data } = this.state;
     // console.log(this.props.state);

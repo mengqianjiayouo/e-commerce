@@ -23,7 +23,9 @@ class Recharge extends Component {
       });
     }
   }
-
+  /*
+   *确定充值
+   */
   sureRecharge() {
     let { recharge_money } = this.state;
     if (recharge_money === "") {
@@ -51,6 +53,7 @@ class Recharge extends Component {
       }
     );
   }
+
   render() {
     const { recharge_money } = this.state;
     // console.log(this.props.state);
@@ -84,18 +87,6 @@ class Recharge extends Component {
               <Row>
                 <Col span={4}>充值金额：</Col>
                 <Col span={20} className="recharge">
-                  {/* <input
-                    type="number"
-                    className="recharge_money"
-                    value={recharge_money}
-                    placeholder="请输入您的充值金额"
-                    onChange={e => {
-                      this.setState({
-                        recharge_money: e.target.value
-                      });
-                    }}
-                  />
-                  <span>元</span> */}
                   <Button
                     style={{
                       background: recharge_money === 500 ? "#f13c3c" : "#fff",

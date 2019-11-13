@@ -26,8 +26,6 @@ class Domestic extends Component {
     }
   }
 
-  getData() {}
-  showLogin() {}
   render() {
     const { weight, country, long, width, height, data } = this.state;
     // console.log(this.props.state);

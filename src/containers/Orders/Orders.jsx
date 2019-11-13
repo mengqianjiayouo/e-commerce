@@ -131,6 +131,7 @@ class Orders extends Component {
       });
     }).then(this.getOrders());
   }
+
   getOrders() {
     let { page, pageSize } = this.state;
     $.ajax({
@@ -153,7 +154,6 @@ class Orders extends Component {
       }
     });
   }
-  showLogin() {}
 
   getFregiht() {
     let {
@@ -193,6 +193,7 @@ class Orders extends Component {
       isShowfregiht: true
     });
   }
+
   clear() {
     this.setState({
       orderModalShow: false,

@@ -26,7 +26,6 @@ class Product extends Component {
     }
   }
 
-  showLogin() {}
   handleChange(a, date) {
     this.setState({
       [a]: date

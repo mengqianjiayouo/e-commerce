@@ -56,6 +56,7 @@ class B2c_platforms extends Component {
       });
     }
   }
+  /* 更改表单状态 */
   changFormStatus(a, b, c) {
     this.setState(
       {
@@ -67,6 +68,7 @@ class B2c_platforms extends Component {
       () => {}
     );
   }
+  /* 表单值更改 */
   changeAccount(a, b, c) {
     this.setState({
       [a]: {
@@ -75,6 +77,7 @@ class B2c_platforms extends Component {
       }
     });
   }
+  /* 添加账号 */
   addCount() {
     let {
       platform,
@@ -145,7 +148,7 @@ class B2c_platforms extends Component {
       platform: a
     });
   }
-
+  /* 获取亚马逊列表 */
   getAmazonData() {
     let { amazonPages } = this.state;
     api.$post(

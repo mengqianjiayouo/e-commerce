@@ -65,7 +65,7 @@ class DetailEdit extends Component {
       data: this.props.data
     });
   }
-  showLogin() {}
+  /*添加变体 */
   addBianTi() {
     let { biantiId, names, bianti, status } = this.state;
     if (names.name === "") {

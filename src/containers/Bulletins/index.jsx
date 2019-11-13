@@ -26,6 +26,7 @@ export default class Bulletins extends Component {
       });
     }
   }
+  /* 获取数据 */
   getData() {
     const { page, pageSize } = this.state;
     api.$get(

@@ -9,7 +9,6 @@ export default class About extends Component {
     };
   }
   componentDidMount() {
-    // this.getPlatList();
     let ApiKey = getCookie("ApiKey");
     if (ApiKey && ApiKey !== "") {
       this.setState({

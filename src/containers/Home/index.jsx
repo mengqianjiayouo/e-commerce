@@ -24,15 +24,12 @@ class Home extends Component {
   }
 
   showLogin() {}
+
   /* 获取当前分类 */
   getPlatList() {
     $.ajax({
       method: "get",
       url: "https://118.25.155.176:8080/getCategory",
-      /* xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true, */
       dataType: "json",
       success: res => {
         // console.log(res);
@@ -40,13 +37,12 @@ class Home extends Component {
         this.setState({
           classData: data.data
         });
-        // console.log($.cookie("csrftoken"));
       }
     });
   }
 
   render() {
-    const { classData, islogin } = this.state;
+    const { classData } = this.state;
 
     return (
       <div

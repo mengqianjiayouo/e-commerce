@@ -36,6 +36,7 @@ class Members extends Component {
       show: false
     });
   }
+
   getData() {
     api.$get(
       apiList2.messageList.path,

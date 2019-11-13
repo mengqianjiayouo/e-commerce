@@ -28,8 +28,6 @@ class TimeOrder extends Component {
     }
   }
 
-  getData() {}
-  showLogin() {}
   render() {
     const { platform, reason, accountType, orderType, data } = this.state;
     // console.log(this.props.state);

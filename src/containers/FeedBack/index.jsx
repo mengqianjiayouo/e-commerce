@@ -12,7 +12,7 @@ export default class FeedBack extends Component {
       content: ""
     };
   }
-  componentDidMount() {}
+  /* 提交意见 */
   submit() {
     let { content } = this.state;
     if (content === "") {
